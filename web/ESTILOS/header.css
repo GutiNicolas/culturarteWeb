@@ -1,0 +1,68 @@
+body
+{
+   background: none repeat scroll 0 0 #D8D8D8;
+   font-family: tahoma;
+}
+
+form
+{
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: white;
+    border: 1px solid threedshadow;
+    border-radius: 10px 10px 10px 10px;
+    margin: 4em auto;
+    width: 50px;
+    padding: 3em;
+    position: relative;
+}
+
+label {
+    display: inline-block;
+    height: 2em;
+    width: 60px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.error
+{
+	color: red;
+	display: none;
+	font-size: 0.9em;
+	margin-left: 6px;
+}
+
+.topbar-center-logo {
+  background: #2c3840;
+}
+
+.topbar-center-logo .menu {
+  background: #2c3840;
+}
+
+.topbar-center-logo .menu a {
+  color: #fefefe;
+}
+
+.topbar-center-logo .top-bar-center {
+  -webkit-flex: 1 0 auto;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .topbar-center-logo .top-bar-center {
+    display: none;
+  }
+}
+
+.topbar-center-logo-mobile {
+  background: #2c3840;
+}
+
+.topbar-center-logo-mobile .menu-icon {
+  vertical-align: text-top;
+}
