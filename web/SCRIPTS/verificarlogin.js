@@ -5,6 +5,10 @@
  */
 
 
+function alertar(a){
+    aler(a);
+}
+
 function verificar()
 {
         var correct = true;

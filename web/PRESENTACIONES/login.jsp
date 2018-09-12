@@ -8,20 +8,44 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Log In | Culturarte</title>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="../ESTILOS/login.css" />
-       
+        <% 
+            String error;
+            if(request.getParameter("error") != null){
+               error= request.getParameter("error"); 
+            }
+            else
+                error="";
+        %>
+        <%@include file="/PRESENTACIONES/header.jsp"%>
+        
+        
     </head>
-    <body>
+    
+    <%
+        if(error.equals("nu"))
+            out.print("<body onload=\"alertar('USUARIO NO ENCONTRADO')\" >");
+        else if(error.equals("pm"))
+            out.print("<body onload=\"alertar('CONTRASENIA ERRONEA')\" >");
+        else if(session.getAttribute("nickusuario") != null){
+            out.print("<body onload=\"alertar('BIEVENIDO "+ session.getAttribute("nickusuario")+"')\" >");
+            response.sendRedirect("../index.jsp");
+        }
+        else
+            out.print("<body>");
+    %>
+    
        <div id="home">
            <div class="container">
                <div class="landing-text">
                    <br><br><br><br><br>
                    <h3>Bienvenido de nuevo</h3>
                </div>
-               <form id="login_form" action="guardarsession.jsp" method="post" onsubmit="return verificar()">
+               <form id="login_form" action="ServletLogin" method="post" onsubmit="return verificar()">
                     <label for="name">Nickname:</label>
                     <input type="text" id="nick" name="nick"/>
                     <span id="error_nick" class="error">Debes ingresar un nick</span>                    

@@ -9,15 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Culturarte - Promueve ideas</title>
-        <%@include file="/PRESENTACIONES/header.jsp"%>
+        <title>Culturarte - Promueve ideas</title>                   
         <link href="ESTILOS/index.css" rel="stylesheet">
+        <%@include file="/PRESENTACIONES/header.jsp"%>
     </head>
     <body>
         <div id="home">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6">                      
                         <svg class="imagen-svg" id="cortan-rojo" xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
                         <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
                         <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">

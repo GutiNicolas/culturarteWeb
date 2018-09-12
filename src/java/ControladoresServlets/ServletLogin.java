@@ -6,6 +6,9 @@
 package ControladoresServlets;
 
 import Logica.ContUsuario;
+import Logica.dtColaborador;
+import Logica.dtProponente;
+import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,8 +39,34 @@ public class ServletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ContUsuario cU= ContUsuario.getInstance();
-            
+            HttpSession session= request.getSession();
+            ContUsuario cU= ContUsuario.getInstance();            
+            String usuario= request.getParameter("nick");
+            String password= request.getParameter("pass");
+            dtUsuario dtu=cU.usuarioLogin(usuario);
+            if(dtu!=null){
+                if(dtu.getPassword().equals(password)){
+                    if(dtu instanceof dtColaborador){
+                        session.setAttribute("nickusuario", usuario);
+                        String col="Colaborador";
+                        session.setAttribute("rol", col);
+                        response.sendRedirect("index.jsp");
+                    }
+                    if(dtu instanceof dtProponente){
+                        session.setAttribute("nickusuario", usuario);
+                        String prop="Proponente";
+                        session.setAttribute("rol", prop);
+                        response.sendRedirect("index.jsp");                    
+                    }
+                }
+                else{//contrasenia erronea  
+                    response.sendRedirect("login.jsp?error=pm");
+                }
+                  
+            }
+            else{  //no existe el usuario
+                response.sendRedirect("login.jsp?error=nu");
+            }
         }
     }
 

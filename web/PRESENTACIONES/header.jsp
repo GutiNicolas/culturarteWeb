@@ -8,16 +8,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-
-
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#1b1c1b;">
-            <a class="navbar-brand" href="index.jsp" style="color: #f2d5a9;">
+ <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#1b1c1b;">
+            <a class="navbar-brand" href="index.jsp">
                 <img src="IMAGENESDISENIO/logo.svg" width="30" height="30" alt="">
                 Culturarte
             </a>
@@ -28,16 +24,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#"style="color: #f2d5a9;" >Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #f2d5a9;">Link </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #f2d5a9;"><%= session.getAttribute("nickusuario")%></a>
+                        <a class="nav-link" href="#">Link </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" style="color: #f2d5a9;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -48,17 +41,17 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" style="color: #f2d5a9;">Disabled</a>
+                        <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="PRESENTACIONES/login.jsp" style="color: #f2d5a9;">Log In</a>
+                        <a class="nav-link" href="PRESENTACIONES/login.jsp">Log In</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Titulo de propuesta" aria-label="Search">
-                    <button class="btn btn-outline-light my-2 my-sm-0 mr-sm-5" type="submit" style="color: #f2d5a9; border-color: #f2d5a9;">Buscar</button>
+                    <button class="btn btn-outline-light my-2 my-sm-0 mr-sm-5" type="submit">Buscar</button>
                 </form>
             </div>
         </nav>    
@@ -68,6 +61,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
+          
         
     </body>
 </html>
