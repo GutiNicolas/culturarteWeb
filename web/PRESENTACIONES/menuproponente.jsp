@@ -55,9 +55,9 @@
                            <%= session.getAttribute("nickusuario") %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Perfil</a>                           
+                            <a class="dropdown-item" href="/perfildelusuario">Perfil</a>                           
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
+                            <a class="dropdown-item" href="/logout">Log out</a>
                         </div>
                     </li>                   
                 </ul>

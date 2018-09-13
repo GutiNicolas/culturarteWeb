@@ -6,24 +6,20 @@
 package ControladoresServlets;
 
 import Logica.ContUsuario;
-import Logica.dtColaborador;
-import Logica.dtProponente;
-import Logica.dtUsuario;
+import Logica.dtPropuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nicolasgutierrez
  */
-@WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
-public class ServletLogin extends HttpServlet {
+public class ConsultadePropuesta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,33 +35,14 @@ public class ServletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session= request.getSession();
-            ContUsuario cU= ContUsuario.getInstance();            
-            String usuario= request.getParameter("nick");
-            String password= request.getParameter("pass");
-            dtUsuario dtu=cU.usuarioLogin(usuario);
-            if(dtu!=null){
-                if(dtu.getPass().equals(password)){
-                    if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        String col="Colaborador";
-                        session.setAttribute("rol", col);
-                        response.sendRedirect("index.jsp");
-                    }
-                    if(dtu instanceof dtProponente){
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        String prop="Proponente";
-                        session.setAttribute("rol", prop);
-                        response.sendRedirect("index.jsp");                    
-                    }
-                }
-                else{//contrasenia erronea  
-                    response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
-                }
-                  
-            }
-            else{  //no existe el usuario
-                response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
+            String propuesta= request.getParameter("titulo");
+            ContUsuario cu= ContUsuario.getInstance();
+            
+            if(propuesta==null){
+                Collection<String> props= cu.listartodaslaspropuestas("");
+                request.setAttribute("propuestas", props);
+                request.getRequestDispatcher("/WEB-INF/listar.jsp").
+					forward(request, response);
             }
         }
     }

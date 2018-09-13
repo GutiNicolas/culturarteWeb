@@ -10,7 +10,7 @@
     <head>       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">         
         <title>Culturarte - Promueve ideas</title>                   
-        <link href="ESTILOS/index.css" rel="stylesheet"> 
+        <link href="ESTILOS/index.css" rel="stylesheet">           
         
         <%
             if(session.getAttribute("rol")!= null && session.getAttribute("rol").equals("Colaborador")){

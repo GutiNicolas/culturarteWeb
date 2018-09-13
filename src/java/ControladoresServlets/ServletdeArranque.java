@@ -5,23 +5,19 @@
  */
 package ControladoresServlets;
 
-
 import Logica.culturarteFabrica;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nicolasgutierrez
  */
-@WebServlet(name = "ServletInicioCarga", urlPatterns = {"/ServletInicioCarga"})
-public class ServletInicioCarga extends HttpServlet {
+public class ServletdeArranque extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,22 +33,26 @@ public class ServletInicioCarga extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-      //  culturarteFabrica fabrica = culturarteFabrica.getInstance();
-     //   fabrica.cargarinicio();
-     //   String prueba=fabrica.funcionprueba();
-        HttpSession session= request.getSession();
-    //    session.setAttribute("prueba", prueba);
-        response.sendRedirect("/WEB-INF/index.jsp");    
+            culturarteFabrica fabrica= culturarteFabrica.getInstance();
+            response.getWriter().print("hola");
+            fabrica.cargarinicio();
+            String prueba=fabrica.funcionprueba();
+            response.getWriter().print("hola2");
+            response.getWriter().print(prueba);
+            response.getWriter().print("hola3");
+           // response.sendRedirect("index.jsp");
         }
     }
-    
-    @Override
-    public void init() throws ServletException{
-        culturarteFabrica fabrica = culturarteFabrica.getInstance();
-        fabrica.cargarinicio();
-        
-    }
-            
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
