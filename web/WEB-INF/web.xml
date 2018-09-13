@@ -6,9 +6,9 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Servlet Inicio</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/juego</url-pattern>
     </servlet-mapping>
         <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>juego.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

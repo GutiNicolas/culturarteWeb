@@ -22,10 +22,7 @@ html, body {
     background-size: cover;
 }
 
-#primerdiv {
-    border-top-width: 200px;
-    border-top-color: #fff;
-}
+
 
 .landing-text {
     display: table-cell;

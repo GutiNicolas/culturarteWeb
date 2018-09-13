@@ -5,7 +5,7 @@
  */
 package ControladoresServlets;
 
-import Logica.ContUsuario;
+
 import Logica.culturarteFabrica;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author nicolasgutierrez
  */
-@WebServlet(name = "ServletInicioCarga", urlPatterns = {"/WEB-INF/index.jsp"})
+@WebServlet(name = "ServletInicioCarga", urlPatterns = {"/ServletInicioCarga"})
 public class ServletInicioCarga extends HttpServlet {
 
     /**
@@ -37,11 +37,11 @@ public class ServletInicioCarga extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        culturarteFabrica fabrica = culturarteFabrica.getInstance();
-        fabrica.cargarinicio();
-        String prueba=fabrica.funcionprueba();
+      //  culturarteFabrica fabrica = culturarteFabrica.getInstance();
+     //   fabrica.cargarinicio();
+     //   String prueba=fabrica.funcionprueba();
         HttpSession session= request.getSession();
-        session.setAttribute("prueba", prueba);
+    //    session.setAttribute("prueba", prueba);
         response.sendRedirect("/WEB-INF/index.jsp");    
         }
     }
