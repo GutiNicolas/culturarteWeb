@@ -6,7 +6,7 @@
 
 
 function alertar(a){
-    aler(a);
+    alert(a);
 }
 
 function verificar()
@@ -27,6 +27,6 @@ function verificar()
         } else
                 $('#error_pass').hide();
 
-              //  alert("contrasenia no valida");
+              // alert("contrasenia no valida");
         return correct;
 }

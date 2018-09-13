@@ -20,8 +20,7 @@
             }
             else
                 error="";
-        %>
-        <%@include file="/PRESENTACIONES/header.jsp"%>
+        %>       
         
         
     </head>
@@ -39,13 +38,15 @@
             out.print("<body>");
     %>
     
+        
        <div id="home">
            <div class="container">
                <div class="landing-text">
                    <br><br><br><br><br>
                    <h3>Bienvenido de nuevo</h3>
                </div>
-               <form id="login_form" action="ServletLogin" method="post" onsubmit="return verificar()">
+               <form id="login_form" action="../ServletLogin" method="post" onsubmit="return verificar()">
+                   
                     <label for="name">Nickname:</label>
                     <input type="text" id="nick" name="nick"/>
                     <span id="error_nick" class="error">Debes ingresar un nick</span>                    
@@ -58,7 +59,7 @@
                     <br/>
                     <input type="submit" value="Enviar"/>  
                     <br>
-                    <p>No tienes una cuenta? <a href="../PRESENTACIONES/registratse.jsp" style="color: #1b1c1b ">Registrate</a></p>                   
+                    <p>No tienes una cuenta? <a href="../PRESENTACIONES/registrarse.jsp" style="color: #1b1c1b ">Registrate</a></p>                   
                </form>
                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
            </div>

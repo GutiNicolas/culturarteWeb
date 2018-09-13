@@ -6,9 +6,7 @@
 package ControladoresServlets;
 
 import Logica.ContUsuario;
-import Logica.dtColaborador;
-import Logica.dtProponente;
-import Logica.dtUsuario;
+import Logica.culturarteFabrica;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author nicolasgutierrez
  */
-@WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
-public class ServletLogin extends HttpServlet {
+@WebServlet(name = "ServletInicioCarga", urlPatterns = {"/WEB-INF/index.jsp"})
+public class ServletInicioCarga extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,46 +37,22 @@ public class ServletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session= request.getSession();
-            ContUsuario cU= ContUsuario.getInstance();            
-            String usuario= request.getParameter("nick");
-            String password= request.getParameter("pass");
-            dtUsuario dtu=cU.usuarioLogin(usuario);
-            if(dtu!=null){
-                if(dtu.getPass().equals(password)){
-                    if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
-                        session.setAttribute("nickusuario", usuario);
-                        String col="Colaborador";
-                        session.setAttribute("rol", col);
-                        response.sendRedirect("index.jsp");
-                    }
-                    if(dtu instanceof dtProponente){
-                        session.setAttribute("nickusuario", usuario);
-                        String prop="Proponente";
-                        session.setAttribute("rol", prop);
-                        response.sendRedirect("index.jsp");                    
-                    }
-                }
-                else{//contrasenia erronea  
-                    response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
-                }
-                  
-            }
-            else{  //no existe el usuario
-                response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
-            }
+        culturarteFabrica fabrica = culturarteFabrica.getInstance();
+        fabrica.cargarinicio();
+        String prueba=fabrica.funcionprueba();
+        HttpSession session= request.getSession();
+        session.setAttribute("prueba", prueba);
+        response.sendRedirect("/WEB-INF/index.jsp");    
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
+    @Override
+    public void init() throws ServletException{
+        culturarteFabrica fabrica = culturarteFabrica.getInstance();
+        fabrica.cargarinicio();
+        
+    }
+            
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
