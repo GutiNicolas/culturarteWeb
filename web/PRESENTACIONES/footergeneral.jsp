@@ -12,8 +12,15 @@
 
     </head>
     <body>
+        <style>
+            .alfondoquehaylugar {
+                
+                bottom: 0;
+                align-self: flex-end;
+            }    
+        </style>
         
-        <footer class="container-fluid text-center">
+        <footer class="container-fluid text-center alfondoquehaylugar">
             <div class="row">
                 <div class="col-sm-4">
                     <a href="#"> Inicio</a> <br>

@@ -42,6 +42,17 @@ public class ConsultadePerfil extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String nick=request.getParameter("nickname");
+            request.removeAttribute("usuarios");
+            request.removeAttribute("colaboradas");
+            request.removeAttribute("colabscompletas");
+            request.removeAttribute("propuestas");
+            request.removeAttribute("ingresadass");
+            request.removeAttribute("usuario");
+            request.removeAttribute("misseguidores");
+            request.removeAttribute("misseguidos");
+            request.removeAttribute("favoritas");
+            
+            
             ContUsuario cu= ContUsuario.getInstance(); 
             
             if(nick==null){
@@ -71,8 +82,9 @@ public class ConsultadePerfil extends HttpServlet {
                     request.setAttribute("misseguidores", misseguidores);
                     request.setAttribute("misseguidos", misseguidos);
                     request.setAttribute("favoritas",favoritas);
-                    request.getRequestDispatcher("/PRESENTACIONES/perfildelusuario.jsp").
+                    request.getRequestDispatcher("PRESENTACIONES/perfildelusuario.jsp").
 					forward(request, response);
+                    
                                             
             }            
         }

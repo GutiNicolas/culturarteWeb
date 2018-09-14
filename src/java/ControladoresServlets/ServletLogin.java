@@ -67,7 +67,7 @@ public class ServletLogin extends HttpServlet {
             else{  //no existe el usuario
                 response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
             }
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

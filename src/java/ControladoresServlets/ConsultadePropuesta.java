@@ -41,19 +41,22 @@ public class ConsultadePropuesta extends HttpServlet {
             ContUsuario cu= ContUsuario.getInstance();
             
             if(propuesta==null){
-                Collection<String> props= cu.listartodaslaspropuestas("");
+                Collection<String> props= cu.listarpropuestasmenosingresadas("");
                 request.setAttribute("propuestas", props);
                 request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
 					forward(request, response);
             }else{  
                 try {
-                dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                    dtPropuesta dtp = cu.infoPropuesta(propuesta);
                     request.setAttribute("propuesta", dtp);
+                    Collection<String> colaboradores=dtp.detColaboradores();
+                    request.setAttribute("colaboradores", colaboradores); 
                 } catch (Exception ex) {
                     Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                    
                 
-                request.getRequestDispatcher("/PRESENTACIONES/informacionpropuesta.jsp").
+                request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
 					forward(request, response);
                 
             }

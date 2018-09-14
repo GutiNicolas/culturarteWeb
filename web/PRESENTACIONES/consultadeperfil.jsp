@@ -24,8 +24,8 @@
             }   
         %>
     </head>
-    <body>
-        <div id="listar" class="main">
+    <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
+        <div id="listar" class="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
     <% 
     Collection<String> usuarios= (Collection<String>) request.getAttribute("usuarios");
 	for(String usu: usuarios){

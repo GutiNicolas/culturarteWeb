@@ -4,6 +4,7 @@
     Author     : nicolasgutierrez
 --%>
 
+<%@page import="java.util.Collection"%>
 <%@page import="Logica.dtPropuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,10 +26,12 @@
             }   
         %>
     </head>
-    <body>
-        <%  dtPropuesta dtp= (dtPropuesta) request.getAttribute("propuesta");  %>
+    <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
+        <%  dtPropuesta dtp= (dtPropuesta) request.getAttribute("propuesta");
+            Collection<String> colaboradores=(Collection<String>) request.getAttribute("colaboradores");
+        %>
         
-        <div id="perfil" class ="main">
+        <div id="perfil" class ="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
 		<div id="perfil_izquierda">
 			<img src="media/images/defecto.gif" alt="imagen"/>
 		</div>
@@ -74,7 +77,66 @@
 				<label class="valor"><%= dtp.getMontoTotal() %></label>
 				<br/>
 			</div>
-		</div>
+                        <div class="contenedor">
+                             <h4>Colaboradores:</h4> 
+                        <%                                               
+                            for(String cols: colaboradores){                       
+                        %>
+                            <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=cols%>">
+                                <%= cols %>
+                            </a>
+                            <br>
+                        <%} %>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        
+                    <%
+                        if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
+                    %>
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                        Extender Financiacion
+                    </a> 
+                    
+                    <% } %>  
+                    </div> 
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        
+                    <%
+                        if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
+                    %>
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                        Cancelar Propuesta
+                    </a> 
+                    
+                    <% } %>  
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        
+                    <%
+                        if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))){
+                    %>
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                        Comentar
+                    </a> 
+                    
+                    <% } %>  
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        
+                    <%
+                        if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))==false && session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")){
+                    %>
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                        Colaborar
+                    </a> 
+                    
+                    <% } %>  
+                    </div>        
+                </div>      
 	</div>
+                                
+            <%@include file="../PRESENTACIONES/footergeneral.jsp"%>
     </body>
 </html>

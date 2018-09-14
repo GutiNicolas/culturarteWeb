@@ -4,6 +4,7 @@
     Author     : nicolasgutierrez
 --%>
 
+<%@page import="Logica.dtSigoA"%>
 <%@page import="Logica.dtColProp"%>
 <%@page import="Logica.dtColaborador"%>
 <%@page import="java.util.Collection"%>
@@ -29,14 +30,14 @@
             }   
         %>
     </head>
-    <body>
+    <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
         <%  dtUsuario dtu= (dtUsuario) request.getAttribute("usuario"); 
             Collection<String> misseguidores=(Collection<String>) request.getAttribute("misseguidores");
-            Collection<String> misseguidos=(Collection<String>) request.getAttribute("misseguidos");
+            Collection<dtSigoA> misseguidos=(Collection<dtSigoA>) request.getAttribute("misseguidos");
             Collection<String> favoritas=(Collection<String>) request.getAttribute("favoritas");          
         %>
         
-        <div id="perfil" class ="main">
+        <div id="perfil" class ="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
 		<div id="perfil_izquierda">
 			<img src="media/images/defecto.gif" alt="imagen"/>
 		</div>
@@ -81,8 +82,9 @@
 				<label class="valor"><%= dtp.getDireccion() %></label>
 				<br/>
                                 <%}%>
+                            </div>    
                                 <% } %>
-			</div>
+			
 		</div>
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -92,17 +94,19 @@
                     %> 
                     <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidor%>">
                         <%= seguidor %>
-                    </a>                      
+                    </a> 
+                    <br>
                     <% } %>  
                     </div> 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <h4>Mis Seguidos</h4>
                     <%
-                	    for(String seguidos: misseguidos){
+                	    for(dtSigoA seguidos: misseguidos){
                     %> 
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidos%>">
-                        <%= seguidos %>
-                    </a>                      
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidos.getNickusuario()%>">
+                        <%= seguidos.getNickusuario() %> : <%= seguidos.getRol() %>
+                    </a> 
+                    <br>
                     <% } %>     
                     </div> 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -112,7 +116,8 @@
                     %> 
                     <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=favs%>">
                         <%= favs %>
-                    </a>                      
+                    </a> 
+                    <br>
                     <% } %>                          
                     </div> 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -126,15 +131,17 @@
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=props%>">
                                 <%= props %>
                             </a>
+                            <br>
                         <%} }%>
                         <%
-                        if(dtu instanceof dtProponente && session.getAttribute("nickusuario").equals(dtu.getNickname())){
+                        if(dtu instanceof dtProponente && session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtu.getNickname())){
                             Collection<String> ingresadas=(Collection<String>) request.getAttribute("ingresadass");                       
                             for(String propsi: ingresadas){                       
                         %>
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=propsi%>">
                                 <%= propsi %>
                             </a>
+                            <br>
                         <%} }%>  
                         
                         <%
@@ -150,7 +157,7 @@
                         <%} }%> 
                         
                         <%
-                        if(dtu instanceof dtColaborador && session.getAttribute("nickusuario").equals(dtu.getNickname())){
+                        if(dtu instanceof dtColaborador && session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtu.getNickname())){
                             Collection<dtColProp> colabscompletas=(Collection<dtColProp>) request.getAttribute("colabscompletas");                       
                             for(dtColProp dtc: colabscompletas ){                       
                         %>
@@ -171,9 +178,12 @@
                             </a>
                             
                             <br><br>
+                            
                         <%} }%>                         
                     </div>                     
                 </div>    
 	</div>
+                    
+            <%@include file="../PRESENTACIONES/footergeneral.jsp"%>
     </body>
 </html>

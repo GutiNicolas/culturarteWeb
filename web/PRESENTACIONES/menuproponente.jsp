@@ -55,7 +55,7 @@
                            <%= session.getAttribute("nickusuario") %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="/perfildelusuario">Perfil</a>                           
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil?usuario=yes">Perfil</a>                           
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/logout">Log out</a>
                         </div>
