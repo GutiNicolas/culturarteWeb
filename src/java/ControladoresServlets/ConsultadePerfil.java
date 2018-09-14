@@ -6,6 +6,10 @@
 package ControladoresServlets;
 
 import Logica.ContUsuario;
+import Logica.dtColProp;
+import Logica.dtColaborador;
+import Logica.dtProponente;
+import Logica.dtSigoA;
 import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,8 +42,7 @@ public class ConsultadePerfil extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String nick=request.getParameter("nickname");
-            ContUsuario cu= ContUsuario.getInstance();
-             HttpSession session= request.getSession();
+            ContUsuario cu= ContUsuario.getInstance(); 
             
             if(nick==null){
                 Collection<String> usus= cu.listarusuarios("");
@@ -49,7 +52,25 @@ public class ConsultadePerfil extends HttpServlet {
             }else{  
                 
                     dtUsuario dtu = cu.infoUsuarioGeneral(nick);
+                    Collection<String> misseguidores= cu.listarmisseguidores(nick);
+                    Collection<dtSigoA> misseguidos= cu.listarmisseguidos(nick);
+                    Collection<String> favoritas=cu.mispropuestasfavoritas(nick);
+                    if(dtu instanceof dtColaborador){
+                        Collection<String> colaboradas=cu.listarColaboraciones(nick);
+                        request.setAttribute("colaboradas", colaboradas);
+                        Collection<dtColProp> colaboradascompletas= cu.listarmiscolaboraciones(nick);
+                        request.setAttribute("colabscompletas", colaboradascompletas);
+                    }
+                    if(dtu instanceof dtProponente){
+                        Collection<String> propuestas=cu.mispropuestasaceptadas(nick);
+                        request.setAttribute("propuestas", propuestas);
+                        Collection<String> propuestasingresadas=cu.mispropuestasaingresadas(nick);
+                        request.setAttribute("ingresadass", propuestasingresadas);
+                    }
                     request.setAttribute("usuario", dtu);
+                    request.setAttribute("misseguidores", misseguidores);
+                    request.setAttribute("misseguidos", misseguidos);
+                    request.setAttribute("favoritas",favoritas);
                     request.getRequestDispatcher("/PRESENTACIONES/perfildelusuario.jsp").
 					forward(request, response);
                                             

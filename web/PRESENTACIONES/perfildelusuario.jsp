@@ -4,6 +4,9 @@
     Author     : nicolasgutierrez
 --%>
 
+<%@page import="Logica.dtColProp"%>
+<%@page import="Logica.dtColaborador"%>
+<%@page import="java.util.Collection"%>
 <%@page import="Logica.dtProponente"%>
 <%@page import="Logica.dtUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,7 +30,11 @@
         %>
     </head>
     <body>
-        <%  dtUsuario dtu= (dtUsuario) request.getAttribute("usuario");  %>
+        <%  dtUsuario dtu= (dtUsuario) request.getAttribute("usuario"); 
+            Collection<String> misseguidores=(Collection<String>) request.getAttribute("misseguidores");
+            Collection<String> misseguidos=(Collection<String>) request.getAttribute("misseguidos");
+            Collection<String> favoritas=(Collection<String>) request.getAttribute("favoritas");          
+        %>
         
         <div id="perfil" class ="main">
 		<div id="perfil_izquierda">
@@ -53,6 +60,7 @@
 			</div>
                          <% if(dtu instanceof dtProponente){
                                 dtProponente dtp=(dtProponente)dtu;
+                                
                          %>
 			<div class="contenedor">
 				<h2>Informacion adicional de Proponente</h2>
@@ -76,6 +84,96 @@
                                 <% } %>
 			</div>
 		</div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <h4>Mis Seguidores</h4>
+                    <%
+                	    for(String seguidor: misseguidores){
+                    %> 
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidor%>">
+                        <%= seguidor %>
+                    </a>                      
+                    <% } %>  
+                    </div> 
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <h4>Mis Seguidos</h4>
+                    <%
+                	    for(String seguidos: misseguidos){
+                    %> 
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidos%>">
+                        <%= seguidos %>
+                    </a>                      
+                    <% } %>     
+                    </div> 
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <h4>Propuestas favoritas</h4> 
+                    <%
+                	    for(String favs: favoritas){
+                    %> 
+                    <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=favs%>">
+                        <%= favs %>
+                    </a>                      
+                    <% } %>                          
+                    </div> 
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <%
+                        if(dtu instanceof dtProponente){
+                        %> <h4>Mis propuestas</h4> <%
+                        
+                            Collection<String> propuestas=(Collection<String>) request.getAttribute("propuestas");                       
+                            for(String props: propuestas){                       
+                        %>
+                            <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=props%>">
+                                <%= props %>
+                            </a>
+                        <%} }%>
+                        <%
+                        if(dtu instanceof dtProponente && session.getAttribute("nickusuario").equals(dtu.getNickname())){
+                            Collection<String> ingresadas=(Collection<String>) request.getAttribute("ingresadass");                       
+                            for(String propsi: ingresadas){                       
+                        %>
+                            <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=propsi%>">
+                                <%= propsi %>
+                            </a>
+                        <%} }%>  
+                        
+                        <%
+                        if(dtu instanceof dtColaborador){
+                        %> <h4>Mis colaboraciones</h4> <%
+                        
+                            Collection<String> colabs=(Collection<String>) request.getAttribute("colaboradas");                       
+                            for(String cols: colabs){                       
+                        %>
+                            <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=cols%>">
+                                <%= cols %>
+                            </a>
+                        <%} }%> 
+                        
+                        <%
+                        if(dtu instanceof dtColaborador && session.getAttribute("nickusuario").equals(dtu.getNickname())){
+                            Collection<dtColProp> colabscompletas=(Collection<dtColProp>) request.getAttribute("colabscompletas");                       
+                            for(dtColProp dtc: colabscompletas ){                       
+                        %>
+                            <label class="rotulo">Titulo:</label>
+                            <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=dtc.getTitulo()%>">
+                                <%=dtc.getTitulo() %>
+                            </a>
+                            <label class="rotulo">Monto:</label>
+                            <a >
+                                <%=dtc.getMontoColaborado() %>
+                            </a>
+                            <label class="rotulo">Fecha Registrada:</label>
+                            <a >
+                                <%=dtc.getFecha().getFecha() %>
+                            </a><a> Hora: </a>
+                            <a>
+                                dtc.getHora().getHora()
+                            </a>
+                            
+                            <br><br>
+                        <%} }%>                         
+                    </div>                     
+                </div>    
 	</div>
     </body>
 </html>
