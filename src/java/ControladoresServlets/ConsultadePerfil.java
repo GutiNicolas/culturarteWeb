@@ -5,19 +5,23 @@
  */
 package ControladoresServlets;
 
-import Logica.culturarteFabrica;
+import Logica.ContUsuario;
+import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 /**
  *
  * @author nicolasgutierrez
  */
-public class ServletdeArranque extends HttpServlet {
+public class ConsultadePerfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,9 +37,23 @@ public class ServletdeArranque extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            culturarteFabrica fabrica= culturarteFabrica.getInstance();          
-            fabrica.cargarinicio();           
-            response.sendRedirect("index.jsp");
+            String nick=request.getParameter("nickname");
+            ContUsuario cu= ContUsuario.getInstance();
+             HttpSession session= request.getSession();
+            
+            if(nick==null){
+                Collection<String> usus= cu.listarusuarios("");
+                request.setAttribute("usuarios", usus);
+                request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
+					forward(request, response);
+            }else{  
+                
+                    dtUsuario dtu = cu.infoUsuarioGeneral(nick);
+                    request.setAttribute("usuario", dtu);
+                    request.getRequestDispatcher("/PRESENTACIONES/perfildelusuario.jsp").
+					forward(request, response);
+                                            
+            }            
         }
     }
 

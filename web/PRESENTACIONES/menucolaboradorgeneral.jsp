@@ -27,7 +27,7 @@
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Perfil</a>
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Seguir usuario</a>  
                             <a class="dropdown-item" href="#">Dejar de seguir usuario</a>  
@@ -38,7 +38,7 @@
                             Propuestas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Propuesta</a>
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
                             <a class="dropdown-item" href="#">Consulta de Propuesta por estado</a>  
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Propuesta como favorita</a> 
@@ -63,7 +63,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                             <a class="dropdown-item" href="../perfildelusuario">Perfil</a>                           
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../logout">Log out</a>
+                            <a class="dropdown-item" href="/culturarteWeb/logout">Log out</a>
                         </div>
                     </li>                   
                 </ul>

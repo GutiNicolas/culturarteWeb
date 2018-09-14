@@ -27,7 +27,7 @@
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Perfil</a>                           
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>                           
                         </div>
                     </li>
                     <li class="nav-item dropdown ">
@@ -35,17 +35,17 @@
                             Propuestas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Propuesta</a>
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
                             <a class="dropdown-item" href="#">Consulta de Propuesta por estado</a>                           
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">                   
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #f2d5a9;" href="../PRESENTACIONES/login.jsp">Log In</a>
+                        <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #f2d5a9;" href="../PRESENTACIONES/login.jsp">Registrarse</a>
+                        <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Registrarse</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

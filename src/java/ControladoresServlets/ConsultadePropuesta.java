@@ -10,6 +10,8 @@ import Logica.dtPropuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,18 +33,29 @@ public class ConsultadePropuesta extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String propuesta= request.getParameter("titulo");
+            String propuesta=request.getParameter("titulo");
             ContUsuario cu= ContUsuario.getInstance();
             
             if(propuesta==null){
                 Collection<String> props= cu.listartodaslaspropuestas("");
                 request.setAttribute("propuestas", props);
-                request.getRequestDispatcher("/WEB-INF/listar.jsp").
+                request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
 					forward(request, response);
+            }else{  
+                try {
+                dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                    request.setAttribute("propuesta", dtp);
+                } catch (Exception ex) {
+                    Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                request.getRequestDispatcher("/PRESENTACIONES/informacionpropuesta.jsp").
+					forward(request, response);
+                
             }
         }
     }

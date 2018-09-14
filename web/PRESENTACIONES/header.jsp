@@ -27,7 +27,7 @@
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Perfil</a>                           
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>                           
                         </div>
                     </li>
                     <li class="nav-item dropdown ">
@@ -35,7 +35,7 @@
                             Propuestas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Consulta de Propuesta</a>
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
                             <a class="dropdown-item" href="#">Consulta de Propuesta por estado</a>                           
                         </div>
                     </li>
