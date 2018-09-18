@@ -128,7 +128,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))==false && session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")){
                     %>
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                    <a href="/culturarteWeb/ServletColaboracion">
                         Colaborar
                     </a> 
                     
