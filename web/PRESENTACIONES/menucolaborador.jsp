@@ -51,7 +51,7 @@
                             Colaboraciones
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="#">Colaborar</a>                          
+                            <a class="dropdown-item" href="/culturarteWeb/ServletColaboracion">Colaborar</a>                          
                         </div>
                     </li>
                 </ul>

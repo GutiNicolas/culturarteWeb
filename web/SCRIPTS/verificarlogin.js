@@ -30,3 +30,29 @@ function verificar()
               // alert("contrasenia no valida");
         return correct;
 }
+
+function verificarcolaboracion(){
+    var correct=true;
+    
+    var ch1 = ('#cb1').checked;
+    var ch2 = ('#cb2').checked;
+    var mon= ('#monto').val();
+    
+    if(ch1==false && ch2==false){
+        $('#error_retorno').show();
+        correct = false;
+        
+    }
+    else{
+        $('#error_retorno').hide();
+    }
+    if(mon==''){
+        $('#error_monto').show();
+        correct = false;
+    }
+    else{
+        $('#error_monto').hide();
+    }
+    
+    return correct;
+}

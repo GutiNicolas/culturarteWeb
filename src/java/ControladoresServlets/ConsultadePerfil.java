@@ -42,6 +42,8 @@ public class ConsultadePerfil extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String nick=request.getParameter("nickname");
+            String propio=request.getParameter("usuario");
+            HttpSession session= request.getSession();
             request.removeAttribute("usuarios");
             request.removeAttribute("colaboradas");
             request.removeAttribute("colabscompletas");
@@ -52,7 +54,9 @@ public class ConsultadePerfil extends HttpServlet {
             request.removeAttribute("misseguidos");
             request.removeAttribute("favoritas");
             
-            
+            if(propio!=null && propio.equals("yes")){
+                nick=(String) session.getAttribute("nickusuario");
+            } 
             ContUsuario cu= ContUsuario.getInstance(); 
             
             if(nick==null){
@@ -60,7 +64,8 @@ public class ConsultadePerfil extends HttpServlet {
                 request.setAttribute("usuarios", usus);
                 request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
 					forward(request, response);
-            }else{  
+            }         
+            else{  
                 
                     dtUsuario dtu = cu.infoUsuarioGeneral(nick);
                     Collection<String> misseguidores= cu.listarmisseguidores(nick);

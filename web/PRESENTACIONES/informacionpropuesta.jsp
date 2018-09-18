@@ -89,8 +89,8 @@
                         <%} %>
                         </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="row">                  
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         
                     <%
                         if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
@@ -133,7 +133,7 @@
                     </a> 
                     
                     <% } %>  
-                    </div>        
+                    </div>      
                 </div>      
 	</div>
                                 
