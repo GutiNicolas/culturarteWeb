@@ -56,3 +56,62 @@ function verificarcolaboracion(){
     
     return correct;
 }
+
+
+$("#btnenviarr").click(function(){
+    if(verificar()===false){
+        return false;
+    }
+    else{
+    $.ajax({
+       type: "POST",
+       url: "/ServletLogin",
+       data: {
+           "nickname": $("nick").val().toString(),
+           "password": $("pass").val().toString(),
+       } ,
+       success: function (data) {
+           if(data.toString()=== "errornick"){
+               alert("Error: nickname invalido");
+           }
+           else if(data.toString()=== "errorpass"){
+               alert("Error: contrasenia erronea");
+           }          
+           else if(data.toString()==="success"){
+               window.location.replace("../index.jsp");
+           }
+       }
+    });
+    }
+    
+});
+
+function ver(){
+    if(verificar()===false){
+        return false;
+    }
+    else{
+    $.ajax({
+       type: "POST",
+       url: "/ServletLogin",
+       data: {
+           "nickname": $("nick").val().toString(),
+           "password": $("pass").val().toString(),
+       } ,
+       success: function (data) {
+           if(data.toString()=== "errornick"){
+               alert("Error: nickname invalido");
+           }
+           else if(data.toString()=== "errorpass"){
+               alert("Error: contrasenia erronea");
+           }          
+           else if(data.toString()==="success"){
+               window.location.replace("../index.jsp");
+           }
+       }
+    });
+    }
+    
+}
+
+//action="../ServletLogin" method="post" onsubmit="return verificar()"

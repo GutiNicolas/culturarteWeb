@@ -43,7 +43,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Propuesta como favorita</a> 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Alta de Propuesta</a>
+                            <a class="dropdown-item" href="/culturarteWeb/AltaPropuesta">Alta de Propuesta</a>
                             <a class="dropdown-item" href="#">Extender financiacion</a> 
                             <a class="dropdown-item" href="#">Cancelar Propuesta</a> 
                         </div>

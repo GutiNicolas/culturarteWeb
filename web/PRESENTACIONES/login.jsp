@@ -46,7 +46,7 @@
                </div>
                <form id="login_form" action="../ServletLogin" method="post" onsubmit="return verificar()">
                    
-                    <label for="name">Nickname:</label>
+                    <label for="name" >Nickname:</label>
                     <input type="text" id="nick" name="nick"/>
                     <span id="error_nick" class="error">Debes ingresar un nick</span>                    
                     <br/>
@@ -65,5 +65,6 @@
        </div> 
          
         <script type="text/javascript" src="../SCRIPTS/verificarlogin.js"></script>
+        <script type="text/javascript" src="../SCRIPTS/ver.js"></script>
     </body>
 </html>

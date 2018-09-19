@@ -16,6 +16,10 @@
         <servlet-name>ServletColaboracion</servlet-name>
         <servlet-class>ControladoresServlets.ServletColaboracion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAltaPropuesta</servlet-name>
+        <servlet-class>ControladoresServlets.ServletAltaPropuesta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConsultadePropuesta</servlet-name>
         <url-pattern>/ConsultadePropuesta</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>ServletColaboracion</servlet-name>
         <url-pattern>/ServletColaboracion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAltaPropuesta</servlet-name>
+        <url-pattern>/AltaPropuesta</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ServletdeArranque</welcome-file>

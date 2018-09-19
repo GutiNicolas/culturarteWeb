@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.*;
 
 /**
  *
@@ -82,7 +83,40 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session= request.getSession();
+            ContUsuario cU= ContUsuario.getInstance();            
+            String usuario= request.getParameter("nick");
+            String password= request.getParameter("pass");
+            dtUsuario dtu=cU.usuarioLogin(usuario);
+            if(dtu!=null){
+                if(dtu.getPass().equals(password)){
+                    if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
+                        session.setAttribute("nickusuario", dtu.getNickname());
+                        String col="Colaborador";
+                        session.setAttribute("rol", col);
+                        out.write("success");
+                        response.sendRedirect("index.jsp");
+                    }
+                    if(dtu instanceof dtProponente){
+                        session.setAttribute("nickusuario", dtu.getNickname());
+                        String prop="Proponente";
+                        session.setAttribute("rol", prop);
+                        out.write("success");
+                        response.sendRedirect("index.jsp");                    
+                    }
+                }
+                else{//contrasenia erronea  
+                    out.write("errorpass");
+                }
+                  
+            }
+            else{  //no existe el usuario
+                out.write("errornick");
+            }
+        } 
     }
 
     /**
@@ -97,6 +131,9 @@ public class ServletLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        
     }
 
     /**

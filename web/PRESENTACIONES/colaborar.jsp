@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Informacion de Propuesta</title>
+        <title>CultuRarte |Colaborar</title>
         <link href="ESTILOS/consultas.css" rel="stylesheet"> 
         <link href="ESTILOS/index.css" rel="stylesheet"
               <link href="ESTILOS/login.css" rel="stylesheet"      
