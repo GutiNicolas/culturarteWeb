@@ -56,6 +56,9 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/DatosdePrueba">Datos de Prueba</a>
+                    </li>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" style="color: #f2d5a9;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <%= session.getAttribute("nickusuario") %>
@@ -64,7 +67,7 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil?usuario=yes">Perfil</a>                           
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/logout">Log out</a>
-                        </div>
+                        </div>                       
                     </li>                   
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

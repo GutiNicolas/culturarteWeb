@@ -27,7 +27,20 @@
         
         
     </head>
-    <body>
+    <%
+        String ddp;
+        if (request.getParameter("ddp") != null) {
+            ddp = request.getParameter("ddp");
+        } else {
+            ddp = "";
+        }
+
+        if (ddp.equals("yes"))
+            out.print("<body onload=\"alertar3('Datos de prueba cargados con exito')\">");
+        else
+            out.print("<body>");
+        
+        %>
         
         <div id="home">    
             <div class="container">
@@ -399,7 +412,14 @@
                     </div>                     
                 </div>
             </div>            
-        </div>        
+        </div>     
+        
+        
+    <script>
+        function alertar3(a) {
+            alert(a);
+        }
+    </script>
                 <%@include file="/PRESENTACIONES/footer.jsp"%> 
                
     </body>

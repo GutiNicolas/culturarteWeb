@@ -40,7 +40,10 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">                   
+                <ul class="navbar-nav ml-auto">  
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/DatosdePrueba">Datos de Prueba</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Log In</a>
                     </li>
