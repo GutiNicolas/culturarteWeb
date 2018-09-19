@@ -45,7 +45,7 @@
                         <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/DatosdePrueba">Datos de Prueba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Log In</a>
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/ServletLogin">Log In</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Registrarse</a>

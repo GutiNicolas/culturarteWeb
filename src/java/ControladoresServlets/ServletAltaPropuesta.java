@@ -176,17 +176,17 @@ private boolean isUtilizable(String fecha){
             dardealta=false;
             seguircontrolando=false;
         }
-        if(isUtilizable(fecharealizacion)==false && seguircontrolando==true){
+        if(fecharealizacion.isEmpty()==false && isUtilizable(fecharealizacion)==false && seguircontrolando==true){
             out.println("Controle la fecha");
             dardealta=false;
             seguircontrolando=false;
         }
-        if(isNumeric(montorequerido)==false && seguircontrolando==true){
+        if(montorequerido.isEmpty()==false && isNumeric(montorequerido)==false && seguircontrolando==true){
             out.println("Controle el monto requerido");
             dardealta=false;
             seguircontrolando=false;
         }
-        if(isNumeric(costoentrada)==false && seguircontrolando==true){
+        if(costoentrada.isEmpty()==false && isNumeric(costoentrada)==false && seguircontrolando==true){
             out.println("Controle el precio de la entrada");
             dardealta=false;
             seguircontrolando=false;
