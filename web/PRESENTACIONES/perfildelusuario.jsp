@@ -145,7 +145,7 @@
                         <%} }%>  
                         
                         <%
-                        if(dtu instanceof dtColaborador){
+                        if(dtu instanceof dtColaborador && request.getParameter("usuario")==null ){
                         %> <h4>Mis colaboraciones</h4> <%
                         
                             Collection<String> colabs=(Collection<String>) request.getAttribute("colaboradas");                       
@@ -159,22 +159,26 @@
                         <%
                         if(dtu instanceof dtColaborador && session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtu.getNickname())){
                             Collection<dtColProp> colabscompletas=(Collection<dtColProp>) request.getAttribute("colabscompletas");                       
+                            %> <h4>Mis colaboraciones</h4> <%
+                            
                             for(dtColProp dtc: colabscompletas ){                       
                         %>
                             <label class="rotulo">Titulo:</label>
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=dtc.getTitulo()%>">
                                 <%=dtc.getTitulo() %>
                             </a>
+                            <br>
                             <label class="rotulo">Monto:</label>
                             <a >
                                 <%=dtc.getMontoColaborado() %>
                             </a>
+                            <br>
                             <label class="rotulo">Fecha Registrada:</label>
                             <a >
                                 <%=dtc.getFecha().getFecha() %>
                             </a><a> Hora: </a>
                             <a>
-                                dtc.getHora().getHora()
+                                <%=dtc.getHora().getHora()%>
                             </a>
                             
                             <br><br>
