@@ -42,7 +42,7 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
                             <a class="dropdown-item" href="#">Consulta de Propuesta por estado</a>  
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Propuesta como favorita</a> 
+                            <a class="dropdown-item" href="/culturarteWeb/AgregarFavorita">Propuesta como favorita</a> 
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/AltaPropuesta">Alta de Propuesta</a>
                             <a class="dropdown-item" href="#">Extender financiacion</a> 
