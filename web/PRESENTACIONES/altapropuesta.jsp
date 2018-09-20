@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CultuRarte | Alta Propuesta</title>
         <link href="ESTILOS/altapropuesta.css" rel="stylesheet"> 
+        <link href="ESTILOS/mrd.css" rel="stylesheet"> 
            
               <%
                   if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
@@ -76,7 +77,8 @@
         <%
             Collection<String> categorias= (Collection<String>) request.getAttribute("categorias");
         %>
-        
+          <div id="contenedor3">  
+         <div id="main3">   
         <div class="form-group">
             <label for="sell">Seleccione una Categoria</label>
             <select class="form-control" id="sell">
@@ -118,8 +120,10 @@
         </div>
         </form>
 
-        <br><br><br><br><br><br>
+     
     </div>
+         </div>
+          </div>
     
         <%@include file="../PRESENTACIONES/footergeneral.jsp"%>    
             

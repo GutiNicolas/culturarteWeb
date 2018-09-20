@@ -154,6 +154,7 @@
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=cols%>">
                                 <%= cols %>
                             </a>
+                            <br>
                         <%} }%> 
                         
                         <%

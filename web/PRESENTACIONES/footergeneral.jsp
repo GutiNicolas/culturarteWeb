@@ -21,7 +21,7 @@
         </style>
         
         
-        <footer class="container-fluid text-center alfondoquehaylugar ">
+        <footer class="container-fluid text-center  ">
             <div class="row">
                 <div class="col-sm-4">
                     <a href="#"> Inicio</a> <br>

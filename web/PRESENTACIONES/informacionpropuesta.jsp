@@ -106,7 +106,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
                     %>
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                    <a href="/culturarteWeb/CancelarPropuesta">
                         Cancelar Propuesta
                     </a> 
                     

@@ -40,7 +40,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
-                            <a class="dropdown-item" href="#">Consulta de Propuesta por estado</a>  
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultaPorEstado">Consulta de Propuesta por Categoria</a>  
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/AgregarFavorita">Propuesta como favorita</a> 
                             <div class="dropdown-divider"></div>
