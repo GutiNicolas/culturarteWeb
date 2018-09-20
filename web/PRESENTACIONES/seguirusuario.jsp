@@ -46,7 +46,7 @@
         %>
         
         <div class="form-group">
-            <label for="sell">Seleccione una Usuario</label>
+            <label for="sell">Seleccione un Usuario</label>
             <select class="form-control" id="sell">
                 <% 
                     for(String usus: usuarios){
@@ -55,9 +55,12 @@
                 <%}%>
             </select>
             <br>
-            <input type="button" value="Aceptar" id="bttacept">
+            <input type="button" value="Seguir" id="bttacept">
                 <br>
                 <div id="letajaxdoit"></div>
         </div> 
+            
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+              <%@include file="../PRESENTACIONES/footergeneral.jsp"%> 
     </body>
 </html>

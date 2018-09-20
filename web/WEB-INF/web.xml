@@ -32,6 +32,14 @@
         <servlet-name>ServletSeguir</servlet-name>
         <servlet-class>ControladoresServlets.ServletSeguir</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DejarDeSeguir</servlet-name>
+        <servlet-class>ControladoresServlets.DejarDeSeguir</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletCancelarPropuesta</servlet-name>
+        <servlet-class>ControladoresServlets.ServletCancelarPropuesta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConsultadePropuesta</servlet-name>
         <url-pattern>/ConsultadePropuesta</url-pattern>
@@ -59,6 +67,14 @@
     <servlet-mapping>
         <servlet-name>ServletSeguir</servlet-name>
         <url-pattern>/ServletSeguir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DejarDeSeguir</servlet-name>
+        <url-pattern>/DejarDeSeguir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCancelarPropuesta</servlet-name>
+        <url-pattern>/CancelarPropuesta</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ServletdeArranque</welcome-file>

@@ -31,7 +31,7 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/ServletSeguir">Seguir usuario</a>  
-                            <a class="dropdown-item" href="#">Dejar de seguir usuario</a>  
+                            <a class="dropdown-item" href="/culturarteWeb/DejarDeSeguir">Dejar de seguir usuario</a>  
                         </div>
                     </li>
                     <li class="nav-item dropdown ">
@@ -46,7 +46,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/AltaPropuesta">Alta de Propuesta</a>
                             <a class="dropdown-item" href="#">Extender financiacion</a> 
-                            <a class="dropdown-item" href="#">Cancelar Propuesta</a> 
+                            <a class="dropdown-item" href="/culturarteWeb/CancelarPropuesta">Cancelar Propuesta</a> 
                         </div>
                     </li>
                 </ul>

@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        <link href="ESTILOS/footer.css" rel="stylesheet">  
     </head>
-    <body>
+    
         <style>
             .alfondoquehaylugar {
                 
@@ -20,7 +20,8 @@
             }    
         </style>
         
-        <footer class="container-fluid text-center alfondoquehaylugar">
+        
+        <footer class="container-fluid text-center alfondoquehaylugar ">
             <div class="row">
                 <div class="col-sm-4">
                     <a href="#"> Inicio</a> <br>
@@ -39,5 +40,5 @@
             </div>
         </footer>
              
-    </body>
+   
 </html>

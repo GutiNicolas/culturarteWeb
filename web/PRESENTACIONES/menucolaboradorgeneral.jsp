@@ -30,7 +30,7 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/ServletSeguir">Seguir usuario</a>  
-                            <a class="dropdown-item" href="#">Dejar de seguir usuario</a>  
+                            <a class="dropdown-item" href="/culturarteWeb/DejarDeSeguir">Dejar de seguir usuario</a>  
                         </div>
                     </li>
                     <li class="nav-item dropdown ">
