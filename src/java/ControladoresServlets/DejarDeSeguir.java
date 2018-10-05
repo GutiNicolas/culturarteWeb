@@ -35,13 +35,17 @@ public class DejarDeSeguir extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-            ContUsuario cu=ContUsuario.getInstance();
-            if(nickadejardeseguir==null){
-                HttpSession session=request.getSession();
-                Collection usuarios=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
-                request.setAttribute("usuarios", usuarios);
-                request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            if(session.getAttribute("rol")!=null){              
+                String nickadejardeseguir= request.getParameter("nickadejardeseguir");
+                ContUsuario cu=ContUsuario.getInstance();
+                if(nickadejardeseguir==null){
+                    Collection usuarios=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
+                    request.setAttribute("usuarios", usuarios);
+                    request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
+                }
+            }else{
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }        
     }
 

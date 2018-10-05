@@ -77,25 +77,29 @@ public class ServletSeguir extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        PrintWriter out= response.getWriter();
-        String nickaseguir= request.getParameter("nickaseguir");
-        ContUsuario cu=ContUsuario.getInstance();
-        HttpSession session=request.getSession();
-        Collection usuariosseguidos=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
+
+        PrintWriter out = response.getWriter();
+        String nickaseguir = request.getParameter("nickaseguir");
+        ContUsuario cu = ContUsuario.getInstance();
+        HttpSession session = request.getSession();
+        Collection usuariosseguidos = cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
         out.println("<p>");
-        
-        if(usuariosseguidos.contains(nickaseguir)==false){
-            try {
-                cu.seguir((String) session.getAttribute("nickusuario"), nickaseguir);
-                out.println("Usuario "+nickaseguir+" seguido con exito");
-            } catch (Exception ex) {
-                Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (nickaseguir.equals(session.getAttribute("nickusuario")) == false) {
+            if (usuariosseguidos.contains(nickaseguir) == false) {
+                try {
+                    cu.seguir((String) session.getAttribute("nickusuario"), nickaseguir);
+                    out.println("Usuario " + nickaseguir + " seguido con exito");
+                } catch (Exception ex) {
+                    Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                out.println("Ya sigues al usuario " + nickaseguir);
             }
+        } else {
+            out.println("No puedes seguirte tu mismo, " + nickaseguir);
         }
-        else
-            out.println("Ya sigues al usuario "+nickaseguir);
-        
+
         out.println("</p>");
     }
 

@@ -45,6 +45,7 @@
 		<div id="perfil_derecha">
 			<div class="contenedor">
 				<h2>Información de Perfil</h2>
+                                <br><br>
 				<label class="rotulo">Nickname:</label>
 				<label class="valor"><%= dtu.getNickname() %></label>
 				<br/>
@@ -65,22 +66,20 @@
                          %>
 			<div class="contenedor">
 				<h2>Informacion adicional de Proponente</h2>
-                                <% if(dtp.getBiografia().equals("null")==false){%>
+                                <% if(dtp.getBiografia().isEmpty()==false && dtp.getBiografia().equals(" ")==false){%>
 				<label class="rotulo">Biografia</label>
-				<label class="valor">
-						<%= dtp.getBiografia() %>
-				</label>
-                                <br/>
+				<label class="valor"><%= dtp.getBiografia() %></label>
+                                <br>
                                 <%}%>
-                                <% if(dtp.getSitioWeb().equals("null")==false){%>
+                                <% if(dtp.getSitioWeb().isEmpty()==false && dtp.getSitioWeb().equals(" ")==false){%>
                                 <label class="rotulo">Web:</label>
                                 <label class="valor"><a href="<%=dtp.getSitioWeb()%>"><%= dtp.getSitioWeb() %></a></label>
-				<br/>
+				<br>
                                 <%}%>
-                                <% if(dtp.getDireccion().equals("null")==false){%>
+                                <% if(dtp.getDireccion().isEmpty()==false && dtp.getDireccion().equals(" ")==false){%>
                                 <label class="rotulo">Direccion:</label>
 				<label class="valor"><%= dtp.getDireccion() %></label>
-				<br/>
+				<br>
                                 <%}%>
                             </div>    
                                 <% } %>

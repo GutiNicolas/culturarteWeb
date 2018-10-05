@@ -45,40 +45,53 @@ public class ServletColaboracion extends HttpServlet {
             String monto = request.getParameter("monto");
             ContUsuario cu = ContUsuario.getInstance();
             HttpSession session = request.getSession();
-
-            if (especial != null && especial.equals("si")) {
-                if ((cbe != null || cbp != null) && monto != null) {
-                    if (isNumeric(monto)) {
-                        String re = null;
-                        if (cbe != null && cbp == null) {
-                            re = cbe;
-                        } else if (cbe != null && cbp != null) {
-                            re = cbe + "/" + cbp;
-                        } else if (cbe == null && cbp != null) {
-                            re = cbp;
-                        }
-                        try {
-                            dtPropuesta dtp = cu.infoPropuesta(propuesta);
-                            request.setAttribute("propuesta", dtp);
-                            Collection<String> colaboradores = dtp.detColaboradores();
-                            request.setAttribute("colaboradores", colaboradores);
-
-                            if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
-                                cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), re, null);
-                                dtp = cu.infoPropuesta(propuesta);
-                                colaboradores = dtp.detColaboradores();
+            if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
+                if (especial != null && especial.equals("si")) {
+                    if ((cbe != null || cbp != null) && monto != null) {
+                        if (isNumeric(monto)) {
+                            String re = null;
+                            if (cbe != null && cbp == null) {
+                                re = cbe;
+                            } else if (cbe != null && cbp != null) {
+                                re = cbe + "/" + cbp;
+                            } else if (cbe == null && cbp != null) {
+                                re = cbp;
+                            }
+                            try {
+                                dtPropuesta dtp = cu.infoPropuesta(propuesta);
                                 request.setAttribute("propuesta", dtp);
+                                Collection<String> colaboradores = dtp.detColaboradores();
                                 request.setAttribute("colaboradores", colaboradores);
                                 
-                                request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
-                                        forward(request, response);
-                            } else {
-                                request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ya").
-                                        forward(request, response);
+                                if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
+                                    cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), re, null);
+                                    dtp = cu.infoPropuesta(propuesta);
+                                    colaboradores = dtp.detColaboradores();
+                                    request.setAttribute("propuesta", dtp);
+                                    request.setAttribute("colaboradores", colaboradores);
+                                    
+                                    request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
+                                            forward(request, response);
+                                } else {
+                                    request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ya").
+                                            forward(request, response);
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        } catch (Exception ex) {
-                            Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                        } else {
+                            try {
+                                dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                                request.setAttribute("propuesta", dtp);
+                                Collection<String> colaboradores = dtp.detColaboradores();
+                                request.setAttribute("colaboradores", colaboradores);
+                            } catch (Exception ex) {
+                                Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=nn").
+                                    forward(request, response);
                         }
+                        
                     } else {
                         try {
                             dtPropuesta dtp = cu.infoPropuesta(propuesta);
@@ -88,44 +101,34 @@ public class ServletColaboracion extends HttpServlet {
                         } catch (Exception ex) {
                             Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=nn").
+                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ns").
                                 forward(request, response);
                     }
-
                 } else {
-                    try {
-                        dtPropuesta dtp = cu.infoPropuesta(propuesta);
-                        request.setAttribute("propuesta", dtp);
-                        Collection<String> colaboradores = dtp.detColaboradores();
-                        request.setAttribute("colaboradores", colaboradores);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                    if (propuesta == null) {
+                        Collection<dtPropuesta> props = cu.listarpropuestasenlaweb();
+                        request.setAttribute("propuestas", props);
+                        request.getRequestDispatcher("PRESENTACIONES/listarpropuestas.jsp").
+                                forward(request, response);
+                    } else {
+                        try {
+                            dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                            request.setAttribute("propuesta", dtp);
+                            Collection<String> colaboradores = dtp.detColaboradores();
+                            request.setAttribute("colaboradores", colaboradores);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp").
+                                forward(request, response);
+                        
                     }
-                    request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ns").
-                            forward(request, response);
                 }
             } else {
-                if (propuesta == null) {
-                    Collection<dtPropuesta> props = cu.listarpropuestasenlaweb();
-                    request.setAttribute("propuestas", props);
-                    request.getRequestDispatcher("PRESENTACIONES/listarpropuestas.jsp").
-                            forward(request, response);
-                } else {
-                    try {
-                        dtPropuesta dtp = cu.infoPropuesta(propuesta);
-                        request.setAttribute("propuesta", dtp);
-                        Collection<String> colaboradores = dtp.detColaboradores();
-                        request.setAttribute("colaboradores", colaboradores);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp").
-                            forward(request, response);
-
-                }
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
-
+            
         }
     }
 

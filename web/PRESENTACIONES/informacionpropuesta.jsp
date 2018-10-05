@@ -39,6 +39,7 @@
 		<div id="perfil_derecha">
 			<div class="contenedor">
 				<h2>Información de la Propuesta</h2>
+                                <br><br>
 				<label class="rotulo">Titulo:</label>
 				<label class="valor"><%= dtp.getTitulo() %></label>
 				<br/>
@@ -95,7 +96,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
                     %>
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/ConsultadePerfil?nickname=">
                         Extender Financiacion
                     </a> 
                     
@@ -106,7 +107,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && session.getAttribute("nickusuario").equals(dtp.getProponente())){
                     %>
-                    <a href="/culturarteWeb/CancelarPropuesta">
+                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/CancelarPropuesta">
                         Cancelar Propuesta
                     </a> 
                     
@@ -117,7 +118,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))){
                     %>
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=">
+                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/ConsultadePerfil?nickname=">
                         Comentar
                     </a> 
                     
@@ -128,7 +129,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))==false && session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")){
                     %>
-                    <a href="/culturarteWeb/ServletColaboracion">
+                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/ServletColaboracion">
                         Colaborar
                     </a> 
                     

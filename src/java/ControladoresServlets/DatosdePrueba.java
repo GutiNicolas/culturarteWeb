@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,7 +38,7 @@ public class DatosdePrueba extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
             ContUsuario contUsuario=ContUsuario.getInstance();
             ContPropuesta contPropuesta = ContPropuesta.getInstance();
             ContColaboracion contColaboracion= ContColaboracion.getInstance();
