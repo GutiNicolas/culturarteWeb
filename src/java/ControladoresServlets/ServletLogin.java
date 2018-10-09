@@ -36,7 +36,6 @@ public class ServletLogin extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            if (session.getAttribute("rol") == null) {
             ContUsuario cU = ContUsuario.getInstance();
             String usuario = request.getParameter("nick");
             String password = request.getParameter("pass");
@@ -69,9 +68,6 @@ public class ServletLogin extends HttpServlet {
                 }
             } else {
                 response.sendRedirect("PRESENTACIONES/login.jsp");
-            }
-            }else{
-                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
         }
     }

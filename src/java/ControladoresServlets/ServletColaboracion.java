@@ -5,10 +5,8 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
 import Logica.ContUsuario;
 import Logica.dtPropuesta;
-import Logica.utilidades;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -46,8 +44,6 @@ public class ServletColaboracion extends HttpServlet {
             String especial = request.getParameter("especial");
             String monto = request.getParameter("monto");
             ContUsuario cu = ContUsuario.getInstance();
-            utilidades utils= utilidades.getInstance();
-            ContPropuesta cp = ContPropuesta.getInstance();
             HttpSession session = request.getSession();
             if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
                 if (especial != null && especial.equals("si")) {
@@ -60,25 +56,15 @@ public class ServletColaboracion extends HttpServlet {
                                 request.setAttribute("colaboradores", colaboradores);
                                 
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
-                                    if(dtp.getEstado().equals("En financiacion") || dtp.getEstado().equals("Publicada")){
                                     cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), cu.armarretorno(cbe, cbp), null);
-                                    if(dtp.getEstado().equals("Publicada")){
-                                        cp.agregarEstadoAPropuesta("En financiacion", dtp.getTitulo(), utils.getFecha(), utils.getHora());
-                                    }
                                     dtp = cu.infoPropuesta(propuesta);
                                     colaboradores = dtp.detColaboradores();
-                                    
                                     request.setAttribute("propuesta", dtp);
                                     request.setAttribute("colaboradores", colaboradores);
                                     
                                     request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
                                             forward(request, response);
-                                    }else{
-                                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ne").
-                                            forward(request, response);
-                                    }
-                                }                               
-                                else {
+                                } else {
                                     request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ya").
                                             forward(request, response);
                                 }

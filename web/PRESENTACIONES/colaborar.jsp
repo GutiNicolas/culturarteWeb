@@ -41,8 +41,6 @@
             
         } else if (error.equals("ya"))
             out.print("<body onload=\"alertar3('YA HAS COLABORADO CON ESTA PROPUESTA')\" style='background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;'>");
-        else if(error.equals("ne"))
-            out.print("<body onload=\"alertar3('LA PROPUESTA NO SE ENCUENTRA EN FINANCIACION')\" style='background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;'>");
         else {
             out.print("<body style='background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;'>");
     %>

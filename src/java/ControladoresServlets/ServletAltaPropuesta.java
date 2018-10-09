@@ -38,22 +38,18 @@ public class ServletAltaPropuesta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //    try (PrintWriter out = response.getWriter()) {
-        ContPropuesta cp = ContPropuesta.getInstance();
-        /* TODO output your page here. You may use following sample code. */
-        String titulo = request.getParameter("titulo");
-        HttpSession session = request.getSession();
-        if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Proponente")) {
-            if (titulo == null) {
-                Collection<String> categorias = cp.listarCategorias("");
+    //    try (PrintWriter out = response.getWriter()) {
+            ContPropuesta cp= ContPropuesta.getInstance();
+            /* TODO output your page here. You may use following sample code. */
+            String titulo= request.getParameter("titulo");
+            
+            if(titulo==null){         
+                Collection<String> categorias= cp.listarCategorias("");
                 request.setAttribute("categorias", categorias);
                 request.getRequestDispatcher("PRESENTACIONES/altapropuesta.jsp").forward(request, response);
             }
-        }
-        else{
-            request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-        }
-        //    }
+            
+    //    }
     }
     
 private boolean isNumeric(String cadena) {
