@@ -48,15 +48,7 @@ public class ServletColaboracion extends HttpServlet {
             if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
                 if (especial != null && especial.equals("si")) {
                     if ((cbe != null || cbp != null) && monto != null) {
-                        if (isNumeric(monto)) {
-                            String re = null;
-                            if (cbe != null && cbp == null) {
-                                re = cbe;
-                            } else if (cbe != null && cbp != null) {
-                                re = cbe + "/" + cbp;
-                            } else if (cbe == null && cbp != null) {
-                                re = cbp;
-                            }
+                        if (isNumeric(monto)) {   
                             try {
                                 dtPropuesta dtp = cu.infoPropuesta(propuesta);
                                 request.setAttribute("propuesta", dtp);
@@ -64,7 +56,7 @@ public class ServletColaboracion extends HttpServlet {
                                 request.setAttribute("colaboradores", colaboradores);
                                 
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
-                                    cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), re, null);
+                                    cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), cu.armarretorno(cbe, cbp), null);
                                     dtp = cu.infoPropuesta(propuesta);
                                     colaboradores = dtp.detColaboradores();
                                     request.setAttribute("propuesta", dtp);

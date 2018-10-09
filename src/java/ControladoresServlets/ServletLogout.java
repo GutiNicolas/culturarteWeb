@@ -34,11 +34,16 @@ public class ServletLogout extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            if(session.getAttribute("rol")!=null){
-            session.removeAttribute("nickusuario");
-            session.removeAttribute("rol");           
-            response.sendRedirect("index.jsp");
-            }else{
+            if (session.getAttribute("rol") != null) {
+
+                session.removeAttribute("nickusuario");
+                session.removeAttribute("rol");
+                if (request.getParameter("ddp") != null) {
+                    response.sendRedirect("index.jsp?ddp=yes");
+                } else {
+                    response.sendRedirect("index.jsp");
+                }
+            } else {
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
         }

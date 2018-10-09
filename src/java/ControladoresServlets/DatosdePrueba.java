@@ -53,7 +53,7 @@ public class DatosdePrueba extends HttpServlet {
             contPropuesta.cargarPropuestas();
             contColaboracion.cargarColaboracion();
             
-            request.getRequestDispatcher("index.jsp?ddp=yes").forward(request, response);
+            request.getRequestDispatcher("/logout?ddp=yes").forward(request, response);
         }
     }
 
