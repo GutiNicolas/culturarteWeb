@@ -9,6 +9,7 @@ import Logica.ContUsuario;
 import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,8 @@ public class ServletLogin extends HttpServlet {
                     if (dtu.getPass().equals(password)) {
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
-                        response.sendRedirect("index.jsp");
+                           response.sendRedirect("index.jsp");
+                       // request.getRequestDispatcher("index.jsp").forward(request, response);
                         /*        if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
                         session.setAttribute("nickusuario", dtu.getNickname());
                         String col="Colaborador";

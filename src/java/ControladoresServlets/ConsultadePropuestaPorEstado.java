@@ -49,8 +49,8 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
                 Collection<String> categorias= cp.listarCategorias("");
                 request.setAttribute("categorias", categorias);
             try {
-                Collection<dtPropuesta> propuestas= cu.listarpropuestasencategoria(cat);
-                request.setAttribute("propuestas", propuestas);
+              //  Collection<dtPropuesta> propuestas= cu.listarpropuestasencategoria(cat);
+              //  request.setAttribute("propuestas", propuestas);
             } catch (Exception ex) {
                 Logger.getLogger(ConsultadePropuestaPorEstado.class.getName()).log(Level.SEVERE, null, ex);
             }

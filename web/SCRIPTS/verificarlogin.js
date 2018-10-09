@@ -68,7 +68,7 @@ $("#btnenviarr").click(function(){
        url: "/ServletLogin",
        data: {
            "nickname": $("nick").val().toString(),
-           "password": $("pass").val().toString(),
+           "password": $("pass").val().toString()
        } ,
        success: function (data) {
            if(data.toString()=== "errornick"){
