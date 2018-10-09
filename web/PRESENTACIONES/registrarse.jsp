@@ -9,7 +9,7 @@
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>CultuRarte | Registrarse</title> 
-
+    
 
 
 
@@ -41,9 +41,9 @@
     </script>
 
 </head>
-
+<link rel="stylesheet" type="text/css" href="../ESTILOS/registroUsuario.css" media="screen" >
 <body style="background: url(../IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-
+<link rel="stylesheet" type="text/css" href="../ESTILOS/registroUsuario.css" media="screen" >
 
 
     <div class="container-fluid">

@@ -48,10 +48,8 @@ public class DatosdePrueba extends HttpServlet {
             contCarga.limpiarCargar();
 
             fabrica.borrartodo();
-        
-            contUsuario.cargarUsuarios();
-            contPropuesta.cargarPropuestas();
-            contColaboracion.cargarColaboracion();
+        fabrica.cargarinicio();
+            
             
             request.getRequestDispatcher("index.jsp?ddp=yes").forward(request, response);
         }
