@@ -29,8 +29,8 @@
     <script type="text/javascript" >
             function registro() {
                 console.log("inicio...");
-
-                    if(validaDatos()){altaPerfil();}else{console.log("Faltan datos");}
+                var r=validaDatos();
+                if(r===true){altaPerfil();}else{console.log("Faltan datos");}
 
                 console.log("fin...");
                 

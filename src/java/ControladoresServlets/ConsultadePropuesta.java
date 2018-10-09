@@ -5,6 +5,7 @@
  */
 package ControladoresServlets;
 
+import Logica.ContPropuesta;
 import Logica.ContUsuario;
 import Logica.dtPropuesta;
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class ConsultadePropuesta extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String propuesta=request.getParameter("titulo");
             ContUsuario cu= ContUsuario.getInstance();
-            
+            ContPropuesta cp = ContPropuesta.getInstance();
+            cp.propAutomaticas();
             if(propuesta==null){
                 Collection<String> props= cu.listarpropuestasmenosingresadas("");
                 request.setAttribute("propuestas", props);

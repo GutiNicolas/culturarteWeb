@@ -106,55 +106,61 @@ function inicio() {
 }
 
 function validaDatos() {
-  /*  var correo = document.getElementById("email");
-    var nombre = document.getElementById("nombre");
-    var apellido = document.getElementById("apellido");
-    var nick = document.getElementById("nickname");
-    var fechan = document.getElementById("fechaNac");
-    var pass = document.getElementById("passw");
-    var pass2 = document.getElementById("passwC");
-    if (nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)) {
-        alert("Debe ingresar un nombre");
-        $('#nombre').focus();
-        console.log("Enombre");
-        return false;
-    }
-    if (apellido === null || apellido.length === 0 || /^\s+$/.test(apellido)) {
-        alert("Debe ingresar un apellido");
-        $('#apellido').focus();
-        console.log("Eapellido");
-        return false;
-    }
+    var correo = document.getElementById("email").value;
+    var nombre = $('#nombre').val();
+    var apellido = $('#apellido').val();
+    var nick = $('#nickname').val();
+    var fechan = $('#fechaNac').val();
+    var pass = $('#passw').val();
+    var pass2 = $('#passwC').val();
+
     if (nick === null || nick.length === 0 || /^\s+$/.test(nick)) {
         alert("Debe ingresar un nickname");
         $('#nickname').focus();
         console.log("Enickname");
         return false;
     }
+    if (nombre === null || nombre.length == 0 || /^\s+$/.test(nombre)) {
+        alert("Debe ingresar un nombre");
+        $('#nombre').focus();
+        console.log("Enombre");
+        return false;
+    }
+    console.log("llega");
+    if (apellido === null || apellido.length === 0 || /^\s+$/.test(apellido)) {
+        alert("Debe ingresar un apellido");
+        $('#apellido').focus();
+        console.log("Eapellido");
+        return false;
+    }
+
     if (correo === null || correo.length === 0 || /^\s+$/.test(correo)) {
         alert("Debe ingresar un correo");
         document.getElementById("email").focus();
         console.log("Ecorreo");
         return false;
     }
+    
     if (fechan === null || fechan.length === 0 || /^\s+$/.test(fechan)) {
         alert("Debe ingresar una fecha de nacimiento");
-        document.getElementById("fechaNac").focus();
+        $('#fechaNac').focus();
         console.log("EfechaNac");
         return false;
     }
+    
     if (pass === null || pass.length === 0 || /^\s+$/.test(pass)) {
         alert("Debe ingresar una password");
-        document.getElementById("passw").focus();
+        $('#passw').focus();
         console.log("Epassw");
         return false;
     }
+    
     if (pass2 === null || pass2.length === 0 || /^\s+$/.test(pass2)) {
         alert("Debe ingresar una password");
-        document.getElementById("passwC").focus();
+        $('#passwC').focus();
         console.log("EpasswC");
         return false;
-    }*/
+    }
     if ((!$('#opCola').is(':checked')) && (!$('#opProp').is(':checked'))) {
         alert("Debe completar los datos faltantes");
         return false;

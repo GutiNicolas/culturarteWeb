@@ -78,6 +78,7 @@ public class ServletCancelarPropuesta extends HttpServlet {
         String titulo= request.getParameter("titulo");
         ContUsuario cu=ContUsuario.getInstance();
         ContPropuesta cp= ContPropuesta.getInstance();
+        cp.propAutomaticas();
         HttpSession session=request.getSession();
         Collection propuestas=cu.listarpropuestasparacancelar((String) session.getAttribute("nickusuario"));
         out.println("<p>");
