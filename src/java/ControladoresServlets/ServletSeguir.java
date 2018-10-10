@@ -38,12 +38,17 @@ public class ServletSeguir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     //    try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            if(session.getAttribute("rol")!=null){  
             String nickaseguir= request.getParameter("nickaseguir");
             ContUsuario cu=ContUsuario.getInstance();
             if(nickaseguir==null){
                 Collection usuarios=cu.listarusuarios("");
                 request.setAttribute("usuarios", usuarios);
                 request.getRequestDispatcher("PRESENTACIONES/seguirusuario.jsp").forward(request, response);
+            }
+            }else{
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
       //  }
     }

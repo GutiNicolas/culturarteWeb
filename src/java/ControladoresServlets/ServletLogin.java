@@ -39,7 +39,7 @@ public class ServletLogin extends HttpServlet {
             ContUsuario cU = ContUsuario.getInstance();
             String usuario = request.getParameter("nick");
             String password = request.getParameter("pass");
-
+            if(session.getAttribute("rol")==null){ 
             if (usuario != null) {
                 dtUsuario dtu = cU.usuarioLogin(usuario);
                 if (dtu != null) {
@@ -69,6 +69,9 @@ public class ServletLogin extends HttpServlet {
             } else {
                 response.sendRedirect("PRESENTACIONES/login.jsp");
             }
+        }else{
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
+                }
         }
     }
 

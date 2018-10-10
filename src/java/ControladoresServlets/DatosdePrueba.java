@@ -52,8 +52,9 @@ public class DatosdePrueba extends HttpServlet {
             contUsuario.cargarUsuarios();
             contPropuesta.cargarPropuestas();
             contColaboracion.cargarColaboracion();
-            
-            request.getRequestDispatcher("/logout?ddp=yes").forward(request, response);
+            HttpSession session = request.getSession();
+            if(session.getAttribute("rol")!=null){     
+            request.getRequestDispatcher("/logout?ddp=yes").forward(request, response);}
         }
     }
 

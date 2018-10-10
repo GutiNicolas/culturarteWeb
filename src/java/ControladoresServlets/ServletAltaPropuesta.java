@@ -42,11 +42,15 @@ public class ServletAltaPropuesta extends HttpServlet {
             ContPropuesta cp= ContPropuesta.getInstance();
             /* TODO output your page here. You may use following sample code. */
             String titulo= request.getParameter("titulo");
-            
+            HttpSession session = request.getSession();
+            if(session.getAttribute("rol")!=null && session.getAttribute("rol").equals("Proponente")){     
             if(titulo==null){         
                 Collection<String> categorias= cp.listarCategorias("");
                 request.setAttribute("categorias", categorias);
                 request.getRequestDispatcher("PRESENTACIONES/altapropuesta.jsp").forward(request, response);
+            }
+            }else{
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
             
     //    }
