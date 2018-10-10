@@ -9,6 +9,7 @@ import Logica.ContUsuario;
 import Logica.dtColaborador;
 import Logica.dtFecha;
 import Logica.dtProponente;
+import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -123,7 +124,7 @@ public class servletRegistrarse extends HttpServlet {
             System.out.println(web);
             System.out.println(biografia);
             System.out.println(fechaNac);
-
+            HttpSession session = request.getSession();
             if (verificaExistencia(nick, correo) == 0) {
                 if (pass1.equals(pass2)) {
                     String tipo = (String) request.getParameter("tipo");
@@ -133,12 +134,18 @@ public class servletRegistrarse extends HttpServlet {
                         dtProponente nuevoProp = new dtProponente(nombre, apellido, nick, "notiene", correo, dtf, direccion, biografia, web, pass1);
                         contU.agregarUsu(nuevoProp);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
+                        dtUsuario dtu = contU.usuarioLogin(nick);
+                        session.setAttribute("nickusuario", dtu.getNickname());
+                        session.setAttribute("rol", dtu.getRol());
 
                     }
                     if (tipo.equals("Colaborador")) {
                         dtColaborador nuevoColaborador = new dtColaborador(nombre, apellido, nick, "no tiene", correo, dtf, pass1);
                         contU.agregarUsu(nuevoColaborador);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
+                        dtUsuario dtu = contU.usuarioLogin(nick);
+                        session.setAttribute("nickusuario", dtu.getNickname());
+                        session.setAttribute("rol", dtu.getRol());
                     }
                 }else{ out.print("noOkPass");}
                

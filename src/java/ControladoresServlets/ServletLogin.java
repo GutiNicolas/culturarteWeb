@@ -47,7 +47,8 @@ public class ServletLogin extends HttpServlet {
                     if (dtu.getPass().equals(password)) {
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
-                           response.sendRedirect("index.jsp");
+                       //    response.sendRedirect("index.jsp");
+                           request.getRequestDispatcher("index.jsp").forward(request, response);
                        // request.getRequestDispatcher("index.jsp").forward(request, response);
                         /*        if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
                         session.setAttribute("nickusuario", dtu.getNickname());
@@ -62,14 +63,17 @@ public class ServletLogin extends HttpServlet {
                         response.sendRedirect("index.jsp");                    
                     }  */
                     } else {//contrasenia erronea  
-                        response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
+                     //   response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
+                        request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=pm").forward(request, response);
                     }
 
                 } else {  //no existe el usuario
-                    response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
+                   // response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
+                    request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=nu").forward(request, response);
                 }
             } else {
-                response.sendRedirect("PRESENTACIONES/login.jsp");
+               // response.sendRedirect("PRESENTACIONES/login.jsp");
+                request.getRequestDispatcher("PRESENTACIONES/login.jsp").forward(request, response);
             }
         }else{
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);

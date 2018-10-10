@@ -59,6 +59,7 @@ public class ServletColaboracion extends HttpServlet {
                                 request.setAttribute("colaboradores", colaboradores);
                                 
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
+                                    if(dtp.getEstado().equals("Publicada") || dtp.getEstado().equals("En financiacion")){
                                     cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), cu.armarretorno(cbe, cbp), null);
                                     dtp = cu.infoPropuesta(propuesta);
                                     colaboradores = dtp.detColaboradores();
@@ -67,6 +68,11 @@ public class ServletColaboracion extends HttpServlet {
                                     
                                     request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
                                             forward(request, response);
+                                    }
+                                    else{
+                                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ne").
+                                            forward(request, response);
+                                    }
                                 } else {
                                     request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ya").
                                             forward(request, response);

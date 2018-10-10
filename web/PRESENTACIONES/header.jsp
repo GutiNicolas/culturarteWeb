@@ -48,7 +48,7 @@
                         <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/ServletLogin">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #f2d5a9;" href="PRESENTACIONES/login.jsp">Registrarse</a>
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/servletRegistrarse">Registrarse</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

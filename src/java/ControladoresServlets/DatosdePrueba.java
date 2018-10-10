@@ -48,13 +48,14 @@ public class DatosdePrueba extends HttpServlet {
             contCarga.limpiarCargar();
 
             fabrica.borrartodo();
-        
-            contUsuario.cargarUsuarios();
-            contPropuesta.cargarPropuestas();
-            contColaboracion.cargarColaboracion();
+            fabrica.cargarinicio();
+            
             HttpSession session = request.getSession();
             if(session.getAttribute("rol")!=null){     
             request.getRequestDispatcher("/logout?ddp=yes").forward(request, response);}
+            else{
+                request.getRequestDispatcher("index.jsp?ddp=yes").forward(request, response);
+            }
         }
     }
 
