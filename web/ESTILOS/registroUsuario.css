@@ -18,3 +18,23 @@ and open the template in the editor.
     display: inline-block;
     font-size: 16px;
 }
+
+.formx
+{
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #fff;
+    border: 1px solid threedshadow;
+    border-radius: 10px 10px 10px 10px;
+    margin: 4em auto;
+    width: 500px;
+    padding: 3em;
+    position: relative;
+}
+
+.landing-text {
+    
+    text-align: center;
+    vertical-align: middle; 
+    color: #fff;
+}
