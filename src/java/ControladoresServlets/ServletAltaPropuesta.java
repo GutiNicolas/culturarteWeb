@@ -9,6 +9,7 @@ import Logica.ContPropuesta;
 import Logica.ContUsuario;
 import Logica.dtFecha;
 import Logica.dtPropuesta;
+import Logica.utilidades;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -139,12 +140,13 @@ private boolean isUtilizable(String fecha){
         String costoentrada= request.getParameter("costoentrada");
         String fecharealizacion= request.getParameter("fecharealizacion");
         String categoria= request.getParameter("categoria");
+        utilidades utils= utilidades.getInstance();
         boolean dardealta=true,seguircontrolando=true;
         ContUsuario cu=ContUsuario.getInstance();
         ContPropuesta cp=ContPropuesta.getInstance();
         Collection propuestasexistentes=cu.listartodaslaspropuestas("");
         HttpSession session=request.getSession();
-        out.println("<p>");
+        //out.println("<p>");
         
         if(titulo.isEmpty() && seguircontrolando==true){
             out.println("El titulo no puede ser vacio");
@@ -205,25 +207,25 @@ private boolean isUtilizable(String fecha){
         }
         
         if(dardealta==true){
-            Calendar cal=Calendar.getInstance();
+ //           Calendar cal=Calendar.getInstance();
             
-            Date da=cal.getTime();
-            da.setYear(2018);
-            dtFecha dtfpublicada=new dtFecha(Integer.toString(da.getDay()),Integer.toString(da.getMonth()),Integer.toString(da.getYear()));
-            String[] fr=fecharealizacion.split("/");
-            String dia=fr[0];
-            String mes=fr[1];
-            String anio=fr[2];
-            dtFecha dtfrealizar=new dtFecha(dia,mes,anio);
+ //           Date da=cal.getTime();
+ //           da.setYear(2018);
+ //           dtFecha dtfpublicada=new dtFecha(Integer.toString(da.getDay()),Integer.toString(da.getMonth()),Integer.toString(da.getYear()));
+ //           String[] fr=fecharealizacion.split("/");
+ //           String dia=fr[0];
+ //           String mes=fr[1];
+ //           String anio=fr[2];
+ //           dtFecha dtfrealizar=new dtFecha(dia,mes,anio);
             
                                                             //LA IMAGEN
-            dtPropuesta dtp=new dtPropuesta(titulo,descripcion,"",lugar,"Ingresada",categoria,(String)session.getAttribute("nickusuario"),dtfrealizar,dtfpublicada,Integer.parseInt(costoentrada),Integer.parseInt(montorequerido),0,retorno);
+            dtPropuesta dtp=new dtPropuesta(titulo,descripcion,"",lugar,"Ingresada",categoria,(String)session.getAttribute("nickusuario"),utils.construirFecha(fecharealizacion),utils.getFecha(),Integer.parseInt(costoentrada),Integer.parseInt(montorequerido),0,retorno);
             cp.datosPropuesta(dtp);
             
             out.println("Propuesta registrada con exito");
         }
         
-        out.println("</p>");
+       // out.println("</p>");
     }
 
     /**

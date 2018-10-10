@@ -48,6 +48,12 @@
                             <a class="dropdown-item" href="/culturarteWeb/CancelarPropuesta">Cancelar Propuesta</a> 
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/AltaPropuesta">Tengo una Propuesta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/ConsultadePropuesta">Quiero ver Propuestas</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">

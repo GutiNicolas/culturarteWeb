@@ -64,6 +64,7 @@
                         categoria: categoria},
                         success: function(result3){
                             $('#letajaxdoit').html(result3);
+                            
                             document.getElementById("descripcion").value = null;
                             document.getElementById("titulo").value = null;
                             document.getElementById("lugar").value = null;
@@ -71,8 +72,8 @@
                             document.getElementById("cben").checked=false;
                             document.getElementById("montorequerido").value = null;
                             document.getElementById("costoentrada").value = null;
-                            document.getElementById("fecharealizacion").value = null;
-                        }
+                            document.getElementById("fecharealizacion").value = null;}
+                        
                     });  
                 });
                 
