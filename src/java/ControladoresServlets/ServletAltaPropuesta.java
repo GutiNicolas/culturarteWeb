@@ -40,6 +40,7 @@ public class ServletAltaPropuesta extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     //    try (PrintWriter out = response.getWriter()) {
             ContPropuesta cp= ContPropuesta.getInstance();
+            cp.propAutomaticas();
             /* TODO output your page here. You may use following sample code. */
             String titulo= request.getParameter("titulo");
             HttpSession session = request.getSession();

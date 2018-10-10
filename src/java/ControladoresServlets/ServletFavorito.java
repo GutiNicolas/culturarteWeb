@@ -82,7 +82,8 @@ public class ServletFavorito extends HttpServlet {
         
         PrintWriter out= response.getWriter();
         String titulo= request.getParameter("titulo");
-        ContUsuario cu=ContUsuario.getInstance();       
+        ContUsuario cu=ContUsuario.getInstance(); 
+        ContPropuesta cp = ContPropuesta.getInstance();
         HttpSession session=request.getSession();
         Collection propuestas=cu.listarmispropsfavs((String) session.getAttribute("nickusuario"));
         out.println("<p>");

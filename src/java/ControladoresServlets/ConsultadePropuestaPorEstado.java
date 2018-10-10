@@ -40,6 +40,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
             String cat = request.getParameter("selle");
             ContUsuario cu=ContUsuario.getInstance();
             ContPropuesta cp=ContPropuesta.getInstance();
+            cp.propAutomaticas();
             if(cat==null){
                 Collection<String> categorias= cp.listarCategorias("");
                 request.setAttribute("categorias", categorias);
@@ -50,7 +51,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
                 request.setAttribute("categorias", categorias);
             try {
                 Collection<dtPropuesta> propuestas= cu.listarpropuestasencategoria(cat);
-                request.setAttribute("propuestas", propuestas);
+               request.setAttribute("propuestas", propuestas);
             } catch (Exception ex) {
                 Logger.getLogger(ConsultadePropuestaPorEstado.class.getName()).log(Level.SEVERE, null, ex);
             }

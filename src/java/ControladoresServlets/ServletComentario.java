@@ -5,22 +5,21 @@
  */
 package ControladoresServlets;
 
-import Logica.ContUsuario;
-import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nicolasgutierrez
+ * @author juan
+ * 
  */
-public class ServletLogin extends HttpServlet {
+@WebServlet(name = "ServletComentario", urlPatterns = {"/ServletComentario"})
+public class ServletComentario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,44 +35,15 @@ public class ServletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            ContUsuario cU = ContUsuario.getInstance();
-            String usuario = request.getParameter("nick");
-            String password = request.getParameter("pass");
-            if(session.getAttribute("rol")==null){ 
-            if (usuario != null) {
-                dtUsuario dtu = cU.usuarioLogin(usuario);
-                if (dtu != null) {
-                    if (dtu.getPass().equals(password)) {
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        session.setAttribute("rol", dtu.getRol());
-                           response.sendRedirect("index.jsp");
-                       // request.getRequestDispatcher("index.jsp").forward(request, response);
-                        /*        if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        String col="Colaborador";
-                        session.setAttribute("rol", col);
-                        response.sendRedirect("index.jsp");
-                    }
-                    if(dtu instanceof dtProponente){
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        String prop="Proponente";
-                        session.setAttribute("rol", prop);
-                        response.sendRedirect("index.jsp");                    
-                    }  */
-                    } else {//contrasenia erronea  
-                        response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
-                    }
-
-                } else {  //no existe el usuario
-                    response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
-                }
-            } else {
-                response.sendRedirect("PRESENTACIONES/login.jsp");
-            }
-        }else{
-                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-                }
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletComentario</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletComentario at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -103,7 +73,7 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       // processRequest(request, response);
     }
 
     /**

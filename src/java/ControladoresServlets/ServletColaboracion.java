@@ -5,6 +5,7 @@
  */
 package ControladoresServlets;
 
+import Logica.ContPropuesta;
 import Logica.ContUsuario;
 import Logica.dtPropuesta;
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class ServletColaboracion extends HttpServlet {
             String especial = request.getParameter("especial");
             String monto = request.getParameter("monto");
             ContUsuario cu = ContUsuario.getInstance();
+            ContPropuesta cp = ContPropuesta.getInstance();
+            cp.propAutomaticas();
             HttpSession session = request.getSession();
             if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
                 if (especial != null && especial.equals("si")) {
