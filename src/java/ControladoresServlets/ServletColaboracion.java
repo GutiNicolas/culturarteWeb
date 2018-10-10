@@ -60,6 +60,9 @@ public class ServletColaboracion extends HttpServlet {
                                 
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
                                     if(dtp.getEstado().equals("Publicada") || dtp.getEstado().equals("En financiacion")){
+                                        if(dtp.getEstado().equals("Publicada")){
+                                            cp.agregarestadoapropWEB("En financiacion", dtp.getTitulo());
+                                        }
                                     cu.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), cu.armarretorno(cbe, cbp), null);
                                     dtp = cu.infoPropuesta(propuesta);
                                     colaboradores = dtp.detColaboradores();
