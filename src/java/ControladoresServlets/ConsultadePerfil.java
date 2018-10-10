@@ -71,7 +71,7 @@ public class ConsultadePerfil extends HttpServlet {
                 } else {
 
                     dtUsuario dtu = cu.infoUsuarioGeneral(nick);
-                    Collection<String> misseguidores = cu.listarmisseguidores(nick);
+                    Collection<dtUsuario> misseguidores = cu.listarmisseguidores(nick);
                     Collection<dtSigoA> misseguidos = cu.listarmisseguidos(nick);
                     Collection<String> favoritas = cu.mispropuestasfavoritas(nick);
                     if (dtu instanceof dtColaborador) {

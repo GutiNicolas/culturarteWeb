@@ -32,7 +32,7 @@
     </head>
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
         <%  dtUsuario dtu= (dtUsuario) request.getAttribute("usuario"); 
-            Collection<String> misseguidores=(Collection<String>) request.getAttribute("misseguidores");
+            Collection<dtUsuario> misseguidores=(Collection<dtUsuario>) request.getAttribute("misseguidores");
             Collection<dtSigoA> misseguidos=(Collection<dtSigoA>) request.getAttribute("misseguidos");
             Collection<String> favoritas=(Collection<String>) request.getAttribute("favoritas");          
         %>
@@ -89,10 +89,10 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <h4>Mis Seguidores</h4>
                     <%
-                	    for(String seguidor: misseguidores){
+                	    for(dtUsuario seguidor: misseguidores){
                     %> 
-                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidor%>">
-                        <%= seguidor %>
+                    <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidor.getNickname()%>">
+                        <%= seguidor.getNombre()%> <%=seguidor.getApellido()%> (@<%=seguidor.getNickname()%>)
                     </a> 
                     <br>
                     <% } %>  
@@ -103,7 +103,7 @@
                 	    for(dtSigoA seguidos: misseguidos){
                     %> 
                     <a href="/culturarteWeb/ConsultadePerfil?nickname=<%=seguidos.getNickusuario()%>">
-                        <%= seguidos.getNickusuario() %> : <%= seguidos.getRol() %>
+                        <%=seguidos.getNombrecompleto()%> (@<%= seguidos.getNickusuario() %> : <%= seguidos.getRol() %>)
                     </a> 
                     <br>
                     <% } %>     
