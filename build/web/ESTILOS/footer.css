@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+
+1b1c1b
+
+141614
+*/
+/* 
+    Created on : Sep 11, 2018, 5:40:34 PM
+    Author     : nicolasgutierrez
+*/
+
+footer {
+    height: 160px;
+    margin-top: 10px;
+    width: 100%;
+    background-color: #141614; 
+    padding: 3% 3% 2% 3%;
+    color: #141614; 
+    clear: both;
+}
+
+.icon {
+    max-width: 100px;
+}
+
+.icon:hover {
+    max-width: 103px;
+}
+
+footer h3 {
+    font-size: 150%;
+    color: #fff;
+}
+
+footer h4 {
+    font-size: 50%;
+    color: #fff;
+}
+
+footer a {
+    font-size: 100%;
+    color: #fff;    
+}
+
+footer a:hover {
+    color: #1b1c1b;
+}
+
+@media (max-width: 768px) {
+    .landing-text h1 {
+        font-size: 300%;
+    }
+    .icon {
+        padding-top: 5%;
+        max-width: 100px;
+    }
+}

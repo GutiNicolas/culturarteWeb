@@ -1,0 +1,232 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 3, 2018, 7:38:31 PM
+    Author     : nicolasgutierrez
+*/
+html { 
+  background: url(../IMAGENESDISENIO/error.gif) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+
+.bke {
+    background-color: rgba(000, 000, 000, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bkelanding {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle; 
+    color: #fff;
+}
+
+.pure{
+
+  height:90px;
+  position:absolute;
+  margin-left:-200px;
+  left: 50%;
+  top: 45%;
+  overflow: hidden;
+   font-family:'Electrolize'; font-size:80px; color:#ffffff;
+   border-right:2px solid #7CDD26;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: spin1;
+  -moz-animation-delay: 1s;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: both;
+  -moz-animation-name: spin1;
+  -ms-animation-delay: 1s;
+  -ms-animation-duration: 1s;
+  -ms-animation-fill-mode: both;
+  -ms-animation-name: spin1;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: spin1;
+}
+.link{
+
+  height:40px;
+  position:absolute;
+  margin-top:70px;
+  margin-left:-200px;
+  left: 36%;
+  top: 46%;
+  overflow: hidden;
+   font-family:'Electrolize'; font-size:30px; color:#7CDD26;
+   border-right:2px solid #7CDD26;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: spin2;
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: both;
+  -moz-animation-name: spin2;
+  -ms-animation-delay: 2s;
+  -ms-animation-duration: 1s;
+  -ms-animation-fill-mode: both;
+  -ms-animation-name: spin2;
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: spin2;
+}
+.contener
+{
+  padding-top:400px;
+}
+@-webkit-keyframes spin 
+{0% {height:0px;}100% {height:40%;}}
+@-webkit-keyframes spin1 
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:400px;border-right:2px solid #7CDD26;}
+  100% {width:400px;border-right:0px;}}
+@-webkit-keyframes spin2
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:800px;border-right:2px solid #7CDD26;}
+  100% {width:800px;border-right:0px;}}
+@-moz-keyframes spin 
+{0% {height:0px;}100% {height:40%;}}
+@-moz-keyframes spin1 
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:400px;border-right:2px solid #7CDD26;}
+  100% {width:400px;border-right:0px;}}
+@-moz-keyframes spin2
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:800px;border-right:2px solid #7CDD26;}
+  100% {width:800px;border-right:0px;}}
+@-ms-keyframes spin 
+{0% {height:0px;}100% {height:40%;}}
+@-ms-keyframes spin1 
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:400px;border-right:2px solid #7CDD26;}
+  100% {width:400px;border-right:0px;}}
+@-ms-keyframes spin2
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:800px;border-right:2px solid #7CDD26;}
+  100% {width:800px;border-right:0px;}}
+@keyframes spin 
+{0% {height:0px;}100% {height:40%;}}
+@keyframes spin1 
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:400px;border-right:2px solid #7CDD26;}
+  100% {width:400px;border-right:0px;}}
+@keyframes spin2
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:800px;border-right:2px solid #7CDD26;}
+  100% {width:800px;border-right:0px;}}
+  
+  @-webkit-keyframes spin3
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:300px;border-right:2px solid #7CDD26;}
+  100% {width:300px;border-right:0px;}}
+@-moz-keyframes spin3
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:300px;border-right:2px solid #7CDD26;}
+  100% {width:300px;border-right:0px;}}
+@-ms-keyframes spin3
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:300px;border-right:2px solid #7CDD26;}
+  100% {width:300px;border-right:0px;}}
+@keyframes spin3
+{0% {width:0px;border-right:0px;}
+  1% {width:0px;border-right:2px solid #7CDD26;}
+  99% {width:300px;border-right:2px solid #7CDD26;}
+  100% {width:300px;border-right:0px;}}
+  
+  .btnanim{
+    height:40px;
+  position:absolute;
+  margin-top:70px;
+  margin-left:-200px;
+  left: 53%;
+  top: 51%;
+  overflow: hidden;
+  font-family:'Electrolize'; font-size:20px; color:#ffffff;
+   border-right:2px solid #7CDD26;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: spin3;
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: both;
+  -moz-animation-name: spin3;
+  -ms-animation-delay: 2s;
+  -ms-animation-duration: 1s;
+  -ms-animation-fill-mode: both;
+  -ms-animation-name: spin3;
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: spin3;    
+  }
+  
+  btnanim:hover {
+    color:#ffffff;    
+  }
+  
+  btnanim:link {
+    font-family:'Electrolize'; font-size:20px; color:#ffffff;    
+  }
+  
+  btnanim:visited {
+    font-family:'Electrolize'; font-size:20px; color:#ffffff;
+  }
+  
+  btnanim:active {
+    font-family:'Electrolize'; font-size:20px; color:#ffffff;
+  }
+  
+   a:hover {
+    color:#7CDD26;    
+  }
+  
+  a:link {
+    font-family:'Electrolize'; font-size:20px; color:#ffffff;    
+  }
+  
+ .top{
+  width:41%;
+  height:41%;
+  position:absolute;
+  margin-left:-100px;
+  left: 48%;
+  bottom: 54%;
+  overflow: hidden;
+  -webkit-animation:spin 0.8s linear;
+  -webkit-animation-fill-mode: both;
+  -moz-animation:spin 0.8s linear;
+  -moz-animation-fill-mode: both;
+  -ms-animation:spin 0.8s linear;
+  -ms-animation-fill-mode: both;
+  animation:spin 0.8s linear;
+  animation-fill-mode: both;
+}
