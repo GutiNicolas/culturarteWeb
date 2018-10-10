@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/web/PRESENTACIONES/consultadepropuestaporestado.jsp</file>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/src/java/ControladoresServlets/ConsultadePropuestaPorEstado.java</file>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/web/PRESENTACIONES/informacionpropuesta.jsp</file>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/src/java/ControladoresServlets/ServletSeguir.java</file>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/web/ESTILOS/listarestilos.css</file>
-            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/src/java/ControladoresServlets/ServletLogin.java</file>
+            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/src/java/ControladoresServlets/DatosdePrueba.java</file>
+            <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/src/java/ControladoresServlets/DejarDeSeguir.java</file>
         </group>
     </open-files>
 </project-private>

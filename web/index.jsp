@@ -210,7 +210,7 @@
                             <br>
                             <h1>CULTURARTE</h1>
                             <h3>Promueve ideas asombrosas</h3>
-                            <a href="#" class="btn btn-default btn-light"> Comenzar</a>
+                            <a href="/culturarteWeb/ServletLogin" class="btn btn-default btn-light">Comenzar</a>
                         </div>
                     </div>
                 </div>
