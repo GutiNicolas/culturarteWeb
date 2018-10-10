@@ -12,7 +12,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Log In | Culturarte</title>
         <script src="../SCRIPTS/jquery-3.3.1.min.js" ></script>
-        <link rel="stylesheet" type="text/css" href="../ESTILOS/login.css" />
+        
+            <%
+        if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
+    %> <%@include file="../PRESENTACIONES/menucolaboradorgeneral.jsp"%> <%
+    } else if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Proponente")) {
+    %> <%@include file="../PRESENTACIONES/menuproponentegeneral.jsp"%> <%
+    } else {
+    %> <%@include file="../PRESENTACIONES/headergeneral.jsp"%> <%
+        }
+    %>
+        
         <% 
             String error;
             if(request.getParameter("error") != null){
@@ -21,7 +31,7 @@
             else
                 error="";
         %>       
-        
+        <link rel="stylesheet" type="text/css" href="ESTILOS/login.css" />
     </head>
     
     <%
@@ -44,7 +54,7 @@
                    <br><br><br><br><br>
                    <h3>Bienvenido de nuevo</h3>
                </div>
-               <form id="login_form" action="../ServletLogin" method="post" onsubmit="return verificar()">
+               <form class="formx" id="login_form" action="/culturarteWeb/ServletLogin" method="post" onsubmit="return verificar()">
                    
                     <label for="name" >Nickname:</label>
                     <input type="text" id="nick" name="nick"/>
@@ -58,7 +68,7 @@
                     <br/>
                     <input type="submit" value="Enviar"/>  
                     <br>
-                    <p>No tienes una cuenta? <a href="../servletRegistrarse" style="color: #1b1c1b ">Registrate</a></p>                   
+                    <p>No tienes una cuenta? <a href="/culturarteWeb/servletRegistrarse" style="color: #1b1c1b ">Registrate</a></p>                   
                </form>
                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
            </div>
