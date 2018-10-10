@@ -25,6 +25,7 @@
     %>
 
     <script src="./SCRIPTS/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="ESTILOS/registroUsuario.css" media="screen" >
     <script type="text/javascript" src="./SCRIPTS/usuariosRegistrar.js"></script>
     <script type="text/javascript" >
             function registro() {
@@ -41,13 +42,17 @@
     </script>
 
 </head>
-<link rel="stylesheet" type="text/css" href="../ESTILOS/registroUsuario.css" media="screen" >
-<body style="background: url(../IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-<link rel="stylesheet" type="text/css" href="../ESTILOS/registroUsuario.css" media="screen" >
+
+<body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
 
 
-    <div class="container-fluid">
-        <form class="form-group">
+
+    <div class="container">
+                       <div class="landing-text">
+                   <br><br>
+                   <h3>Registro</h3>
+               </div>
+        <form class="formx">
             <div class="form-group" >  
 
                 <label class="control-label col-sm-2" for="nickname">Nickname:</label>
@@ -72,7 +77,7 @@
 
                 <label class="control-label col-sm-2" for="fechaNac">Fecha de nacimiento:</label>
                 <div class="col-sm-10"> 
-                    <input type="date" class="form-group" id="fechaNac" max="2000-01-01" min="1930-01-01" placeholder="Ingrese su Fecha de nacimiento"  required>
+                    <input type="date" class="form-group" id="fechaNac" max="2000-01-01" min="1930-01-01" placeholder="Ingrese Fecha de Nacimiento"  required>
                 </div>
 
 
