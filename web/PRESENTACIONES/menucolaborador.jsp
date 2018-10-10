@@ -53,6 +53,9 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                             <a class="dropdown-item" href="/culturarteWeb/ServletColaboracion">Colaborar</a>                          
                         </div>
+                    </li>               
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/ConsultadePropuesta">Quiero ver Propuestas</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">

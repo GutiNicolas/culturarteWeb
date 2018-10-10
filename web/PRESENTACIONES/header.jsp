@@ -38,6 +38,9 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePropuesta">Consulta de Propuesta</a>
                             <a class="dropdown-item" href="/culturarteWeb/ConsultaPorEstado">Consulta de Propuesta por Categoria</a>                           
                         </div>
+                    </li>                   
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #f2d5a9;" href="/culturarteWeb/ConsultadePropuesta">Quiero ver Propuestas</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">    
