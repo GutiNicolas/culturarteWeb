@@ -43,7 +43,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/AgregarFavorita">Propuesta como favorita</a> 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Comentar propuesta</a> 
+                            <a class="dropdown-item" href="/culturarteWeb/Comentar">Comentar propuesta</a> 
                         </div>
                     </li>
                     <li class="nav-item dropdown ">

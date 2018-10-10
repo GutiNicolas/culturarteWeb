@@ -118,7 +118,7 @@
                     <%
                         if(session.getAttribute("nickusuario") != null && colaboradores.contains(session.getAttribute("nickusuario"))){
                     %>
-                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/ConsultadePerfil?nickname=">
+                    <a class="btn btn-outline-primary btn-lg" href="/culturarteWeb/Comentar">
                         Comentar
                     </a> 
                     

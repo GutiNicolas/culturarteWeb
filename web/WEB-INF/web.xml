@@ -52,6 +52,10 @@
         <servlet-name>ServletComentario</servlet-name>
         <servlet-class>ControladoresServlets.ServletComentario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Comentar</servlet-name>
+        <servlet-class>ControladoresServlets.Comentar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConsultadePropuesta</servlet-name>
         <url-pattern>/ConsultadePropuesta</url-pattern>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>ServletComentario</servlet-name>
         <url-pattern>/ServletComentario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Comentar</servlet-name>
+        <url-pattern>/Comentar</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ServletdeArranque</welcome-file>
