@@ -128,7 +128,7 @@
                             for(String props: propuestas){                       
                         %>
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=props%>">
-                                <%= props %>
+                               props
                             </a>
                             <br>
                         <%} }%>
@@ -138,7 +138,7 @@
                             for(String propsi: ingresadas){                       
                         %>
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=propsi%>">
-                                <%= propsi %>
+                                propsi
                             </a>
                             <br>
                         <%} }%>  
@@ -165,7 +165,7 @@
                         %>
                             <label class="rotulo">Titulo:</label>
                             <a href="/culturarteWeb/ConsultadePropuesta?titulo=<%=dtc.getTitulo()%>">
-                                <%=dtc.getTitulo() %>
+                                <%=dtc.getTitulo()%>
                             </a>
                             <br>
                             <label class="rotulo">Monto:</label>

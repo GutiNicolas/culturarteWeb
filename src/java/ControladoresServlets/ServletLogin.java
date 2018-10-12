@@ -45,8 +45,8 @@ public class ServletLogin extends HttpServlet {
                 dtUsuario dtu = cU.usuarioLogin(usuario);
                 if (dtu != null) {
                     if (dtu.getPass().equals(password)) {
-                        session.setAttribute("nickusuario", dtu.getNickname());
-                        session.setAttribute("rol", dtu.getRol());
+                        session.setAttribute("nickusuario", dtu.getNickname()); //dtu.getNickname()
+                        session.setAttribute("rol", dtu.getRol());  //dtu.getRol()
                        //    response.sendRedirect("index.jsp");
                            request.getRequestDispatcher("index.jsp").forward(request, response);
                        // request.getRequestDispatcher("index.jsp").forward(request, response);
