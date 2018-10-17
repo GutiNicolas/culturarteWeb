@@ -36,7 +36,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            String titulo= request.getParameter("titulo");
+        String titulo= request.getParameter("titulo");
             String cat = request.getParameter("selle");
             ContUsuario cu=ContUsuario.getInstance();
             ContPropuesta cp=ContPropuesta.getInstance();
@@ -71,7 +71,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
              
                 request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
 					forward(request, response);                
-            }
+            }    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,6 +87,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+       
     }
 
     /**

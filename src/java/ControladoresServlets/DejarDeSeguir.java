@@ -35,18 +35,7 @@ public class DejarDeSeguir extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            HttpSession session = request.getSession();
-            if(session.getAttribute("rol")!=null){              
-                String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-                ContUsuario cu=ContUsuario.getInstance();
-                if(nickadejardeseguir==null){
-                    Collection usuarios=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
-                }
-            }else{
-                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-            }        
+                 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +50,19 @@ public class DejarDeSeguir extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       // processRequest(request, response);
+        HttpSession session = request.getSession();
+            if(session.getAttribute("rol")!=null){              
+                String nickadejardeseguir= request.getParameter("nickadejardeseguir");
+                ContUsuario cu=ContUsuario.getInstance();
+                if(nickadejardeseguir==null){
+                    Collection usuarios=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
+                    request.setAttribute("usuarios", usuarios);
+                    request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
+                }
+            }else{
+                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
+            }  
     }
 
     /**
