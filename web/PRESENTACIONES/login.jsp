@@ -74,6 +74,30 @@
            </div>
        </div> 
          
+    
+    <script type="text/javascript">
+        function verificar()
+{
+        var correct = true;
+
+        var name = $('#nick').val();
+        if(name == ''){ 
+                $('#error_nick').show();
+                correct = false;
+        } else 
+                $('#error_name').hide();
+
+        var pass = $('#pass').val();
+        if(pass == '') {
+                $('#error_pass').show();
+                correct = false;
+        } else
+                $('#error_pass').hide();
+
+              // alert("contrasenia no valida");
+        return correct;
+}
+    </script>
         <script type="text/javascript" src="../SCRIPTS/verificarlogin.js"></script>
         <script type="text/javascript" src="../SCRIPTS/ver.js"></script>
     </body>
