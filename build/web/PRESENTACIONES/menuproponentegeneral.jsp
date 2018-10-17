@@ -29,6 +29,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>
+                            <a class="dropdown-item" href="/culturarteWeb/Ranking">Ranking de Usuarios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/ServletSeguir">Seguir usuario</a>  
                             <a class="dropdown-item" href="/culturarteWeb/DejarDeSeguir">Dejar de seguir usuario</a>  
