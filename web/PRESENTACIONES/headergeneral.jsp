@@ -27,7 +27,8 @@
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a>                           
+                            <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil">Consulta de Perfil</a> 
+                            <a class="dropdown-item" href="/culturarteWeb/Ranking">Ranking de Usuarios</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown ">
