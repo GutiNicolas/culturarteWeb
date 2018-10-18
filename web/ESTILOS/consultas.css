@@ -90,12 +90,12 @@ body{
 {
     display: block;
     float: left;
-    width: 140px;
-    font-size: 12px;
+    width: 200px;
+    font-size: 20px;
     color:#808080;
 }
 
 .valor
 {
-    font-size: 12px;
+    font-size: 20px;
 }

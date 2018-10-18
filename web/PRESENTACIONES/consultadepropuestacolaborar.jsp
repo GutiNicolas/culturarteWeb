@@ -31,6 +31,7 @@
         <div id="listar" class="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
     <% 
     Collection<String> propuestas= (Collection<String>) request.getAttribute("propuestas");
+        if(propuestas.isEmpty()==false){
 	for(String prop: propuestas){
         %> 
             <div class="propuesta">
@@ -41,7 +42,11 @@
                 </div>
             </div>
         
-        <% } %>
+        <% }
+        }else{%>
+        <br><br><br>
+        <h4 style="text-align: center">No hay propuestas disponibles para comentar</h4>
+        <%}%>
         </div>
          </div>
         </div>

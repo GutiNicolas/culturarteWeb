@@ -59,24 +59,28 @@
 			</div>
 
 			<div class="contenedor">
+                            <br>
 				<h2>Aun mas</h2>
 				<label class="rotulo">Precio de entrada:</label>
 				<label class="valor">
 						<%= dtp.getPrecioentrada() %>
 				</label>
-                                <br/>
+                                <br>
                                 <label class="rotulo">Categoria:</label>
 				<label class="valor"><%= dtp.getCategoria() %></label>
-				<br/>
+				<br>
                                 <label class="rotulo">Proponente:</label>
 				<label class="valor"><%= dtp.getProponente() %></label>
-				<br/>
+				<br>
                                 <label class="rotulo">Monto requerido:</label>
 				<label class="valor"><%= dtp.getMontorequerido() %></label>
-				<br/>
+				<br>
                                 <label class="rotulo">Monto actual:</label>
 				<label class="valor"><%= dtp.getMontoTotal() %></label>
 				<br/>
+                                <label class="rotulo">Propuesta por:</label>
+                                <label class="valor"><a style="color: #000" href="/culturarteWeb/ConsultadePerfil?nickname=<%=dtp.getProponente()%>"><%=dtp.getProponente()%></a></label>
+                                <br>
 			</div>
                         <div class="contenedor">
                              <h4>Colaboradores:</h4> 

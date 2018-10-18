@@ -34,7 +34,8 @@
         <%  dtUsuario dtu= (dtUsuario) request.getAttribute("usuario"); 
             Collection<dtUsuario> misseguidores=(Collection<dtUsuario>) request.getAttribute("misseguidores");
             Collection<dtSigoA> misseguidos=(Collection<dtSigoA>) request.getAttribute("misseguidos");
-            Collection<String> favoritas=(Collection<String>) request.getAttribute("favoritas");          
+            Collection<String> favoritas=(Collection<String>) request.getAttribute("favoritas");  
+            
         %>
         
         <div id="perfil" class ="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
@@ -44,7 +45,7 @@
 
 		<div id="perfil_derecha">
 			<div class="contenedor">
-				<h2>Información de Perfil</h2>
+                            <h2>Información de Perfil</h2> <% if(session.getAttribute("rol")!= null){%>  <a class="btn btn-outline-primary btn-sm" href="/culturarteWeb/ServletSeguir">Seguir</a> <%}%>
                                 <br><br>
 				<label class="rotulo">Nickname:</label>
 				<label class="valor"><%= dtu.getNickname() %></label>

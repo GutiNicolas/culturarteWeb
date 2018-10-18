@@ -33,19 +33,31 @@
          <div id="main3"> 
         <div id="listar" class="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
             <h3>Ranking de Usuarios</h3>
+            <table class="table">
+                
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Puntos</th>
+    </tr>
+  </thead>
+  <tbody>
     <% 
     Collection<dtUsuario> usuarios= (Collection<dtUsuario>) request.getAttribute("ranking");
+        int i=1;
 	for(dtUsuario dtu: usuarios){
         %> 
-        <div class="propuesta">
-            <div class="derecha">
-                <a class="nombre" href="/culturarteWeb/ConsultadePerfil?nickname=<%=dtu.getNickname()%>">
-                [<%=dtu.getPuntaje()%> Puntos]  <%=dtu.getNombre()%> <%=dtu.getApellido()%> (@<%=dtu.getNickname()%>)
-                </a>
-            </div>
-        </div>
-        
-        <% } %>
+        <tr>
+      <th scope="row"><%=i%></th>
+      <td><%=dtu.getNombre()%> <%=dtu.getApellido()%></td>
+      <td><a style="color: #000" href="/culturarteWeb/ConsultadePerfil?nickname=<%=dtu.getNickname()%>">@<%=dtu.getNickname()%></a></td>
+      <td><%=dtu.getPuntaje()%></td>
+    </tr>      
+        <%i++; } %>
+        </tbody>
+</table>
         <br>            
         </div>
             
