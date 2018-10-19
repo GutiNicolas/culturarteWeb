@@ -52,7 +52,7 @@
            <div class="container">
                <div class="landing-text">
                    <br><br><br><br><br>
-                   <h3>Bienvenido de nuevo</h3>
+                   <h3 style="text-align: center; color: #fff">Bienvenido de nuevo</h3>
                </div>
                <form class="formx" id="login_form" action="/culturarteWeb/ServletLogin" method="post" onsubmit="return verificar()">
                    
