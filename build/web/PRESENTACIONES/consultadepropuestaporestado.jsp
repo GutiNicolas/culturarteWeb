@@ -4,7 +4,8 @@
     Author     : nicolasgutierrez
 --%>
 
-<%@page import="Logica.dtPropuesta"%>
+
+<%@page import="servicios.DtPropuesta"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,7 +57,7 @@
         
        <%
            if(request.getAttribute("propuestas")!=null){
-            Collection<dtPropuesta> propuestas= (Collection<dtPropuesta>) request.getAttribute("propuestas");
+            Collection<DtPropuesta> propuestas= (Collection<DtPropuesta>) request.getAttribute("propuestas");
            
         %>
         
@@ -65,7 +66,7 @@
 		<div class="row">
             
                 <%
-                    for(dtPropuesta prop: propuestas){
+                    for(DtPropuesta prop: propuestas){
                 %>
 
                 <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="min-width: 450px">

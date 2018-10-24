@@ -5,7 +5,7 @@
  */
 package ControladoresServlets;
 
-import Logica.culturarteFabrica;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,8 +33,7 @@ public class ServletdeArranque extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            culturarteFabrica fabrica = culturarteFabrica.getInstance();
-            fabrica.cargarinicio();
+            
             //request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect("index.jsp");
         }

@@ -5,25 +5,63 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
-import Logica.ContUsuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import servicios.DtContieneArray;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class ServletFavorito extends HttpServlet {
+ private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
 
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,10 +77,10 @@ public class ServletFavorito extends HttpServlet {
         String titulo= request.getParameter("titulo");
          HttpSession session = request.getSession();
             if(session.getAttribute("rol")!=null){              
-            ContUsuario cu=ContUsuario.getInstance();
+            
             if(titulo==null){
-               
-                Collection propuestas=cu.listartodaslaspropuestas(""); //(String) session.getAttribute("nickusuario")
+                DtContieneArray colProp= (DtContieneArray)WSCPPort.listarTodasLasPropuestas("");
+                Collection propuestas=(Collection)colProp.getMyArreglo(); //(String) session.getAttribute("nickusuario")
                 request.setAttribute("propuestas", propuestas);
                 request.getRequestDispatcher("PRESENTACIONES/favorito.jsp").forward(request, response);
             }
@@ -82,15 +120,14 @@ public class ServletFavorito extends HttpServlet {
         
         PrintWriter out= response.getWriter();
         String titulo= request.getParameter("titulo");
-        ContUsuario cu=ContUsuario.getInstance(); 
-        ContPropuesta cp = ContPropuesta.getInstance();
         HttpSession session=request.getSession();
-        Collection propuestas=cu.listarmispropsfavs((String) session.getAttribute("nickusuario"));
+        DtContieneArray propFavCol= WSCPPort.listarMisPropuestasFavoritas((String) session.getAttribute("nickusuario"));
+        Collection propuestas=(Collection)propFavCol.getMyArreglo();
         out.println("<p>");
         
         if(propuestas.contains(titulo)==false){
             try {
-                cu.agregarpropuestacomofav((String) session.getAttribute("nickusuario"), titulo);
+                WSCPPort.agregarPropComoFav((String) session.getAttribute("nickusuario"), titulo);
                 out.println("Propuesta "+titulo+" agregada como favorita");
             } catch (Exception ex) {
                 Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,13 +5,13 @@
  */
 package ControladoresServlets;
 
-import Logica.ContUsuario;
-import Logica.dtColaborador;
-import Logica.dtFecha;
-import Logica.dtProponente;
-import Logica.dtUsuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -21,6 +21,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import servicios.DtColaborador;
+import servicios.DtFecha;
+import servicios.DtProponente;
+import servicios.DtUsuario;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
@@ -29,7 +39,36 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "servletRegistrarse", urlPatterns = {"/servletRegistrarse"})
 public class servletRegistrarse extends HttpServlet {
 
-    ContUsuario contU = ContUsuario.getInstance();
+     private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
+
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,16 +89,7 @@ public class servletRegistrarse extends HttpServlet {
         // request.getRequestDispatcher(url).forward(request, response);  //    request.getRequestDispatcher("PRESENTACIONES/altapropuesta.jsp").forward(request, response);
     }
 
-    /**
-     *
-     * @param conf
-     * @throws ServletException
-     */
-    @Override
-    public void init(ServletConfig conf)
-            throws ServletException {
-        super.init(conf);
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -125,25 +155,25 @@ public class servletRegistrarse extends HttpServlet {
             System.out.println(biografia);
             System.out.println(fechaNac);
             HttpSession session = request.getSession();
-            if (verificaExistencia(nick, correo) == 0) {
+            if (WSCUPort.verificaExistencia(nick, correo) == 0) {
                 if (pass1.equals(pass2)) {
                     String tipo = (String) request.getParameter("tipo");
-                    dtFecha dtf = contU.creadtFecha(fechaNac);
+                    DtFecha dtf = WSCPPort.construirDtFecha(fechaNac);
                     if (tipo.equals("Proponente")) {
 
-                        dtProponente nuevoProp = new dtProponente(nombre, apellido, nick, "notiene", correo, dtf, direccion, biografia, web, pass1);
-                        contU.agregarUsu(nuevoProp);
+                        DtProponente nuevoProp = new DtProponente(nombre, apellido, nick, "notiene", correo, dtf, direccion, biografia, web, pass1);
+                        WSCUPort.agregarUsu(nuevoProp);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
-                        dtUsuario dtu = contU.usuarioLogin(nick);
+                        DtUsuario dtu = WSCUPort.usuarioLoginSN(nick);
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
 
                     }
                     if (tipo.equals("Colaborador")) {
-                        dtColaborador nuevoColaborador = new dtColaborador(nombre, apellido, nick, "no tiene", correo, dtf, pass1);
-                        contU.agregarUsu(nuevoColaborador);
+                        DtColaborador nuevoColaborador = new DtColaborador(nombre, apellido, nick, "no tiene", correo, dtf, pass1);
+                        WSCUPort.agregarUsu(nuevoColaborador);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
-                        dtUsuario dtu = contU.usuarioLogin(nick);
+                        DtUsuario dtu = WSCUPort.usuarioLoginSN(nick);
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
                     }
@@ -164,22 +194,22 @@ public class servletRegistrarse extends HttpServlet {
      * funcion que comprueba existencia de nickname u correo retorna 1 si existe
      * el nickname retorna -1 si existe el correo retorna 0 si no existe ninguno
      */
-    private int verificaExistencia(String nick, String correo) {
-        if (contU.existeUsuario(nick)) {
+   /* private int verificaExistencia(String nick, String correo) {
+        if (WSCPPort.existeUsuario(nick)) {
             return 1;
         }
         if (contU.existeMail(correo)) {
             return -1;
         }
         return 0;
-    }
+    }*/
 
     private String queExiste(String nick, String correo) {
         String existe = null;
-        if (verificaExistencia(nick, correo) == 1) {
+        if (WSCUPort.verificaExistencia(nick, correo) == 1) {
             existe = "usuarioE";//"Ya existe un usuario registrado con el mismo Nickname";
         }
-        if (verificaExistencia(nick, correo) == -1) {
+        if (WSCUPort.verificaExistencia(nick, correo) == -1) {
             existe = "correoE";//"Ya existe un usuario registrado con el mismo correo";
         }
         return existe;

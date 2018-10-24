@@ -5,24 +5,63 @@
  */
 package ControladoresServlets;
 
-import Logica.ContUsuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import servicios.DtContieneArray;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class DejarDeSeguir extends HttpServlet {
+ private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
 
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,9 +93,10 @@ public class DejarDeSeguir extends HttpServlet {
         HttpSession session = request.getSession();
             if(session.getAttribute("rol")!=null){              
                 String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-                ContUsuario cu=ContUsuario.getInstance();
+             
                 if(nickadejardeseguir==null){
-                    Collection usuarios=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
+                    DtContieneArray usuSegCol = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
+                    Collection usuarios=(Collection)usuSegCol.getMyArreglo();
                     request.setAttribute("usuarios", usuarios);
                     request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
                 }
@@ -81,14 +121,15 @@ public class DejarDeSeguir extends HttpServlet {
         
         PrintWriter out= response.getWriter();
         String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-        ContUsuario cu=ContUsuario.getInstance();
+        
         HttpSession session=request.getSession();
-        Collection usuariosseguidos=cu.cargarlosseguidospor((String) session.getAttribute("nickusuario"));
+        DtContieneArray usuColSeg = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
+        Collection usuariosseguidos=(Collection)usuColSeg.getMyArreglo();
         out.println("<p>");
         
         if(usuariosseguidos.contains(nickadejardeseguir)){
             try {
-                cu.dejarDeSeguir((String) session.getAttribute("nickusuario"), nickadejardeseguir);
+                WSCUPort.dejarDeSeguir((String) session.getAttribute("nickusuario"), nickadejardeseguir);
                 out.println("Usuario "+nickadejardeseguir+" dejado de seguir con exito");
             } catch (Exception ex) {
                 Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
