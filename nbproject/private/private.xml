@@ -4,13 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/Users/nicolasgutierrez/Documents/culturarteWeb/web/PRESENTACIONES/consultadeperfil.jsp</file>
 =======
+=======
+>>>>>>> b5954dda830df375bf14731466eb9962a6548706
             <file>file:/home/jp/Programacion/webCosoTest/culturarteWeb/build/generated-sources/jax-ws/servicios/DtFecha.java</file>
             <file>file:/home/jp/Programacion/webCosoTest/culturarteWeb/src/java/ControladoresServlets/Comentar.java</file>
             <file>file:/home/jp/Programacion/webCosoTest/culturarteWeb/build/generated-sources/jax-ws/servicios/DtColProp.java</file>
             <file>file:/home/jp/Programacion/webCosoTest/culturarteWeb/build/generated-sources/jax-ws/servicios/DtHora.java</file>
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> b5954dda830df375bf14731466eb9962a6548706
         </group>
     </open-files>
 </project-private>
