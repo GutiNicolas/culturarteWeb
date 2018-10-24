@@ -4,7 +4,8 @@
     Author     : nicolasgutierrez
 --%>
 
-<%@page import="Logica.dtUsuario"%>
+
+<%@page import="servicios.DtUsuario"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,9 +46,9 @@
   </thead>
   <tbody>
     <% 
-    Collection<dtUsuario> usuarios= (Collection<dtUsuario>) request.getAttribute("ranking");
+    Collection<DtUsuario> usuarios= (Collection<DtUsuario>) request.getAttribute("ranking");
         int i=1;
-	for(dtUsuario dtu: usuarios){
+	for(DtUsuario dtu: usuarios){
         %> 
         <tr>
       <th scope="row"><%=i%></th>

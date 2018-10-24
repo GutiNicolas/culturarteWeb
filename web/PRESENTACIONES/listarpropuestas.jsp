@@ -5,7 +5,8 @@
 --%>
 
 
-<%@page import="Logica.dtPropuesta"%>
+
+<%@page import="servicios.DtPropuesta"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,13 +30,13 @@
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
         <div id="listar" class="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
     <% 
-    Collection<dtPropuesta> propuestas= (Collection<dtPropuesta>) request.getAttribute("propuestas");
-	for(dtPropuesta dtp: propuestas){
+    Collection<DtPropuesta> propuestas= (Collection<DtPropuesta>) request.getAttribute("propuestas");
+	for(DtPropuesta dtp: propuestas){
         %> 
             <div class="propuesta">
                 <div class="derecha">
-                    <a class="nombre" href="?titulo=<%=dtp.getTitulo()%>">
-                        <%= dtp.getTitulo() %>  </a><a>      (Propuesta por: <%=dtp.getProponente()%>)
+                    <a class="nombre" href="?titulo=<%=(String)dtp.getTitulo()%>">
+                        <%=(String)dtp.getTitulo() %>  </a><a>      (Propuesta por: <%=dtp.getProponente()%>)
                     </a>
                 </div>
             </div>

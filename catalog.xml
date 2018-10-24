@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8780/ServicioC?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioC/wsdl/localhost_8780/ServicioC.wsdl"/>
+    <system systemId="http://localhost:8780/ServicioC?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioC/wsdl/localhost_8780/ServicioC.xsd_1.xsd"/>
+    <system systemId="http://localhost:8780/ServicioC?xsd=2" uri="src/conf/xml-resources/web-service-references/ServicioC/wsdl/localhost_8780/ServicioC.xsd_2.xsd"/>
+    <system systemId="http://localhost:8680/ServicioP?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioP/wsdl/localhost_8680/ServicioP.wsdl"/>
+    <system systemId="http://localhost:8680/ServicioP?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioP/wsdl/localhost_8680/ServicioP.xsd_1.xsd"/>
+    <system systemId="http://localhost:8680/ServicioP?xsd=2" uri="src/conf/xml-resources/web-service-references/ServicioP/wsdl/localhost_8680/ServicioP.xsd_2.xsd"/>
+    <system systemId="http://localhost:8580/ServicioU?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioU/wsdl/localhost_8580/ServicioU.wsdl"/>
+    <system systemId="http://localhost:8580/ServicioU?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioU/wsdl/localhost_8580/ServicioU.xsd_1.xsd"/>
+    <system systemId="http://localhost:8580/ServicioU?xsd=2" uri="src/conf/xml-resources/web-service-references/ServicioU/wsdl/localhost_8580/ServicioU.xsd_2.xsd"/>
+</catalog>

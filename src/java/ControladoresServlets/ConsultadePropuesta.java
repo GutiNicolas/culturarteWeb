@@ -5,25 +5,62 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
-import Logica.ContUsuario;
-import Logica.dtPropuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import servicios.DtContieneArray;
+import servicios.DtPropuesta;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class ConsultadePropuesta extends HttpServlet {
+ private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
 
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,19 +93,18 @@ public class ConsultadePropuesta extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String propuesta=request.getParameter("titulo");
-            ContUsuario cu= ContUsuario.getInstance();
-            ContPropuesta cp = ContPropuesta.getInstance();
-            cp.propAutomaticas();
+            WSCPPort.propAutomaticas();
             if(propuesta==null){
-                Collection<String> props= cu.listarpropuestasmenosingresadas("");
+                DtContieneArray propCol = (DtContieneArray)WSCPPort.listarPropMenosIng("");
+                Collection<String> props= (Collection)propCol.getMyArreglo();
                 request.setAttribute("propuestas", props);
                 request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
 					forward(request, response);
             }else{  
                 try {
-                    dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                    DtPropuesta dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
                     request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=dtp.detColaboradores();
+                    Collection<String> colaboradores=(Collection)dtp.detColaboradores();
                     request.setAttribute("colaboradores", colaboradores); 
                 } catch (Exception ex) {
                     Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);

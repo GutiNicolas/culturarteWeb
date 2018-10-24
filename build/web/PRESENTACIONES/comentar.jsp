@@ -4,8 +4,9 @@
     Author     : nicolasgutierrez
 --%>
 
+<%@page import="servicios.DtPropuesta"%>
 <%@page import="java.util.Collection"%>
-<%@page import="Logica.dtPropuesta"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
         
     </head>
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-        <%  dtPropuesta dtp= (dtPropuesta) request.getAttribute("propuesta");
+        <%  DtPropuesta dtp= (DtPropuesta) request.getAttribute("propuesta");
             Collection<String> colaboradores=(Collection<String>) request.getAttribute("colaboradores");
         %>
         

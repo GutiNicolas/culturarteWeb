@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 svn-revision#5f6196f2b90e9460065a4c2f4e30e065b245e51e. --><xs:schema xmlns:tns="http://WebServices/" xmlns:ns1=" " xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WebServices/">
+
+<xs:import namespace=" " schemaLocation="http://localhost:8580/ServicioU?xsd=2"></xs:import>
+
+<xs:element name="Exception" type="tns:Exception"></xs:element>
+
+<xs:complexType name="dtContieneArray">
+<xs:sequence>
+<xs:element name="myArreglo" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+<xs:element name="nombreArray" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="prop" type="tns:dtProponente" minOccurs="0"></xs:element>
+<xs:element name="cola" type="tns:dtColaborador" minOccurs="0"></xs:element>
+<xs:element name="sigoA" type="tns:dtSigoA" minOccurs="0"></xs:element>
+<xs:element name="usu" type="tns:dtUsuario" minOccurs="0"></xs:element>
+<xs:element name="colp" type="tns:dtColProp" minOccurs="0"></xs:element>
+<xs:element name="pago" type="tns:dtPago" minOccurs="0"></xs:element>
+<xs:element name="paypal" type="tns:dtPaypal" minOccurs="0"></xs:element>
+<xs:element name="trans" type="tns:dtTransferencia" minOccurs="0"></xs:element>
+<xs:element name="tarCredito" type="tns:dtTarjetaCredito" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtProponente">
+<xs:complexContent>
+<xs:extension base="tns:dtUsuario">
+<xs:sequence>
+<xs:element name="direccion" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="biografia" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="sitioWeb" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="dtUsuario">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="apellido" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="nickname" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="imagen" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="email" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="pass" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="fechaNac" type="tns:dtFecha" minOccurs="0"></xs:element>
+<xs:element name="puntaje" type="xs:int"></xs:element>
+<xs:element name="rol" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtFecha">
+<xs:sequence>
+<xs:element name="dia" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="mes" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="anio" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtColaborador">
+<xs:complexContent>
+<xs:extension base="tns:dtUsuario">
+<xs:sequence></xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="dtSigoA">
+<xs:sequence>
+<xs:element name="nickUsuario" type="xs:string" minOccurs="0"></xs:element>
+<xs:element ref="ns1:rol" minOccurs="0"></xs:element>
+<xs:element name="nombreCompleto" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtColProp">
+<xs:sequence>
+<xs:element name="fechaCol" type="tns:dtFecha" minOccurs="0"></xs:element>
+<xs:element name="horaCol" type="tns:dtHora" minOccurs="0"></xs:element>
+<xs:element name="montoColaborado" type="xs:int"></xs:element>
+<xs:element name="nickname" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="retorno" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="titulo" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+<xs:attribute name="nick" type="xs:string"></xs:attribute>
+<xs:attribute name="retornoCol" type="xs:string"></xs:attribute>
+<xs:attribute name="montoColaboradoCol" type="xs:int" use="required"></xs:attribute>
+<xs:attribute name="comentario" type="xs:string"></xs:attribute>
+<xs:attribute name="titulop" type="xs:string"></xs:attribute>
+</xs:complexType>
+
+<xs:complexType name="dtHora">
+<xs:sequence>
+<xs:element name="hora" type="xs:int"></xs:element>
+<xs:element name="minuto" type="xs:int"></xs:element>
+<xs:element name="horas" type="xs:int"></xs:element>
+<xs:element name="minutos" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtPago">
+<xs:sequence>
+<xs:element name="titular" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtPaypal">
+<xs:complexContent>
+<xs:extension base="tns:dtPago">
+<xs:sequence></xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="dtTransferencia">
+<xs:complexContent>
+<xs:extension base="tns:dtPago">
+<xs:sequence></xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="dtTarjetaCredito">
+<xs:complexContent>
+<xs:extension base="tns:dtPago">
+<xs:sequence></xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtPropuesta">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="imagen" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="lugar" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="estado" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="categoria" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="proponente" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="retorno" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="fechaRealizacion" type="tns:dtFecha" minOccurs="0"></xs:element>
+<xs:element name="fechaPublicada" type="tns:dtFecha" minOccurs="0"></xs:element>
+<xs:element name="precioentrada" type="xs:int"></xs:element>
+<xs:element name="montorequerido" type="xs:int"></xs:element>
+<xs:element name="montoactual" type="xs:int"></xs:element>
+<xs:element name="colaboradores" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

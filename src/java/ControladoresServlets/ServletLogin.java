@@ -5,23 +5,64 @@
  */
 package ControladoresServlets;
 
-import Logica.ContUsuario;
-import Logica.dtUsuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import servicios.DtContieneArray;
+import servicios.DtUsuario;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class ServletLogin extends HttpServlet {
+ private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
 
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,12 +78,13 @@ public class ServletLogin extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            ContUsuario cU = ContUsuario.getInstance();
+            
             String usuario = request.getParameter("nick");
             String password = request.getParameter("pass");
             if(session.getAttribute("rol")==null){ 
             if (usuario != null) {
-                dtUsuario dtu = cU.usuarioLogin(usuario);
+                
+                DtUsuario dtu = (DtUsuario)WSCUPort.usuarioLoginSN(usuario);
                 if (dtu != null) {
                     if (dtu.getPass().equals(password)) {
                         session.setAttribute("nickusuario", dtu.getNickname()); //dtu.getNickname()

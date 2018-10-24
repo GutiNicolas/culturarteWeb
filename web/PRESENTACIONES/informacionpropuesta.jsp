@@ -4,8 +4,9 @@
     Author     : nicolasgutierrez
 --%>
 
+<%@page import="servicios.DtPropuesta"%>
 <%@page import="java.util.Collection"%>
-<%@page import="Logica.dtPropuesta"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
         %>
     </head>
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-        <%  dtPropuesta dtp= (dtPropuesta) request.getAttribute("propuesta");
+        <%  DtPropuesta dtp= (DtPropuesta) request.getAttribute("propuesta");
             Collection<String> colaboradores=(Collection<String>) request.getAttribute("colaboradores");
         %>
         
@@ -41,20 +42,20 @@
 				<h2>Información de la Propuesta</h2>
                                 <br><br>
 				<label class="rotulo">Titulo:</label>
-				<label class="valor"><%= dtp.getTitulo() %></label>
+				<label class="valor"><%=(String)dtp.getTitulo() %></label>
 				<br/>
                                  <label class="rotulo">Descripcion:</label>
-				<label class="valor"><%= dtp.getDescripcion() %></label>
+				<label class="valor"><%= (String)dtp.getDescripcion() %></label>
 				<br/>
                                  <label class="rotulo">Lugar:</label>
-				<label class="valor"><%= dtp.getLugar() %></label>
+				<label class="valor"><%=(String) dtp.getLugar() %></label>
 				<br/>
                                 <label class="rotulo">Estado:</label>
-				<label class="valor"><%= dtp.getEstado() %></label>
+				<label class="valor"><%= (String)dtp.getEstado() %></label>
 				<br/>                             
 				<label class="rotulo">Fecha de realizacion:</label>
 				<label class="valor">
-					<%= dtp.getFechaRealizacion().getFecha() %>
+					<%= dtp.getFechaRealizacion()%>
 				</label>
 			</div>
 
@@ -63,23 +64,23 @@
 				<h2>Aun mas</h2>
 				<label class="rotulo">Precio de entrada:</label>
 				<label class="valor">
-						<%= dtp.getPrecioentrada() %>
+						<%=(Integer)dtp.getPrecioentrada() %>
 				</label>
                                 <br>
                                 <label class="rotulo">Categoria:</label>
-				<label class="valor"><%= dtp.getCategoria() %></label>
+				<label class="valor"><%= (String)dtp.getCategoria() %></label>
 				<br>
                                 <label class="rotulo">Proponente:</label>
-				<label class="valor"><%= dtp.getProponente() %></label>
+				<label class="valor"><%= (String)dtp.getProponente() %></label>
 				<br>
                                 <label class="rotulo">Monto requerido:</label>
-				<label class="valor"><%= dtp.getMontorequerido() %></label>
+				<label class="valor"><%=(Integer) dtp.getMontorequerido() %></label>
 				<br>
                                 <label class="rotulo">Monto actual:</label>
-				<label class="valor"><%= dtp.getMontoTotal() %></label>
+				<label class="valor"><%= (Integer)dtp.getMontoactual()%></label>
 				<br/>
                                 <label class="rotulo">Propuesta por:</label>
-                                <label class="valor"><a style="color: #000" href="/culturarteWeb/ConsultadePerfil?nickname=<%=dtp.getProponente()%>"><%=dtp.getProponente()%></a></label>
+                                <label class="valor"><a style="color: #000" href="/culturarteWeb/ConsultadePerfil?nickname=<%=(String)dtp.getProponente()%>"><%=(String)dtp.getProponente()%></a></label>
                                 <br>
 			</div>
                         <div class="contenedor">

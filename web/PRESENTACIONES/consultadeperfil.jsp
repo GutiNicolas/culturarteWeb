@@ -4,7 +4,8 @@
     Author     : nicolasgutierrez
 --%>
 
-<%@page import="Logica.dtUsuario"%>
+
+<%@page import="servicios.DtUsuario"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,8 +40,8 @@
                <br>
             
     <% 
-    Collection<dtUsuario> usuarios= (Collection<dtUsuario>) request.getAttribute("usuarios");
-	for(dtUsuario dtu: usuarios){
+    Collection<DtUsuario> usuarios= (Collection<DtUsuario>) request.getAttribute("usuarios");
+	for(DtUsuario dtu: usuarios){
         %> 
         <div class="propuesta">
             <div class="derecha">

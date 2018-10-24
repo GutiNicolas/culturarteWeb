@@ -5,28 +5,67 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
-import Logica.ContUsuario;
-import Logica.dtFecha;
-import Logica.dtPropuesta;
-import Logica.utilidades;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import servicios.DtContieneArray;
+import servicios.DtFecha;
+import servicios.DtPropuesta;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class ServletAltaPropuesta extends HttpServlet {
+ private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
+    WebServiceContUsusario WSCUPort;
+    WebServiceContPropuesta WSCPPort;
+    WebServiceContColaboracion WSCCPort;
 
+    /**
+     * funcion inicial que se llama al crear el servlet
+     *
+     * @param conf
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,14 +79,15 @@ public class ServletAltaPropuesta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     //    try (PrintWriter out = response.getWriter()) {
-            ContPropuesta cp= ContPropuesta.getInstance();
-            cp.propAutomaticas();
+        
+            WSCPPort.propAutomaticas();
             /* TODO output your page here. You may use following sample code. */
             String titulo= request.getParameter("titulo");
             HttpSession session = request.getSession();
             if(session.getAttribute("rol")!=null && session.getAttribute("rol").equals("Proponente")){     
             if(titulo==null){         
-                Collection<String> categorias= cp.listarCategorias("");
+                DtContieneArray categoriasCol= WSCPPort.listaCategorias();
+                Collection<String> categorias=(Collection)categoriasCol.getMyArreglo();
                 request.setAttribute("categorias", categorias);
                 request.getRequestDispatcher("PRESENTACIONES/altapropuesta.jsp").forward(request, response);
             }
@@ -140,11 +180,9 @@ private boolean isUtilizable(String fecha){
         String costoentrada= request.getParameter("costoentrada");
         String fecharealizacion= request.getParameter("fecharealizacion");
         String categoria= request.getParameter("categoria");
-        utilidades utils= utilidades.getInstance();
         boolean dardealta=true,seguircontrolando=true;
-        ContUsuario cu=ContUsuario.getInstance();
-        ContPropuesta cp=ContPropuesta.getInstance();
-        Collection propuestasexistentes=cu.listartodaslaspropuestas("");
+     DtContieneArray propColExis= (DtContieneArray)WSCPPort.listarTodasLasPropuestas("");
+        Collection propuestasexistentes=(Collection)propColExis.getMyArreglo();
         HttpSession session=request.getSession();
         //out.println("<p>");
         
@@ -217,10 +255,10 @@ private boolean isUtilizable(String fecha){
  //           String mes=fr[1];
  //           String anio=fr[2];
  //           dtFecha dtfrealizar=new dtFecha(dia,mes,anio);
-            
-                                                            //LA IMAGEN
-            dtPropuesta dtp=new dtPropuesta(titulo,descripcion,"",lugar,"Ingresada",categoria,(String)session.getAttribute("nickusuario"),utils.construirFecha(fecharealizacion),utils.getFecha(),Integer.parseInt(costoentrada),Integer.parseInt(montorequerido),0,retorno);
-            cp.datosPropuesta(dtp);
+            DtFecha dtFRe = WSCPPort.construirDtFecha(fecharealizacion);
+            DtFecha dtFe=WSCPPort.getFecha();                                               //LA IMAGEN
+            DtPropuesta dtp=new DtPropuesta(titulo,descripcion,null,lugar,"Ingresada",categoria,(String)session.getAttribute("nickusuario"),dtFRe,dtFe,Integer.parseInt(costoentrada),Integer.parseInt(montorequerido),0,retorno);
+            WSCPPort.altaPropuesta(dtp);
             
             out.println("Propuesta registrada con exito");
         }
