@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPagoWeb;
+import servicios.DtPropuestaWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -96,15 +97,15 @@ public class ConsultadePropuesta extends HttpServlet {
             WSCPPort.propAutomaticas();
             if(propuesta==null){
                 DtContieneArray propCol = (DtContieneArray)WSCPPort.listarPropMenosIng("");
-                Collection<String> props= (Collection)propCol.getMyArreglo();
+                Collection<String> props= (Collection)propCol.getMyarreglo();
                 request.setAttribute("propuestas", props);
                 request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
 					forward(request, response);
             }else{  
                 try {
-                    DtPropuesta dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
+                    DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
                     request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=(Collection)dtp.detColaboradores();
+                    Collection<String> colaboradores=(Collection)dtp.getColaboradores();
                     request.setAttribute("colaboradores", colaboradores); 
                 } catch (Exception ex) {
                     Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);

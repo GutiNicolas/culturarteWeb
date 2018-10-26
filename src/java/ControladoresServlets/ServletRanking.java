@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.DtContieneArray;
-import servicios.DtUsuario;
+import servicios.DtUsuarioWeb;
+import servicios.DtarregloDtUsuWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -77,8 +78,8 @@ public class ServletRanking extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DtContieneArray colUsuRank = (DtContieneArray)WSCUPort.ranking();
-            List<DtUsuario> rank = colUsuRank.getMyArreglo();
+            DtarregloDtUsuWeb ranking = WSCUPort.ranking();
+            List<DtUsuarioWeb> rank = (List<DtUsuarioWeb>)ranking.getListaUsuarios();
             request.setAttribute("ranking", rank);
             request.getRequestDispatcher("PRESENTACIONES/ranking.jsp").
                                             forward(request, response);

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPropuestaWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -104,16 +104,16 @@ public class Comentar extends HttpServlet {
             if(session.getAttribute("rol")!=null && session.getAttribute("rol").equals("Colaborador")){
             if(propuesta==null){
                 DtContieneArray colPropCola= (DtContieneArray)WSCPPort.listarPropColaboradas((String) session.getAttribute("nickusuario"));
-                Collection<String> props=(Collection) colPropCola.getMyArreglo();
+                Collection<String> props=(Collection) colPropCola.getMyarreglo();
                 request.setAttribute("propuestas", props);
                 request.getRequestDispatcher("PRESENTACIONES/consultadepropuestacolaborar.jsp").
 					forward(request, response);
             }
             else{
                 try {
-                    DtPropuesta dtp = (DtPropuesta)WSCUPort.infoPropuesta(propuesta);
+                    DtPropuestaWeb dtp = (DtPropuestaWeb)WSCUPort.infoPropuesta(propuesta);
                     request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=dtp.detColaboradores();
+                    Collection<String> colaboradores=dtp.getColaboradores();
                     request.setAttribute("colaboradores", colaboradores);
                     session.setAttribute("titulo", dtp.getTitulo());
                 } catch (Exception ex) {

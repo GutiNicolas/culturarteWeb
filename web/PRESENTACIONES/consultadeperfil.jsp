@@ -5,7 +5,7 @@
 --%>
 
 
-<%@page import="servicios.DtUsuario"%>
+<%@page import="servicios.DtUsuarioWeb"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,8 +40,8 @@
                <br>
             
     <% 
-    Collection<DtUsuario> usuarios= (Collection<DtUsuario>) request.getAttribute("usuarios");
-	for(DtUsuario dtu: usuarios){
+    Collection<DtUsuarioWeb> usuarios= (Collection<DtUsuarioWeb>) request.getAttribute("usuarios");
+	for(DtUsuarioWeb dtu: usuarios){
         %> 
         <div class="propuesta">
             <div class="derecha">

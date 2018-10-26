@@ -80,7 +80,7 @@ public class ServletFavorito extends HttpServlet {
             
             if(titulo==null){
                 DtContieneArray colProp= (DtContieneArray)WSCPPort.listarTodasLasPropuestas("");
-                Collection propuestas=(Collection)colProp.getMyArreglo(); //(String) session.getAttribute("nickusuario")
+                Collection propuestas=(Collection)colProp.getMyarreglo(); //(String) session.getAttribute("nickusuario")
                 request.setAttribute("propuestas", propuestas);
                 request.getRequestDispatcher("PRESENTACIONES/favorito.jsp").forward(request, response);
             }
@@ -122,7 +122,7 @@ public class ServletFavorito extends HttpServlet {
         String titulo= request.getParameter("titulo");
         HttpSession session=request.getSession();
         DtContieneArray propFavCol= WSCPPort.listarMisPropuestasFavoritas((String) session.getAttribute("nickusuario"));
-        Collection propuestas=(Collection)propFavCol.getMyArreglo();
+        Collection propuestas=(Collection)propFavCol.getMyarreglo();
         out.println("<p>");
         
         if(propuestas.contains(titulo)==false){

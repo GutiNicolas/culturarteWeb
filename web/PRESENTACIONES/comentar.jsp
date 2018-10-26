@@ -4,7 +4,7 @@
     Author     : nicolasgutierrez
 --%>
 
-<%@page import="servicios.DtPropuesta"%>
+<%@page import="servicios.DtPropuestaWeb"%>
 <%@page import="java.util.Collection"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -52,7 +52,7 @@
         
     </head>
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-        <%  DtPropuesta dtp= (DtPropuesta) request.getAttribute("propuesta");
+        <%  DtPropuestaWeb dtp= (DtPropuestaWeb) request.getAttribute("propuesta");
             Collection<String> colaboradores=(Collection<String>) request.getAttribute("colaboradores");
         %>
         
@@ -79,7 +79,7 @@
 				<br/>                             
 				<label class="rotulo">Fecha de realizacion:</label>
 				<label class="valor">
-					<%= dtp.getFechaRealizacion().getFecha() %>
+					<%= dtp.getFechaRealizacion() %>
 				</label>
 			</div>
 
@@ -100,7 +100,7 @@
 				<label class="valor"><%= dtp.getMontorequerido() %></label>
 				<br/>
                                 <label class="rotulo">Monto actual:</label>
-				<label class="valor"><%= dtp.getMontoTotal() %></label>
+				<label class="valor"><%= dtp.getMontoactual()%></label>
 				<br/>
 			</div>
                         <div class="contenedor">

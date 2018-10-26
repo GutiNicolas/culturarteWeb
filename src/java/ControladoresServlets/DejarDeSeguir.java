@@ -96,7 +96,7 @@ public class DejarDeSeguir extends HttpServlet {
              
                 if(nickadejardeseguir==null){
                     DtContieneArray usuSegCol = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-                    Collection usuarios=(Collection)usuSegCol.getMyArreglo();
+                    Collection usuarios=(Collection)usuSegCol.getMyarreglo();
                     request.setAttribute("usuarios", usuarios);
                     request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
                 }
@@ -124,7 +124,7 @@ public class DejarDeSeguir extends HttpServlet {
         
         HttpSession session=request.getSession();
         DtContieneArray usuColSeg = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-        Collection usuariosseguidos=(Collection)usuColSeg.getMyArreglo();
+        Collection usuariosseguidos=(Collection)usuColSeg.getMyarreglo();
         out.println("<p>");
         
         if(usuariosseguidos.contains(nickadejardeseguir)){

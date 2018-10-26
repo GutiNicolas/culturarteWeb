@@ -6,7 +6,7 @@
 
 
 
-<%@page import="servicios.DtPropuesta"%>
+<%@page import="servicios.DtPropuestaWeb"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,8 +30,8 @@
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
         <div id="listar" class="main" style="min-height:670px; margin-top: 20px; margin-bottom: 20px; opacity: 0.93;">
     <% 
-    Collection<DtPropuesta> propuestas= (Collection<DtPropuesta>) request.getAttribute("propuestas");
-	for(DtPropuesta dtp: propuestas){
+    Collection<DtPropuestaWeb> propuestas= (Collection<DtPropuestaWeb>) request.getAttribute("propuestas");
+	for(DtPropuestaWeb dtp: propuestas){
         %> 
             <div class="propuesta">
                 <div class="derecha">

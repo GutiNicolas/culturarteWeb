@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPropuestaWeb;
+import servicios.DtarregloDtPropWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -80,17 +81,17 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
             WSCPPort.propAutomaticas();
             if(cat==null){
                 DtContieneArray colCat = (DtContieneArray)WSCPPort.listaCategorias();
-                Collection<String> categorias= (Collection)colCat.getMyArreglo();
+                Collection<String> categorias= (Collection)colCat.getMyarreglo();
                 request.setAttribute("categorias", categorias);
                 request.getRequestDispatcher("PRESENTACIONES/consultadepropuestaporestado.jsp").forward(request, response);
             }
             else if(titulo==null && cat!=null){
                 DtContieneArray colCat= (DtContieneArray)WSCPPort.listaCategorias();
-                Collection<String> categorias= (Collection)colCat.getMyArreglo();
+                Collection<String> categorias= (Collection)colCat.getMyarreglo();
                 request.setAttribute("categorias", categorias);
             try {
-                DtContieneArray colProp= (DtContieneArray)WSCPPort.listarPropEnCategoria(cat);
-                Collection<DtPropuesta> propuestas= (Collection)colProp.getMyArreglo();
+                    DtarregloDtPropWeb listarPropEnCategoria = WSCPPort.listarPropEnCategoria(cat);
+                Collection<DtPropuestaWeb> propuestas= (Collection)listarPropEnCategoria.getArregloPropuestas();
                request.setAttribute("propuestas", propuestas);
             } catch (Exception ex) {
                 Logger.getLogger(ConsultadePropuestaPorEstado.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,9 +102,9 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
             }
             else if(titulo!=null){
                 try {
-                    DtPropuesta dtp =(DtPropuesta) WSCUPort.infoPropuesta(titulo);
+                    DtPropuestaWeb dtp =(DtPropuestaWeb) WSCUPort.infoPropuesta(titulo);
                     request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=(Collection)dtp.detColaboradores();
+                    Collection<String> colaboradores=(Collection)dtp.getColaboradores();
                     request.setAttribute("colaboradores", colaboradores); 
                 } catch (Exception ex) {
                     Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);

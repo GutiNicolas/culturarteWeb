@@ -5,7 +5,7 @@
 </xsd:schema>
 </types>
 <message name="agregarUsu">
-<part name="usuario" type="tns:dtUsuario"></part>
+<part name="usuario" type="tns:dtUsuarioWeb"></part>
 </message>
 <message name="agregarUsuResponse"></message>
 <message name="Exception">
@@ -16,17 +16,17 @@
 <part name="pass" type="xsd:string"></part>
 </message>
 <message name="usuarioLoginResponse">
-<part name="return" type="tns:dtUsuario"></part>
+<part name="return" type="tns:dtUsuarioWeb"></part>
 </message>
 <message name="infoUsuarioGeneral">
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="infoUsuarioGeneralResponse">
-<part name="return" type="tns:dtUsuario"></part>
+<part name="return" type="tns:dtUsuarioWeb"></part>
 </message>
 <message name="ranking"></message>
 <message name="rankingResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtUsuWeb"></part>
 </message>
 <message name="hola"></message>
 <message name="holaResponse">
@@ -47,7 +47,7 @@
 <part name="fecha" type="xsd:string"></part>
 </message>
 <message name="crearDtFechaResponse">
-<part name="return" type="tns:dtFecha"></part>
+<part name="return" type="tns:dtFechaWeb"></part>
 </message>
 <message name="listarUsuarios">
 <part name="nick" type="xsd:string"></part>
@@ -65,7 +65,7 @@
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="usuarioLoginSNResponse">
-<part name="return" type="tns:dtUsuario"></part>
+<part name="return" type="tns:dtUsuarioWeb"></part>
 </message>
 <message name="cargarLosSegPor">
 <part name="nick" type="xsd:string"></part>
@@ -77,19 +77,19 @@
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="listarUsuariosWebResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtUsuWeb"></part>
 </message>
 <message name="listarMisSeguidores">
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="listarMisSeguidoresResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtUsuWeb"></part>
 </message>
 <message name="listarMisSeguidos">
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="listarMisSeguidosResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtSigoAWEB"></part>
 </message>
 <message name="misPropFav">
 <part name="nick" type="xsd:string"></part>
@@ -104,17 +104,17 @@
 <message name="seguirResponse"></message>
 <message name="publicar"></message>
 <message name="publicarResponse"></message>
+<message name="infoPropuesta">
+<part name="titulo" type="xsd:string"></part>
+</message>
+<message name="infoPropuestaResponse">
+<part name="return" type="tns:dtPropuestaWeb"></part>
+</message>
 <message name="dejarDeSeguir">
 <part name="nickSeguidor" type="xsd:string"></part>
 <part name="nickDejardeSeguir" type="xsd:string"></part>
 </message>
 <message name="dejarDeSeguirResponse"></message>
-<message name="infoPropuesta">
-<part name="titulo" type="xsd:string"></part>
-</message>
-<message name="infoPropuestaResponse">
-<part name="return" type="tns:dtPropuesta"></part>
-</message>
 <portType name="WebServiceContUsusario">
 <operation name="agregarUsu">
 <input wsam:Action="http://WebServices/WebServiceContUsusario/agregarUsuRequest" message="tns:agregarUsu"></input>
@@ -190,14 +190,14 @@
 <input wsam:Action="http://WebServices/WebServiceContUsusario/publicarRequest" message="tns:publicar"></input>
 <output wsam:Action="http://WebServices/WebServiceContUsusario/publicarResponse" message="tns:publicarResponse"></output>
 </operation>
+<operation name="infoPropuesta">
+<input wsam:Action="http://WebServices/WebServiceContUsusario/infoPropuestaRequest" message="tns:infoPropuesta"></input>
+<output wsam:Action="http://WebServices/WebServiceContUsusario/infoPropuestaResponse" message="tns:infoPropuestaResponse"></output>
+</operation>
 <operation name="dejarDeSeguir" parameterOrder="nickSeguidor nickDejardeSeguir">
 <input wsam:Action="http://WebServices/WebServiceContUsusario/dejarDeSeguirRequest" message="tns:dejarDeSeguir"></input>
 <output wsam:Action="http://WebServices/WebServiceContUsusario/dejarDeSeguirResponse" message="tns:dejarDeSeguirResponse"></output>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://WebServices/WebServiceContUsusario/dejarDeSeguir/Fault/Exception"></fault>
-</operation>
-<operation name="infoPropuesta">
-<input wsam:Action="http://WebServices/WebServiceContUsusario/infoPropuestaRequest" message="tns:infoPropuesta"></input>
-<output wsam:Action="http://WebServices/WebServiceContUsusario/infoPropuestaResponse" message="tns:infoPropuestaResponse"></output>
 </operation>
 </portType>
 <binding name="WebServiceContUsusarioPortBinding" type="tns:WebServiceContUsusario">
@@ -370,6 +370,15 @@
 <soap:body use="literal" namespace="http://WebServices/"></soap:body>
 </output>
 </operation>
+<operation name="infoPropuesta">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal" namespace="http://WebServices/"></soap:body>
+</input>
+<output>
+<soap:body use="literal" namespace="http://WebServices/"></soap:body>
+</output>
+</operation>
 <operation name="dejarDeSeguir">
 <soap:operation soapAction=""></soap:operation>
 <input>
@@ -381,15 +390,6 @@
 <fault name="Exception">
 <soap:fault name="Exception" use="literal"></soap:fault>
 </fault>
-</operation>
-<operation name="infoPropuesta">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal" namespace="http://WebServices/"></soap:body>
-</input>
-<output>
-<soap:body use="literal" namespace="http://WebServices/"></soap:body>
-</output>
 </operation>
 </binding>
 <service name="ServicioContusuario">

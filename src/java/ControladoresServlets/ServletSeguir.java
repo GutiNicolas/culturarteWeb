@@ -83,7 +83,7 @@ public class ServletSeguir extends HttpServlet {
 
             if (nickaseguir == null) {
                 DtContieneArray colUsu = (DtContieneArray) WSCUPort.listarUsuarios("");
-                Collection usuarios = (Collection)colUsu.getMyArreglo();
+                Collection usuarios = (Collection)colUsu.getMyarreglo();
                 request.setAttribute("usuarios", usuarios);
                 request.getRequestDispatcher("PRESENTACIONES/seguirusuario.jsp").forward(request, response);
             }
@@ -126,7 +126,7 @@ public class ServletSeguir extends HttpServlet {
         String nickaseguir = request.getParameter("nickaseguir");
         HttpSession session = request.getSession();
         DtContieneArray usuSegCol = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-        Collection usuariosseguidos = (Collection)usuSegCol.getMyArreglo();
+        Collection usuariosseguidos = (Collection)usuSegCol.getMyarreglo();
         out.println("<p>");
 
         if (nickaseguir.equals(session.getAttribute("nickusuario")) == false) {

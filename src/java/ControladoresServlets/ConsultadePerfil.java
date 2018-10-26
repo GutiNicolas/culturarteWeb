@@ -21,12 +21,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import servicios.DtColProp;
-import servicios.DtColaborador;
+import servicios.DtColaboracionCompWeb;
 import servicios.DtContieneArray;
-import servicios.DtProponente;
-import servicios.DtSigoA;
-import servicios.DtUsuario;
+import servicios.DtSigoAWeb;
+import servicios.DtUsuarioWeb;
+import servicios.DtarregloDtColCompWeb;
+import servicios.DtarregloDtSigoAWEB;
+import servicios.DtarregloDtUsuWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -122,34 +123,34 @@ public class ConsultadePerfil extends HttpServlet {
                 
 
                 if (nick == null) {
-                    DtContieneArray colUsu = (DtContieneArray)WSCUPort.listarUsuariosWeb("");
-                    Collection<DtUsuario> usuarios= (Collection)colUsu.getMyArreglo();
+                    DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb("");
+                    Collection<DtUsuarioWeb> usuarios= (Collection)listarUsuariosWeb.getListaUsuarios();
                     request.setAttribute("usuarios", usuarios);
                     request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
                             forward(request, response);
                 } else {
 
-                    DtUsuario dtu = (DtUsuario)WSCUPort.infoUsuarioGeneral(nick);
-                    DtContieneArray colUsuSeg = (DtContieneArray)WSCUPort.listarMisSeguidores(nick);
-                    Collection<DtUsuario> misseguidores = (Collection)colUsuSeg.getMyArreglo();
-                    DtContieneArray colUsuSigA = (DtContieneArray)WSCUPort.listarMisSeguidos(nick);
-                    Collection<DtSigoA> misseguidos = (Collection)colUsuSigA.getMyArreglo();
+                    DtUsuarioWeb dtu = (DtUsuarioWeb)WSCUPort.infoUsuarioGeneral(nick);
+                    DtarregloDtUsuWeb listarMisSeguidores = WSCUPort.listarMisSeguidores(nick);
+                    Collection<DtUsuarioWeb> misseguidores = (Collection)listarMisSeguidores.getListaUsuarios();
+                    DtarregloDtSigoAWEB listarMisSeguidos = WSCUPort.listarMisSeguidos(nick);
+                    Collection<DtSigoAWeb> misseguidos = (Collection)listarMisSeguidos.getArregloSigoAusu();
                     DtContieneArray colPropFav = (DtContieneArray)WSCUPort.misPropFav(nick);
-                    Collection<String> favoritas = (Collection)colPropFav.getMyArreglo();
-                    if (dtu instanceof DtColaborador) {
+                    Collection<String> favoritas = (Collection)colPropFav.getMyarreglo();
+                    if (dtu.getRol().equals("Colaborador")) {
                         DtContieneArray colPropCola= (DtContieneArray)WSCCPort.listarColaboraciones(nick);
-                        Collection<String> colaboradas = (Collection)colPropCola.getMyArreglo();
+                        Collection<String> colaboradas = (Collection)colPropCola.getMyarreglo();
                         request.setAttribute("colaboradas", colaboradas);
-                        DtContieneArray colPropColaComp =(DtContieneArray)WSCCPort.listarMisColaboraciones(nick);
-                        Collection<DtColProp> colaboradascompletas = (Collection)colPropColaComp.getMyArreglo();
+                        DtarregloDtColCompWeb listarMisColaboraciones = WSCCPort.listarMisColaboraciones(nick);
+                        List<DtColaboracionCompWeb> colaboradascompletas = listarMisColaboraciones.getArregloColaBoraciion();
                         request.setAttribute("colabscompletas", colaboradascompletas);
                     }
-                    if (dtu instanceof DtProponente) {
+                    if (dtu.getRol().equals("Proponente")) {
                         DtContieneArray colPropAcep= (DtContieneArray)WSCPPort.misPropAceptadas(nick);
-                        Collection<String> propuestas = (Collection)colPropAcep.getMyArreglo();
+                        Collection<String> propuestas = (Collection)colPropAcep.getMyarreglo();
                         request.setAttribute("propuestas", propuestas);
                         DtContieneArray ColProIng = (DtContieneArray)WSCPPort.misPropIngresadas(nick);
-                        Collection<String> propuestasingresadas =(Collection)ColProIng.getMyArreglo();
+                        Collection<String> propuestasingresadas =(Collection)ColProIng.getMyarreglo();
                         request.setAttribute("ingresadass", propuestasingresadas);
                     }
                     request.setAttribute("usuario", dtu);
@@ -161,8 +162,9 @@ public class ConsultadePerfil extends HttpServlet {
 
                 }
             }
-            else{DtContieneArray usuCol = (DtContieneArray)WSCUPort.listarUsuariosWeb(txta);
-                    Collection<DtUsuario> usuarios= (Collection)usuCol.getMyArreglo();     
+            else{
+           DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb(txta);
+                    Collection<DtUsuarioWeb> usuarios= listarUsuariosWeb.getListaUsuarios();
                     request.setAttribute("usuarios", usuarios);
                     request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
                             forward(request, response);               
@@ -186,11 +188,11 @@ public class ConsultadePerfil extends HttpServlet {
         String nickus = request.getParameter("txta");
 
         HttpSession session = request.getSession();
-        DtContieneArray usuColW = (DtContieneArray)WSCUPort.listarUsuariosWeb(nickus);
-        List<DtUsuario> usuarios= (List)usuColW.getMyArreglo();
+     DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb(nickus);
+        List<DtUsuarioWeb> usuarios= listarUsuariosWeb.getListaUsuarios();
         Iterator it=usuarios.iterator();
         while(it.hasNext()){
-            DtUsuario dtu=(DtUsuario) it.next();       
+            DtUsuarioWeb dtu=(DtUsuarioWeb) it.next();       
             out.println("<div class=\"propuesta\">");
             out.println("<div class=\"derecha\">");
             out.println("<a class=\"nombre\" href=\"?nickname="+dtu.getNickname()+"\">");

@@ -21,10 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import servicios.DtColaborador;
-import servicios.DtFecha;
-import servicios.DtProponente;
-import servicios.DtUsuario;
+import servicios.DtFechaWeb;
+import servicios.DtUsuarioWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -158,22 +156,38 @@ public class servletRegistrarse extends HttpServlet {
             if (WSCUPort.verificaExistencia(nick, correo) == 0) {
                 if (pass1.equals(pass2)) {
                     String tipo = (String) request.getParameter("tipo");
-                    DtFecha dtf = WSCPPort.construirDtFecha(fechaNac);
+               
                     if (tipo.equals("Proponente")) {
-
-                        DtProponente nuevoProp = new DtProponente(nombre, apellido, nick, "notiene", correo, dtf, direccion, biografia, web, pass1);
+                        DtUsuarioWeb nuevoProp= new DtUsuarioWeb();
+                        nuevoProp.setNickname(nick);
+                        nuevoProp.setNombre(nombre);
+                        nuevoProp.setApellido(apellido);
+                        nuevoProp.setEmail(correo);
+                        nuevoProp.setFechaNac(fechaNac);
+                        nuevoProp.setRol("Proponente");
+                        nuevoProp.setBio(biografia);
+                        nuevoProp.setDireccion(direccion);
+                        nuevoProp.setPagWeb(web);
+                        nuevoProp.setPass(pass1);
+                        
                         WSCUPort.agregarUsu(nuevoProp);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
-                        DtUsuario dtu = WSCUPort.usuarioLoginSN(nick);
+                        DtUsuarioWeb dtu = WSCUPort.usuarioLoginSN(nick);
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
 
                     }
                     if (tipo.equals("Colaborador")) {
-                        DtColaborador nuevoColaborador = new DtColaborador(nombre, apellido, nick, "no tiene", correo, dtf, pass1);
+                        DtUsuarioWeb nuevoColaborador = new DtUsuarioWeb();
+                        nuevoColaborador.setNombre(nombre);
+                        nuevoColaborador.setApellido(apellido);
+                        nuevoColaborador.setNickname(nick);
+                        nuevoColaborador.setEmail(correo);
+                        nuevoColaborador.setFechaNac(fechaNac);
+                        nuevoColaborador.setPass(pass1);
                         WSCUPort.agregarUsu(nuevoColaborador);
                         out.print("Usuario: " + nick + " agregado con Exito!!");
-                        DtUsuario dtu = WSCUPort.usuarioLoginSN(nick);
+                        DtUsuarioWeb dtu = WSCUPort.usuarioLoginSN(nick);
                         session.setAttribute("nickusuario", dtu.getNickname());
                         session.setAttribute("rol", dtu.getRol());
                     }

@@ -80,7 +80,7 @@ public class ServletCancelarPropuesta extends HttpServlet {
             
             if(titulo==null){
                 DtContieneArray propCol = (DtContieneArray)WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
-                Collection propuestas=(Collection)propCol.getMyArreglo();
+                Collection propuestas=(Collection)propCol.getMyarreglo();
                 request.setAttribute("propuestas", propuestas);
                 request.getRequestDispatcher("PRESENTACIONES/cancelarpropuesta.jsp").forward(request, response);
             }
@@ -123,7 +123,7 @@ request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request
         WSCPPort.propAutomaticas();
         HttpSession session=request.getSession();
         DtContieneArray propCancelCol= (DtContieneArray)WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
-        Collection propuestas=(Collection)propCancelCol.getMyArreglo();
+        Collection propuestas=(Collection)propCancelCol.getMyarreglo();
         out.println("<p>");
         
         if(propuestas.contains(titulo)){

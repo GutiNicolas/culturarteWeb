@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPropuestaWeb;
+import servicios.DtarregloDtPropWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -89,9 +89,9 @@ public class ServletColaboracion extends HttpServlet {
                     if ((cbe != null || cbp != null) && monto != null) {
                         if (isNumeric(monto)) {   
                             try {
-                                DtPropuesta dtp = (DtPropuesta)WSCUPort.infoPropuesta(propuesta);
+                                DtPropuestaWeb dtp = (DtPropuestaWeb)WSCUPort.infoPropuesta(propuesta);
                                 request.setAttribute("propuesta", dtp);
-                                Collection<String> colaboradores = (Collection)dtp.detColaboradores();
+                                Collection<String> colaboradores = (Collection)dtp.getColaboradores();
                                 request.setAttribute("colaboradores", colaboradores);
                                 
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
@@ -100,8 +100,8 @@ public class ServletColaboracion extends HttpServlet {
                                             WSCPPort.agregarEstAPropW("En financiacion", dtp.getTitulo());
                                         }
                                     WSCCPort.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto),(String) WSCCPort.armarRetorno(cbe, cbp));
-                                    dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
-                                    colaboradores = dtp.detColaboradores();
+                                    dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
+                                    colaboradores = dtp.getColaboradores();
                                     request.setAttribute("propuesta", dtp);
                                     request.setAttribute("colaboradores", colaboradores);
                                     
@@ -121,9 +121,9 @@ public class ServletColaboracion extends HttpServlet {
                             }
                         } else {
                             try {
-                                DtPropuesta dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
+                                DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
                                 request.setAttribute("propuesta", dtp);
-                                Collection<String> colaboradores = dtp.detColaboradores();
+                                Collection<String> colaboradores = dtp.getColaboradores();
                                 request.setAttribute("colaboradores", colaboradores);
                             } catch (Exception ex) {
                                 Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,9 +134,9 @@ public class ServletColaboracion extends HttpServlet {
                         
                     } else {
                         try {
-                            DtPropuesta dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
+                            DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
                             request.setAttribute("propuesta", dtp);
-                            Collection<String> colaboradores = dtp.detColaboradores();
+                            Collection<String> colaboradores = dtp.getColaboradores();
                             request.setAttribute("colaboradores", colaboradores);
                         } catch (Exception ex) {
                             Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,16 +146,16 @@ public class ServletColaboracion extends HttpServlet {
                     }
                 } else {
                     if (propuesta == null) {
-                        DtContieneArray propCol = (DtContieneArray)WSCPPort.listarPropuestasWeb();
-                        Collection<DtPropuesta> props = (Collection)propCol.getMyArreglo();
+                        DtarregloDtPropWeb listarProp = WSCPPort.listarPropuestasWeb();
+                        Collection<DtPropuestaWeb> props = (Collection)listarProp.getArregloPropuestas();
                         request.setAttribute("propuestas", props);
                         request.getRequestDispatcher("PRESENTACIONES/listarpropuestas.jsp").
                                 forward(request, response);
                     } else {
                         try {
-                            DtPropuesta dtp = (DtPropuesta) WSCUPort.infoPropuesta(propuesta);
+                            DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
                             request.setAttribute("propuesta", dtp);
-                            Collection<String> colaboradores = dtp.detColaboradores();
+                            Collection<String> colaboradores = dtp.getColaboradores();
                             request.setAttribute("colaboradores", colaboradores);
                         } catch (Exception ex) {
                             Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);

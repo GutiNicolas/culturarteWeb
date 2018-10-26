@@ -17,7 +17,7 @@
 <message name="registrarPago">
 <part name="nick" type="xsd:string"></part>
 <part name="titulo" type="xsd:string"></part>
-<part name="pago" type="tns:dtPago"></part>
+<part name="pago" type="tns:dtPagoWeb"></part>
 </message>
 <message name="registrarPagoResponse">
 <part name="return" type="xsd:boolean"></part>
@@ -33,7 +33,7 @@
 <part name="nick" type="xsd:string"></part>
 </message>
 <message name="listarMisColaboracionesResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtColCompWeb"></part>
 </message>
 <message name="publicar"></message>
 <message name="publicarResponse"></message>

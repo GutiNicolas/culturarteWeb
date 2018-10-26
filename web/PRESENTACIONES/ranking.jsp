@@ -5,7 +5,7 @@
 --%>
 
 
-<%@page import="servicios.DtUsuario"%>
+<%@page import="servicios.DtUsuarioWeb"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,9 +46,9 @@
   </thead>
   <tbody>
     <% 
-    Collection<DtUsuario> usuarios= (Collection<DtUsuario>) request.getAttribute("ranking");
+    Collection<DtUsuarioWeb> usuarios= (Collection<DtUsuarioWeb>) request.getAttribute("ranking");
         int i=1;
-	for(DtUsuario dtu: usuarios){
+	for(DtUsuarioWeb dtu: usuarios){
         %> 
         <tr>
       <th scope="row"><%=i%></th>
