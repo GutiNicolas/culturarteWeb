@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -32,10 +31,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class DejarDeSeguir extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -62,6 +63,7 @@ public class DejarDeSeguir extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,7 +76,7 @@ public class DejarDeSeguir extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-                 
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,20 +91,20 @@ public class DejarDeSeguir extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
+        // processRequest(request, response);
         HttpSession session = request.getSession();
-            if(session.getAttribute("rol")!=null){              
-                String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-             
-                if(nickadejardeseguir==null){
-                    DtContieneArray usuSegCol = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-                    Collection usuarios=(Collection)usuSegCol.getMyArreglo();
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
-                }
-            }else{
-                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-            }  
+        if (session.getAttribute("rol") != null) {
+            String nickadejardeseguir = request.getParameter("nickadejardeseguir");
+
+            if (nickadejardeseguir == null) {
+                DtContieneArray usuSegCol = (DtContieneArray) WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
+                Collection usuarios = (Collection) usuSegCol.getMyarreglo();
+                request.setAttribute("usuarios", usuarios);
+                request.getRequestDispatcher("PRESENTACIONES/dejardeseguirusuario.jsp").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -117,28 +119,27 @@ public class DejarDeSeguir extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
-        PrintWriter out= response.getWriter();
-        String nickadejardeseguir= request.getParameter("nickadejardeseguir");
-        
-        HttpSession session=request.getSession();
-        DtContieneArray usuColSeg = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-        Collection usuariosseguidos=(Collection)usuColSeg.getMyArreglo();
+
+        PrintWriter out = response.getWriter();
+        String nickadejardeseguir = request.getParameter("nickadejardeseguir");
+
+        HttpSession session = request.getSession();
+        DtContieneArray usuColSeg = (DtContieneArray) WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
+        Collection usuariosseguidos = (Collection) usuColSeg.getMyarreglo();
         out.println("<p>");
-        
-        if(usuariosseguidos.contains(nickadejardeseguir)){
+
+        if (usuariosseguidos.contains(nickadejardeseguir)) {
             try {
                 WSCUPort.dejarDeSeguir((String) session.getAttribute("nickusuario"), nickadejardeseguir);
-                out.println("Usuario "+nickadejardeseguir+" dejado de seguir con exito");
+                out.println("Usuario " + nickadejardeseguir + " dejado de seguir con exito");
             } catch (Exception ex) {
                 Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            out.println("No sigues al usuario " + nickadejardeseguir);
         }
-        else
-            out.println("No sigues al usuario "+nickadejardeseguir);
-        
-        out.println("</p>");        
+
+        out.println("</p>");
     }
 
     /**

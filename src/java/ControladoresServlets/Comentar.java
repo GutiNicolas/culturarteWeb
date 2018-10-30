@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPropuestaWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -33,10 +32,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class Comentar extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -63,6 +64,7 @@ public class Comentar extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -77,7 +79,7 @@ public class Comentar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -94,40 +96,38 @@ public class Comentar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-            String propuesta=request.getParameter("titulo");
+        String propuesta = request.getParameter("titulo");
 
-            HttpSession session = request.getSession();
-            
-            WSCPPort.propAutomaticas();
-            String comentario= request.getParameter("comentario");
-            if(comentario==null){
-            if(session.getAttribute("rol")!=null && session.getAttribute("rol").equals("Colaborador")){
-            if(propuesta==null){
-                DtContieneArray colPropCola= (DtContieneArray)WSCPPort.listarPropColaboradas((String) session.getAttribute("nickusuario"));
-                Collection<String> props=(Collection) colPropCola.getMyArreglo();
-                request.setAttribute("propuestas", props);
-                request.getRequestDispatcher("PRESENTACIONES/consultadepropuestacolaborar.jsp").
-					forward(request, response);
-            }
-            else{
-                try {
-                    DtPropuesta dtp = (DtPropuesta)WSCUPort.infoPropuesta(propuesta);
-                    request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=dtp.detColaboradores();
-                    request.setAttribute("colaboradores", colaboradores);
-                    session.setAttribute("titulo", dtp.getTitulo());
-                } catch (Exception ex) {
-                    Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+        HttpSession session = request.getSession();
+
+        WSCPPort.propAutomaticas();
+        String comentario = request.getParameter("comentario");
+        if (comentario == null) {
+            if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
+                if (propuesta == null) {
+                    DtContieneArray colPropCola = (DtContieneArray) WSCPPort.listarPropColaboradas((String) session.getAttribute("nickusuario"));
+                    Collection<String> props = (Collection) colPropCola.getMyarreglo();
+                    request.setAttribute("propuestas", props);
+                    request.getRequestDispatcher("PRESENTACIONES/consultadepropuestacolaborar.jsp").
+                            forward(request, response);
+                } else {
+                    try {
+                        DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
+                        request.setAttribute("propuesta", dtp);
+                        Collection<String> colaboradores = dtp.getColaboradores();
+                        request.setAttribute("colaboradores", colaboradores);
+                        session.setAttribute("titulo", dtp.getTitulo());
+                    } catch (Exception ex) {
+                        Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    request.getRequestDispatcher("PRESENTACIONES/comentar.jsp").
+                            forward(request, response);
                 }
-                    
-                
-                request.getRequestDispatcher("PRESENTACIONES/comentar.jsp").
-					forward(request, response);
-            }
-            }else{
+            } else {
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
-            }
+        }
     }
 
     /**
@@ -141,22 +141,21 @@ public class Comentar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-        PrintWriter out= response.getWriter();
-        String comentario= request.getParameter("comentario");
+        // processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String comentario = request.getParameter("comentario");
         HttpSession session = request.getSession();
-        String titulo= (String) session.getAttribute("titulo");
-        
-       // (String) session.getAttribute("nickusuario")
-        if(comentario.isEmpty()==false){
+        String titulo = (String) session.getAttribute("titulo");
+
+        // (String) session.getAttribute("nickusuario")
+        if (comentario.isEmpty() == false) {
             WSCPPort.comentar((String) session.getAttribute("nickusuario"), titulo, comentario);
-            
+
             out.println("Comentario agregado");
-        }else{
+        } else {
             out.println("El comentario no puede ser vacio");
         }
-        
-        
+
     }
 
     /**

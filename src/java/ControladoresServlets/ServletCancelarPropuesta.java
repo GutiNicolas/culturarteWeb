@@ -31,10 +31,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ServletCancelarPropuesta extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -61,6 +63,7 @@ public class ServletCancelarPropuesta extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,20 +76,19 @@ public class ServletCancelarPropuesta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String titulo= request.getParameter("titulo");
-         HttpSession session = request.getSession();
-            if(session.getAttribute("rol")!=null && session.getAttribute("rol").equals("Proponente")){              
+        String titulo = request.getParameter("titulo");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Proponente")) {
 
-            
-            if(titulo==null){
-                DtContieneArray propCol = (DtContieneArray)WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
-                Collection propuestas=(Collection)propCol.getMyArreglo();
+            if (titulo == null) {
+                DtContieneArray propCol = (DtContieneArray) WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
+                Collection propuestas = (Collection) propCol.getMyarreglo();
                 request.setAttribute("propuestas", propuestas);
                 request.getRequestDispatcher("PRESENTACIONES/cancelarpropuesta.jsp").forward(request, response);
             }
-    }else{
-request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-}
+        } else {
+            request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -116,27 +118,27 @@ request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        PrintWriter out= response.getWriter();
-        String titulo= request.getParameter("titulo");
-       
+
+        PrintWriter out = response.getWriter();
+        String titulo = request.getParameter("titulo");
+
         WSCPPort.propAutomaticas();
-        HttpSession session=request.getSession();
-        DtContieneArray propCancelCol= (DtContieneArray)WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
-        Collection propuestas=(Collection)propCancelCol.getMyArreglo();
+        HttpSession session = request.getSession();
+        DtContieneArray propCancelCol = (DtContieneArray) WSCPPort.propuestasParaCancelar((String) session.getAttribute("nickusuario"));
+        Collection propuestas = (Collection) propCancelCol.getMyarreglo();
         out.println("<p>");
-        
-        if(propuestas.contains(titulo)){
+
+        if (propuestas.contains(titulo)) {
             try {
                 WSCPPort.agregarEstAPropW("Cancelada", titulo);
-                out.println("Propuesta "+titulo+" Cancelada con exito");
+                out.println("Propuesta " + titulo + " Cancelada con exito");
             } catch (Exception ex) {
                 Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            out.println("Imposible Cancelar la propuesta " + titulo);
         }
-        else
-            out.println("Imposible Cancelar la propuesta "+titulo);
-        
+
         out.println("</p>");
     }
 

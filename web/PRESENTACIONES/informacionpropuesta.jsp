@@ -4,7 +4,7 @@
     Author     : nicolasgutierrez
 --%>
 
-<%@page import="servicios.DtPropuesta"%>
+<%@page import="servicios.DtPropuestaWeb"%>
 <%@page import="java.util.Collection"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +28,7 @@
         %>
     </head>
     <body style="background: url(IMAGENESDISENIO/fondo.jpg) repeat center center fixed;     background-size: cover;">
-        <%  DtPropuesta dtp= (DtPropuesta) request.getAttribute("propuesta");
+        <%  DtPropuestaWeb dtp= (DtPropuestaWeb) request.getAttribute("propuesta");
             Collection<String> colaboradores=(Collection<String>) request.getAttribute("colaboradores");
         %>
         
@@ -42,7 +42,7 @@
 				<h2>Información de la Propuesta</h2>
                                 <br><br>
 				<label class="rotulo">Titulo:</label>
-				<label class="valor"><%=(String)dtp.getTitulo() %></label>
+				<label class="valor"><%=dtp.getTitulo() %></label>
 				<br/>
                                  <label class="rotulo">Descripcion:</label>
 				<label class="valor"><%= (String)dtp.getDescripcion() %></label>

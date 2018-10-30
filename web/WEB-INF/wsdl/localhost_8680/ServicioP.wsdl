@@ -5,9 +5,15 @@
 </xsd:schema>
 </types>
 <message name="altaPropuesta">
-<part name="dtpropuesta" type="tns:dtPropuesta"></part>
+<part name="dtpropuesta" type="tns:dtPropuestaWeb"></part>
 </message>
 <message name="altaPropuestaResponse"></message>
+<message name="extenderFinanciacionProp">
+<part name="titulo" type="xsd:string"></part>
+</message>
+<message name="extenderFinanciacionPropResponse">
+<part name="return" type="xsd:string"></part>
+</message>
 <message name="hola"></message>
 <message name="holaResponse">
 <part name="return" type="xsd:string"></part>
@@ -16,7 +22,7 @@
 <part name="fecha" type="xsd:string"></part>
 </message>
 <message name="construirDtFechaResponse">
-<part name="return" type="tns:dtFecha"></part>
+<part name="return" type="tns:dtFechaWeb"></part>
 </message>
 <message name="listarTodasLasPropuestas">
 <part name="nick" type="xsd:string"></part>
@@ -42,7 +48,7 @@
 <message name="agregarEstAPropWResponse"></message>
 <message name="listarPropuestasWeb"></message>
 <message name="listarPropuestasWebResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtPropWeb"></part>
 </message>
 <message name="propuestasParaCancelar">
 <part name="nick" type="xsd:string"></part>
@@ -58,7 +64,7 @@
 <part name="categorioa" type="xsd:string"></part>
 </message>
 <message name="listarPropEnCategoriaResponse">
-<part name="return" type="tns:dtContieneArray"></part>
+<part name="return" type="tns:dtarregloDtPropWeb"></part>
 </message>
 <message name="listarPropMenosIng">
 <part name="titulo" type="xsd:string"></part>
@@ -90,28 +96,26 @@
 <message name="misPropIngresadasResponse">
 <part name="return" type="tns:dtContieneArray"></part>
 </message>
-<message name="extenderFinanciacionProp">
-<part name="titulo" type="xsd:string"></part>
-</message>
-<message name="extenderFinanciacionPropResponse">
-<part name="return" type="xsd:string"></part>
-</message>
 <message name="publicar"></message>
 <message name="publicarResponse"></message>
 <message name="propAutomaticas"></message>
 <message name="propAutomaticasResponse"></message>
 <message name="getFecha"></message>
 <message name="getFechaResponse">
-<part name="return" type="tns:dtFecha"></part>
+<part name="return" type="tns:dtFechaWeb"></part>
 </message>
 <message name="getHora"></message>
 <message name="getHoraResponse">
-<part name="return" type="tns:dtHora"></part>
+<part name="return" type="tns:dtHoraWeb"></part>
 </message>
 <portType name="WebServiceContPropuesta">
 <operation name="altaPropuesta">
 <input wsam:Action="http://WebServices/WebServiceContPropuesta/altaPropuestaRequest" message="tns:altaPropuesta"></input>
 <output wsam:Action="http://WebServices/WebServiceContPropuesta/altaPropuestaResponse" message="tns:altaPropuestaResponse"></output>
+</operation>
+<operation name="extenderFinanciacionProp">
+<input wsam:Action="http://WebServices/WebServiceContPropuesta/extenderFinanciacionPropRequest" message="tns:extenderFinanciacionProp"></input>
+<output wsam:Action="http://WebServices/WebServiceContPropuesta/extenderFinanciacionPropResponse" message="tns:extenderFinanciacionPropResponse"></output>
 </operation>
 <operation name="hola">
 <input wsam:Action="http://WebServices/WebServiceContPropuesta/holaRequest" message="tns:hola"></input>
@@ -173,10 +177,6 @@
 <input wsam:Action="http://WebServices/WebServiceContPropuesta/misPropIngresadasRequest" message="tns:misPropIngresadas"></input>
 <output wsam:Action="http://WebServices/WebServiceContPropuesta/misPropIngresadasResponse" message="tns:misPropIngresadasResponse"></output>
 </operation>
-<operation name="extenderFinanciacionProp">
-<input wsam:Action="http://WebServices/WebServiceContPropuesta/extenderFinanciacionPropRequest" message="tns:extenderFinanciacionProp"></input>
-<output wsam:Action="http://WebServices/WebServiceContPropuesta/extenderFinanciacionPropResponse" message="tns:extenderFinanciacionPropResponse"></output>
-</operation>
 <operation name="publicar">
 <input wsam:Action="http://WebServices/WebServiceContPropuesta/publicarRequest" message="tns:publicar"></input>
 <output wsam:Action="http://WebServices/WebServiceContPropuesta/publicarResponse" message="tns:publicarResponse"></output>
@@ -197,6 +197,15 @@
 <binding name="WebServiceContPropuestaPortBinding" type="tns:WebServiceContPropuesta">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"></soap:binding>
 <operation name="altaPropuesta">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal" namespace="http://WebServices/"></soap:body>
+</input>
+<output>
+<soap:body use="literal" namespace="http://WebServices/"></soap:body>
+</output>
+</operation>
+<operation name="extenderFinanciacionProp">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal" namespace="http://WebServices/"></soap:body>
@@ -332,15 +341,6 @@
 </output>
 </operation>
 <operation name="misPropIngresadas">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal" namespace="http://WebServices/"></soap:body>
-</input>
-<output>
-<soap:body use="literal" namespace="http://WebServices/"></soap:body>
-</output>
-</operation>
-<operation name="extenderFinanciacionProp">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal" namespace="http://WebServices/"></soap:body>

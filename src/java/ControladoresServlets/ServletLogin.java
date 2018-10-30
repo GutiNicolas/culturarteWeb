@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -20,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import servicios.DtContieneArray;
-import servicios.DtUsuario;
+import servicios.DtUsuarioWeb;
+
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -33,10 +33,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ServletLogin extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -63,6 +65,7 @@ public class ServletLogin extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -78,21 +81,21 @@ public class ServletLogin extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            
+
             String usuario = request.getParameter("nick");
             String password = request.getParameter("pass");
-            if(session.getAttribute("rol")==null){ 
-            if (usuario != null) {
-                
-                DtUsuario dtu = (DtUsuario)WSCUPort.usuarioLoginSN(usuario);
-                if (dtu != null) {
-                    if (dtu.getPass().equals(password)) {
-                        session.setAttribute("nickusuario", dtu.getNickname()); //dtu.getNickname()
-                        session.setAttribute("rol", dtu.getRol());  //dtu.getRol()
-                       //    response.sendRedirect("index.jsp");
-                           request.getRequestDispatcher("index.jsp").forward(request, response);
-                       // request.getRequestDispatcher("index.jsp").forward(request, response);
-                        /*        if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
+            if (session.getAttribute("rol") == null) {
+                if (usuario != null) {
+
+                    DtUsuarioWeb dtu = (DtUsuarioWeb) WSCUPort.usuarioLoginSN(usuario);
+                    if (dtu != null) {
+                        if (dtu.getPass().equals(password)) {
+                            session.setAttribute("nickusuario", dtu.getNickname()); //dtu.getNickname()
+                            session.setAttribute("rol", dtu.getRol());  //dtu.getRol()
+                            //    response.sendRedirect("index.jsp");
+                            request.getRequestDispatcher("index.jsp").forward(request, response);
+                            // request.getRequestDispatcher("index.jsp").forward(request, response);
+                            /*        if(dtu instanceof dtColaborador){ //pasarlo a tarea 1
                         session.setAttribute("nickusuario", dtu.getNickname());
                         String col="Colaborador";
                         session.setAttribute("rol", col);
@@ -104,22 +107,22 @@ public class ServletLogin extends HttpServlet {
                         session.setAttribute("rol", prop);
                         response.sendRedirect("index.jsp");                    
                     }  */
-                    } else {//contrasenia erronea  
-                     //   response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
-                        request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=pm").forward(request, response);
-                    }
+                        } else {//contrasenia erronea  
+                            //   response.sendRedirect("PRESENTACIONES/login.jsp?error=pm");
+                            request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=pm").forward(request, response);
+                        }
 
-                } else {  //no existe el usuario
-                   // response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
-                    request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=nu").forward(request, response);
+                    } else {  //no existe el usuario
+                        // response.sendRedirect("PRESENTACIONES/login.jsp?error=nu");
+                        request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=nu").forward(request, response);
+                    }
+                } else {
+                    // response.sendRedirect("PRESENTACIONES/login.jsp");
+                    request.getRequestDispatcher("PRESENTACIONES/login.jsp").forward(request, response);
                 }
             } else {
-               // response.sendRedirect("PRESENTACIONES/login.jsp");
-                request.getRequestDispatcher("PRESENTACIONES/login.jsp").forward(request, response);
-            }
-        }else{
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-                }
+            }
         }
     }
 

@@ -21,10 +21,6 @@
         <servlet-class>ControladoresServlets.ServletAltaPropuesta</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DatosdePrueba</servlet-name>
-        <servlet-class>ControladoresServlets.DatosdePrueba</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletLogin</servlet-name>
         <servlet-class>ControladoresServlets.ServletLogin</servlet-class>
     </servlet>
@@ -75,10 +71,6 @@
     <servlet-mapping>
         <servlet-name>ServletAltaPropuesta</servlet-name>
         <url-pattern>/AltaPropuesta</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DatosdePrueba</servlet-name>
-        <url-pattern>/DatosdePrueba</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>

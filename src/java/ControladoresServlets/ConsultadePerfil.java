@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -21,12 +20,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import servicios.DtColProp;
-import servicios.DtColaborador;
+import servicios.DtColaboracionCompWeb;
 import servicios.DtContieneArray;
-import servicios.DtProponente;
-import servicios.DtSigoA;
-import servicios.DtUsuario;
+import servicios.DtSigoAWeb;
+import servicios.DtUsuarioWeb;
+import servicios.DtarregloDtColCompWeb;
+import servicios.DtarregloDtSigoAWEB;
+import servicios.DtarregloDtUsuWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -34,16 +34,17 @@ import servicios.WebServiceContColaboracion;
 import servicios.WebServiceContPropuesta;
 import servicios.WebServiceContUsusario;
 
-
 /**
  *
  * @author nicolasgutierrez
  */
 public class ConsultadePerfil extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -70,6 +71,7 @@ public class ConsultadePerfil extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -84,7 +86,7 @@ public class ConsultadePerfil extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -100,73 +102,72 @@ public class ConsultadePerfil extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-       String nick=request.getParameter("nickname");
-            String propio=request.getParameter("usuario");
-            HttpSession session= request.getSession();
-            request.removeAttribute("usuarios");
-            request.removeAttribute("colaboradas");
-            request.removeAttribute("colabscompletas");
-            request.removeAttribute("propuestas");
-            request.removeAttribute("ingresadass");
-            String txta= request.getParameter("txta");
-            request.removeAttribute("usuario");
-            request.removeAttribute("misseguidores");
-            request.removeAttribute("misseguidos");
-            request.removeAttribute("favoritas");
+        // processRequest(request, response);
+        String nick = request.getParameter("nickname");
+        String propio = request.getParameter("usuario");
+        HttpSession session = request.getSession();
+        request.removeAttribute("usuarios");
+        request.removeAttribute("colaboradas");
+        request.removeAttribute("colabscompletas");
+        request.removeAttribute("propuestas");
+        request.removeAttribute("ingresadass");
+        String txta = request.getParameter("txta");
+        request.removeAttribute("usuario");
+        request.removeAttribute("misseguidores");
+        request.removeAttribute("misseguidos");
+        request.removeAttribute("favoritas");
 
-            if (txta == null) {
-                if (propio != null && propio.equals("yes")) {
-                    nick = (String) session.getAttribute("nickusuario");
-                }
-                
-
-                if (nick == null) {
-                    DtContieneArray colUsu = (DtContieneArray)WSCUPort.listarUsuariosWeb("");
-                    Collection<DtUsuario> usuarios= (Collection)colUsu.getMyArreglo();
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
-                            forward(request, response);
-                } else {
-
-                    DtUsuario dtu = (DtUsuario)WSCUPort.infoUsuarioGeneral(nick);
-                    DtContieneArray colUsuSeg = (DtContieneArray)WSCUPort.listarMisSeguidores(nick);
-                    Collection<DtUsuario> misseguidores = (Collection)colUsuSeg.getMyArreglo();
-                    DtContieneArray colUsuSigA = (DtContieneArray)WSCUPort.listarMisSeguidos(nick);
-                    Collection<DtSigoA> misseguidos = (Collection)colUsuSigA.getMyArreglo();
-                    DtContieneArray colPropFav = (DtContieneArray)WSCUPort.misPropFav(nick);
-                    Collection<String> favoritas = (Collection)colPropFav.getMyArreglo();
-                    if (dtu instanceof DtColaborador) {
-                        DtContieneArray colPropCola= (DtContieneArray)WSCCPort.listarColaboraciones(nick);
-                        Collection<String> colaboradas = (Collection)colPropCola.getMyArreglo();
-                        request.setAttribute("colaboradas", colaboradas);
-                        DtContieneArray colPropColaComp =(DtContieneArray)WSCCPort.listarMisColaboraciones(nick);
-                        Collection<DtColProp> colaboradascompletas = (Collection)colPropColaComp.getMyArreglo();
-                        request.setAttribute("colabscompletas", colaboradascompletas);
-                    }
-                    if (dtu instanceof DtProponente) {
-                        DtContieneArray colPropAcep= (DtContieneArray)WSCPPort.misPropAceptadas(nick);
-                        Collection<String> propuestas = (Collection)colPropAcep.getMyArreglo();
-                        request.setAttribute("propuestas", propuestas);
-                        DtContieneArray ColProIng = (DtContieneArray)WSCPPort.misPropIngresadas(nick);
-                        Collection<String> propuestasingresadas =(Collection)ColProIng.getMyArreglo();
-                        request.setAttribute("ingresadass", propuestasingresadas);
-                    }
-                    request.setAttribute("usuario", dtu);
-                    request.setAttribute("misseguidores", misseguidores);
-                    request.setAttribute("misseguidos", misseguidos);
-                    request.setAttribute("favoritas", favoritas);
-                    request.getRequestDispatcher("PRESENTACIONES/perfildelusuario.jsp").
-                            forward(request, response);
-
-                }
+        if (txta == null) {
+            if (propio != null && propio.equals("yes")) {
+                nick = (String) session.getAttribute("nickusuario");
             }
-            else{DtContieneArray usuCol = (DtContieneArray)WSCUPort.listarUsuariosWeb(txta);
-                    Collection<DtUsuario> usuarios= (Collection)usuCol.getMyArreglo();     
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
-                            forward(request, response);               
+
+            if (nick == null) {
+                DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb("");
+                Collection<DtUsuarioWeb> usuarios = (Collection) listarUsuariosWeb.getListaUsuarios();
+                request.setAttribute("usuarios", usuarios);
+                request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
+                        forward(request, response);
+            } else {
+
+                DtUsuarioWeb dtu = (DtUsuarioWeb) WSCUPort.infoUsuarioGeneral(nick);
+                DtarregloDtUsuWeb listarMisSeguidores = WSCUPort.listarMisSeguidores(nick);
+                Collection<DtUsuarioWeb> misseguidores = (Collection) listarMisSeguidores.getListaUsuarios();
+                DtarregloDtSigoAWEB listarMisSeguidos = WSCUPort.listarMisSeguidos(nick);
+                Collection<DtSigoAWeb> misseguidos = (Collection) listarMisSeguidos.getArregloSigoAusu();
+                DtContieneArray colPropFav = (DtContieneArray) WSCUPort.misPropFav(nick);
+                Collection<String> favoritas = (Collection) colPropFav.getMyarreglo();
+                if (dtu.getRol().equals("Colaborador")) {
+                    DtContieneArray colPropCola = (DtContieneArray) WSCCPort.listarColaboraciones(nick);
+                    Collection<String> colaboradas = (Collection) colPropCola.getMyarreglo();
+                    request.setAttribute("colaboradas", colaboradas);
+                    DtarregloDtColCompWeb listarMisColaboraciones = WSCCPort.listarMisColaboraciones(nick);
+                    List<DtColaboracionCompWeb> colaboradascompletas = listarMisColaboraciones.getArregloColaBoraciion();
+                    request.setAttribute("colabscompletas", colaboradascompletas);
+                }
+                if (dtu.getRol().equals("Proponente")) {
+                    DtContieneArray colPropAcep = (DtContieneArray) WSCPPort.misPropAceptadas(nick);
+                    Collection<String> propuestas = (Collection) colPropAcep.getMyarreglo();
+                    request.setAttribute("propuestas", propuestas);
+                    DtContieneArray ColProIng = (DtContieneArray) WSCPPort.misPropIngresadas(nick);
+                    Collection<String> propuestasingresadas = (Collection) ColProIng.getMyarreglo();
+                    request.setAttribute("ingresadass", propuestasingresadas);
+                }
+                request.setAttribute("usuario", dtu);
+                request.setAttribute("misseguidores", misseguidores);
+                request.setAttribute("misseguidos", misseguidos);
+                request.setAttribute("favoritas", favoritas);
+                request.getRequestDispatcher("PRESENTACIONES/perfildelusuario.jsp").
+                        forward(request, response);
+
             }
+        } else {
+            DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb(txta);
+            Collection<DtUsuarioWeb> usuarios = listarUsuariosWeb.getListaUsuarios();
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("PRESENTACIONES/consultadeperfil.jsp").
+                    forward(request, response);
+        }
     }
 
     /**
@@ -181,20 +182,20 @@ public class ConsultadePerfil extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         PrintWriter out = response.getWriter();
         String nickus = request.getParameter("txta");
 
         HttpSession session = request.getSession();
-        DtContieneArray usuColW = (DtContieneArray)WSCUPort.listarUsuariosWeb(nickus);
-        List<DtUsuario> usuarios= (List)usuColW.getMyArreglo();
-        Iterator it=usuarios.iterator();
-        while(it.hasNext()){
-            DtUsuario dtu=(DtUsuario) it.next();       
+        DtarregloDtUsuWeb listarUsuariosWeb = WSCUPort.listarUsuariosWeb(nickus);
+        List<DtUsuarioWeb> usuarios = listarUsuariosWeb.getListaUsuarios();
+        Iterator it = usuarios.iterator();
+        while (it.hasNext()) {
+            DtUsuarioWeb dtu = (DtUsuarioWeb) it.next();
             out.println("<div class=\"propuesta\">");
             out.println("<div class=\"derecha\">");
-            out.println("<a class=\"nombre\" href=\"?nickname="+dtu.getNickname()+"\">");
-            out.println(dtu.getNickname()+" ("+dtu.getNombre()+" "+dtu.getApellido()+")");
+            out.println("<a class=\"nombre\" href=\"?nickname=" + dtu.getNickname() + "\">");
+            out.println(dtu.getNickname() + " (" + dtu.getNombre() + " " + dtu.getApellido() + ")");
             out.println("</a>");
             out.println("</div>");
             out.println("</div>");

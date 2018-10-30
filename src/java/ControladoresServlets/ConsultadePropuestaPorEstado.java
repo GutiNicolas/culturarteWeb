@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -19,7 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.DtContieneArray;
-import servicios.DtPropuesta;
+import servicios.DtPropuestaWeb;
+import servicios.DtarregloDtPropWeb;
 import servicios.ServicioContColabiracion;
 import servicios.ServicioContPropuesta;
 import servicios.ServicioContusuario;
@@ -32,10 +32,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ConsultadePropuestaPorEstado extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -62,6 +64,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,44 +77,41 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String titulo= request.getParameter("titulo");
-            String cat = request.getParameter("selle");
-         
-            WSCPPort.propAutomaticas();
-            if(cat==null){
-                DtContieneArray colCat = (DtContieneArray)WSCPPort.listaCategorias();
-                Collection<String> categorias= (Collection)colCat.getMyArreglo();
-                request.setAttribute("categorias", categorias);
-                request.getRequestDispatcher("PRESENTACIONES/consultadepropuestaporestado.jsp").forward(request, response);
-            }
-            else if(titulo==null && cat!=null){
-                DtContieneArray colCat= (DtContieneArray)WSCPPort.listaCategorias();
-                Collection<String> categorias= (Collection)colCat.getMyArreglo();
-                request.setAttribute("categorias", categorias);
+        String titulo = request.getParameter("titulo");
+        String cat = request.getParameter("selle");
+
+        WSCPPort.propAutomaticas();
+        if (cat == null) {
+            DtContieneArray colCat = (DtContieneArray) WSCPPort.listaCategorias();
+            Collection<String> categorias = (Collection) colCat.getMyarreglo();
+            request.setAttribute("categorias", categorias);
+            request.getRequestDispatcher("PRESENTACIONES/consultadepropuestaporestado.jsp").forward(request, response);
+        } else if (titulo == null && cat != null) {
+            DtContieneArray colCat = (DtContieneArray) WSCPPort.listaCategorias();
+            Collection<String> categorias = (Collection) colCat.getMyarreglo();
+            request.setAttribute("categorias", categorias);
             try {
-                DtContieneArray colProp= (DtContieneArray)WSCPPort.listarPropEnCategoria(cat);
-                Collection<DtPropuesta> propuestas= (Collection)colProp.getMyArreglo();
-               request.setAttribute("propuestas", propuestas);
+                DtarregloDtPropWeb listarPropEnCategoria = WSCPPort.listarPropEnCategoria(cat);
+                Collection<DtPropuestaWeb> propuestas = (Collection) listarPropEnCategoria.getArregloPropuestas();
+                request.setAttribute("propuestas", propuestas);
             } catch (Exception ex) {
                 Logger.getLogger(ConsultadePropuestaPorEstado.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
-                
-                request.getRequestDispatcher("PRESENTACIONES/consultadepropuestaporestado.jsp").forward(request, response);               
+
+            request.getRequestDispatcher("PRESENTACIONES/consultadepropuestaporestado.jsp").forward(request, response);
+        } else if (titulo != null) {
+            try {
+                DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(titulo);
+                request.setAttribute("propuesta", dtp);
+                Collection<String> colaboradores = (Collection) dtp.getColaboradores();
+                request.setAttribute("colaboradores", colaboradores);
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else if(titulo!=null){
-                try {
-                    DtPropuesta dtp =(DtPropuesta) WSCUPort.infoPropuesta(titulo);
-                    request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=(Collection)dtp.detColaboradores();
-                    request.setAttribute("colaboradores", colaboradores); 
-                } catch (Exception ex) {
-                    Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-             
-                request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
-					forward(request, response);                
-            }    
+
+            request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
+                    forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -127,7 +127,7 @@ public class ConsultadePropuestaPorEstado extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
+
     }
 
     /**

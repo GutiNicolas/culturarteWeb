@@ -5,7 +5,7 @@
 --%>
 
 
-<%@page import="servicios.DtPropuesta"%>
+<%@page import="servicios.DtPropuestaWeb"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -57,7 +57,7 @@
         
        <%
            if(request.getAttribute("propuestas")!=null){
-            Collection<DtPropuesta> propuestas= (Collection<DtPropuesta>) request.getAttribute("propuestas");
+            Collection<DtPropuestaWeb> propuestas= (Collection<DtPropuestaWeb>) request.getAttribute("propuestas");
            
         %>
         
@@ -66,7 +66,7 @@
 		<div class="row">
             
                 <%
-                    for(DtPropuesta prop: propuestas){
+                    for(DtPropuestaWeb prop: propuestas){
                 %>
 
                 <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="min-width: 450px">
