@@ -36,10 +36,11 @@ import servicios.WebServiceContUsusario;
  */
 public class ServletAltaPropuesta extends HttpServlet {
 
-    private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet

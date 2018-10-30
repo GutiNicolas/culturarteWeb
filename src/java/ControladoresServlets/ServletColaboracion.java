@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -33,10 +32,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ServletColaboracion extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -63,6 +64,7 @@ public class ServletColaboracion extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -87,30 +89,29 @@ public class ServletColaboracion extends HttpServlet {
             if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Colaborador")) {
                 if (especial != null && especial.equals("si")) {
                     if ((cbe != null || cbp != null) && monto != null) {
-                        if (isNumeric(monto)) {   
+                        if (isNumeric(monto)) {
                             try {
-                                DtPropuestaWeb dtp = (DtPropuestaWeb)WSCUPort.infoPropuesta(propuesta);
+                                DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
                                 request.setAttribute("propuesta", dtp);
-                                Collection<String> colaboradores = (Collection)dtp.getColaboradores();
+                                Collection<String> colaboradores = (Collection) dtp.getColaboradores();
                                 request.setAttribute("colaboradores", colaboradores);
-                                
+
                                 if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) {
-                                    if(dtp.getEstado().equals("Publicada") || dtp.getEstado().equals("En financiacion")){
-                                        if(dtp.getEstado().equals("Publicada")){
+                                    if (dtp.getEstado().equals("Publicada") || dtp.getEstado().equals("En financiacion")) {
+                                        if (dtp.getEstado().equals("Publicada")) {
                                             WSCPPort.agregarEstAPropW("En financiacion", dtp.getTitulo());
                                         }
-                                    WSCCPort.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto),(String) WSCCPort.armarRetorno(cbe, cbp));
-                                    dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
-                                    colaboradores = dtp.getColaboradores();
-                                    request.setAttribute("propuesta", dtp);
-                                    request.setAttribute("colaboradores", colaboradores);
-                                    
-                                    request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
-                                            forward(request, response);
-                                    }
-                                    else{
+                                        WSCCPort.registrarColaboracion(propuesta, (String) session.getAttribute("nickusuario"), Integer.parseInt(monto), (String) WSCCPort.armarRetorno(cbe, cbp));
+                                        dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
+                                        colaboradores = dtp.getColaboradores();
+                                        request.setAttribute("propuesta", dtp);
+                                        request.setAttribute("colaboradores", colaboradores);
+
+                                        request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=no").
+                                                forward(request, response);
+                                    } else {
                                         request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ne").
-                                            forward(request, response);
+                                                forward(request, response);
                                     }
                                 } else {
                                     request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=ya").
@@ -131,7 +132,7 @@ public class ServletColaboracion extends HttpServlet {
                             request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp?error=nn").
                                     forward(request, response);
                         }
-                        
+
                     } else {
                         try {
                             DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
@@ -147,7 +148,7 @@ public class ServletColaboracion extends HttpServlet {
                 } else {
                     if (propuesta == null) {
                         DtarregloDtPropWeb listarProp = WSCPPort.listarPropuestasWeb();
-                        Collection<DtPropuestaWeb> props = (Collection)listarProp.getArregloPropuestas();
+                        Collection<DtPropuestaWeb> props = (Collection) listarProp.getArregloPropuestas();
                         request.setAttribute("propuestas", props);
                         request.getRequestDispatcher("PRESENTACIONES/listarpropuestas.jsp").
                                 forward(request, response);
@@ -160,27 +161,27 @@ public class ServletColaboracion extends HttpServlet {
                         } catch (Exception ex) {
                             Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
+
                         request.getRequestDispatcher("PRESENTACIONES/colaborar.jsp").
                                 forward(request, response);
-                        
+
                     }
                 }
             } else {
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
-            
+
         }
     }
 
-private boolean isNumeric(String cadena) {
+    private boolean isNumeric(String cadena) {
         try {
             Integer.parseInt(cadena);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
-        }    
-}
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

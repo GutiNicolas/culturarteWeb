@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -34,10 +33,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ServletRanking extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -64,6 +65,7 @@ public class ServletRanking extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -79,10 +81,10 @@ public class ServletRanking extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DtarregloDtUsuWeb ranking = WSCUPort.ranking();
-            List<DtUsuarioWeb> rank = (List<DtUsuarioWeb>)ranking.getListaUsuarios();
+            List<DtUsuarioWeb> rank = (List<DtUsuarioWeb>) ranking.getListaUsuarios();
             request.setAttribute("ranking", rank);
             request.getRequestDispatcher("PRESENTACIONES/ranking.jsp").
-                                            forward(request, response);
+                    forward(request, response);
         }
     }
 

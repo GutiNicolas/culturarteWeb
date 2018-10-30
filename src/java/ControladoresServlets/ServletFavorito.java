@@ -5,7 +5,6 @@
  */
 package ControladoresServlets;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -32,10 +31,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ServletFavorito extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -62,6 +63,7 @@ public class ServletFavorito extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,20 +76,20 @@ public class ServletFavorito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String titulo= request.getParameter("titulo");
-         HttpSession session = request.getSession();
-            if(session.getAttribute("rol")!=null){              
-            
-            if(titulo==null){
-                DtContieneArray colProp= (DtContieneArray)WSCPPort.listarTodasLasPropuestas("");
-                Collection propuestas=(Collection)colProp.getMyarreglo(); //(String) session.getAttribute("nickusuario")
+        String titulo = request.getParameter("titulo");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("rol") != null) {
+
+            if (titulo == null) {
+                DtContieneArray colProp = (DtContieneArray) WSCPPort.listarTodasLasPropuestas("");
+                Collection propuestas = (Collection) colProp.getMyarreglo(); //(String) session.getAttribute("nickusuario")
                 request.setAttribute("propuestas", propuestas);
                 request.getRequestDispatcher("PRESENTACIONES/favorito.jsp").forward(request, response);
             }
-            }else{
-                request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
-            }
-            
+        } else {
+            request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -117,26 +119,26 @@ public class ServletFavorito extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        PrintWriter out= response.getWriter();
-        String titulo= request.getParameter("titulo");
-        HttpSession session=request.getSession();
-        DtContieneArray propFavCol= WSCPPort.listarMisPropuestasFavoritas((String) session.getAttribute("nickusuario"));
-        Collection propuestas=(Collection)propFavCol.getMyarreglo();
+
+        PrintWriter out = response.getWriter();
+        String titulo = request.getParameter("titulo");
+        HttpSession session = request.getSession();
+        DtContieneArray propFavCol = WSCPPort.listarMisPropuestasFavoritas((String) session.getAttribute("nickusuario"));
+        Collection propuestas = (Collection) propFavCol.getMyarreglo();
         out.println("<p>");
-        
-        if(propuestas.contains(titulo)==false){
+
+        if (propuestas.contains(titulo) == false) {
             try {
                 WSCPPort.agregarPropComoFav((String) session.getAttribute("nickusuario"), titulo);
-                out.println("Propuesta "+titulo+" agregada como favorita");
+                out.println("Propuesta " + titulo + " agregada como favorita");
             } catch (Exception ex) {
                 Logger.getLogger(ServletSeguir.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            out.println(titulo + " ya se encuentra entre tus propuestas favoritas");
         }
-        else
-            out.println(titulo+" ya se encuentra entre tus propuestas favoritas");
-        
-        out.println("</p>");        
+
+        out.println("</p>");
     }
 
     /**

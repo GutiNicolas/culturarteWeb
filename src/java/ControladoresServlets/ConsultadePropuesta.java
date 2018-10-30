@@ -32,10 +32,12 @@ import servicios.WebServiceContUsusario;
  * @author nicolasgutierrez
  */
 public class ConsultadePropuesta extends HttpServlet {
- private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -62,6 +64,7 @@ public class ConsultadePropuesta extends HttpServlet {
             Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -72,11 +75,11 @@ public class ConsultadePropuesta extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -93,29 +96,28 @@ public class ConsultadePropuesta extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        String propuesta=request.getParameter("titulo");
-            WSCPPort.propAutomaticas();
-            if(propuesta==null){
-                DtContieneArray propCol = (DtContieneArray)WSCPPort.listarPropMenosIng("");
-                Collection<String> props= (Collection)propCol.getMyarreglo();
-                request.setAttribute("propuestas", props);
-                request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
-					forward(request, response);
-            }else{  
-                try {
-                    DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
-                    request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=(Collection)dtp.getColaboradores();
-                    request.setAttribute("colaboradores", colaboradores); 
-                } catch (Exception ex) {
-                    Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    
-                
-                request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
-					forward(request, response);
-                
+        String propuesta = request.getParameter("titulo");
+        WSCPPort.propAutomaticas();
+        if (propuesta == null) {
+            DtContieneArray propCol = (DtContieneArray) WSCPPort.listarPropMenosIng("");
+            Collection<String> props = (Collection) propCol.getMyarreglo();
+            request.setAttribute("propuestas", props);
+            request.getRequestDispatcher("PRESENTACIONES/consultadepropuesta.jsp").
+                    forward(request, response);
+        } else {
+            try {
+                DtPropuestaWeb dtp = (DtPropuestaWeb) WSCUPort.infoPropuesta(propuesta);
+                request.setAttribute("propuesta", dtp);
+                Collection<String> colaboradores = (Collection) dtp.getColaboradores();
+                request.setAttribute("colaboradores", colaboradores);
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultadePropuesta.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            request.getRequestDispatcher("PRESENTACIONES/informacionpropuesta.jsp").
+                    forward(request, response);
+
+        }
     }
 
     /**
@@ -130,7 +132,7 @@ public class ConsultadePropuesta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**

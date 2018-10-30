@@ -32,10 +32,11 @@ import servicios.WebServiceContUsusario;
  */
 public class ServletSeguir extends HttpServlet {
 
-    private String direccionWSU = "http://localhost:8580/ServicioU", direccionWSP = "http://localhost:8680/ServicioP", direccionWSC = "http://localhost:8780/ServicioC";
-    WebServiceContUsusario WSCUPort;
-    WebServiceContPropuesta WSCPPort;
-    WebServiceContColaboracion WSCCPort;
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
 
     /**
      * funcion inicial que se llama al crear el servlet
@@ -83,7 +84,7 @@ public class ServletSeguir extends HttpServlet {
 
             if (nickaseguir == null) {
                 DtContieneArray colUsu = (DtContieneArray) WSCUPort.listarUsuarios("");
-                Collection usuarios = (Collection)colUsu.getMyarreglo();
+                Collection usuarios = (Collection) colUsu.getMyarreglo();
                 request.setAttribute("usuarios", usuarios);
                 request.getRequestDispatcher("PRESENTACIONES/seguirusuario.jsp").forward(request, response);
             }
@@ -125,8 +126,8 @@ public class ServletSeguir extends HttpServlet {
         PrintWriter out = response.getWriter();
         String nickaseguir = request.getParameter("nickaseguir");
         HttpSession session = request.getSession();
-        DtContieneArray usuSegCol = (DtContieneArray)WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
-        Collection usuariosseguidos = (Collection)usuSegCol.getMyarreglo();
+        DtContieneArray usuSegCol = (DtContieneArray) WSCUPort.cargarLosSegPor((String) session.getAttribute("nickusuario"));
+        Collection usuariosseguidos = (Collection) usuSegCol.getMyarreglo();
         out.println("<p>");
 
         if (nickaseguir.equals(session.getAttribute("nickusuario")) == false) {
