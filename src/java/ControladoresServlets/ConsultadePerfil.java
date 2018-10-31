@@ -68,7 +68,7 @@ public class ConsultadePerfil extends HttpServlet {
             ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
             WSCCPort = WSCC.getWebServiceContColaboracionPort();
         } catch (MalformedURLException ex) {
-            Logger.getLogger(servletRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }
 
