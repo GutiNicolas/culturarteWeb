@@ -56,6 +56,10 @@
         <servlet-name>ServletRanking</servlet-name>
         <servlet-class>ControladoresServlets.ServletRanking</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DarDeBaja</servlet-name>
+        <servlet-class>ControladoresServlets.DarDeBaja</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConsultadePropuesta</servlet-name>
         <url-pattern>/ConsultadePropuesta</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>ServletRanking</servlet-name>
         <url-pattern>/Ranking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DarDeBaja</servlet-name>
+        <url-pattern>/Desactivar</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ServletdeArranque</welcome-file>
