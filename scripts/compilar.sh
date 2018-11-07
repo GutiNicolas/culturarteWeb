@@ -9,7 +9,7 @@ cp  ../../web/* .
 
 mkdir -p WEB-INF/classes
 cd WEB-INF/classes
-wsimport -keep -p servicios http://127.0.0.1:8580/ServicioU?wsdl http://127.0.0.1:8580/ServicioC?wsdl http://127.0.0.1:8580/ServicioP?wsdl
+wsimport -keep -p servicios http://127.0.0.1:8580/ServicioU?wsdl http://127.0.0.1:8780/ServicioC?wsdl http://127.0.0.1:8680/ServicioP?wsdl
 
 cd ../../
 javac -cp "/usr/share/tomcat8/lib/servlet-api.jar:WEB-INF/classes" -d WEB-INF/classes/ ../../src/java/Servlets/*.java

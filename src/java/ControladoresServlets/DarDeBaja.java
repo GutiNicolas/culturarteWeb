@@ -75,9 +75,15 @@ public class DarDeBaja extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             if (session.getAttribute("rol") != null && session.getAttribute("rol").equals("Proponente")) {
+                if(WSCUPort.dardebaja(session.getAttribute("nickusuario"))){
+                    session.removeAttribute("nickusuario");
+                    session.removeAttribute("rol");
                 
-                request.getRequestDispatcher("PRESENTACIONES/altapropuesta.jsp").forward(request, response);
-            
+                    request.getRequestDispatcher("index.jsp?err=dado").forward(request, response);
+                }
+                else{
+                    request.getRequestDispatcher("index.jsp?err=dado").forward(request, response);
+                }
             } else {
                 request.getRequestDispatcher("PRESENTACIONES/nocorresponde.jsp").forward(request, response);
             }
