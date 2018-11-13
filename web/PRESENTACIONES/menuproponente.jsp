@@ -66,6 +66,8 @@
                             <a class="dropdown-item" href="/culturarteWeb/ConsultadePerfil?usuario=yes">Perfil</a>                           
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/culturarteWeb/logout">Log out</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/culturarteWeb/Desactivar">Desactivar</a>
                         </div>
                     </li>                   
                 </ul>
